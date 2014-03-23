@@ -131,9 +131,9 @@ ja:
     select:
       prompt: 選択してください。
     submit:
-      create: 登録する
-      submit: 保存する
-      update: 更新する
+      create: 登録
+      submit: 保存
+      update: 更新
   number:
     currency:
       format:
@@ -192,7 +192,22 @@ ja:
       long: ! '%Y年%m月%d日(%a) %H時%M分%S秒 %z'
       short: ! '%y/%m/%d %H:%M'
     pm: 午後
-  # remove these aliases after 'activemodel' and 'activerecord' namespaces are removed from Rails repository
+  views:
+    pagination:
+      first: '<<'
+      previous: '<'
+      next: '>'
+      last: ">>"
+    bootstrap3:
+      tabs:
+        index: '一覧'
+        new: '新規登録'
+        edit: '更新'
+        show: '詳細'
+      global:
+        edit: '編集'
+        destroy: '削除'
+        confirm_destroy: '削除してよろしいですか?'
   activemodel:
     errors:
       <<: *errors

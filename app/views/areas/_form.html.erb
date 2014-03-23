@@ -1,0 +1,10 @@
+<%= bootstrap_form_for(resource, layout: :horizontal, label_col: "col-md-2", control_col: "col-md-8") do |f| %>
+  <%= f.text_field :name %>
+  <%= f.text_field :large %>
+  <%= f.text_field :middle %>
+  <%= f.text_field :small %>
+  <%= f.text_field :detail %>
+  <%= f.form_group do %>
+    <%= f.primary %>
+  <% end %>
+<% end %>

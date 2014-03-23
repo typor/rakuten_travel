@@ -14,6 +14,8 @@ gem 'settingslogic'
 gem 'active_decorator'
 gem 'tapp'
 gem 'thin'
+gem 'bootstrap_form', git: 'git@github.com:bootstrap-ruby/rails-bootstrap-forms.git'
+gem 'kaminari'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
@@ -24,6 +26,7 @@ group :development do
   gem 'i18n-tasks', '~> 0.3.9'
   gem 'better_errors'
   gem 'binding_of_caller'
+  gem 'quiet_assets'
 end
 
 group :development, :test do

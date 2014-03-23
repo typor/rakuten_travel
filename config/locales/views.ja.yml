@@ -1,0 +1,12 @@
+ja:
+  areas:
+    index:
+      title: '地域設定'
+    new:
+      title: '地域登録'
+    create:
+      title: '地域登録'
+    edit:
+      title: '地域編集'
+    update:
+      title: '地域編集'

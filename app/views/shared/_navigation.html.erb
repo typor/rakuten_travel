@@ -1,0 +1,19 @@
+<%
+  resource ||= nil
+  action ||= controller.action_name
+%>
+<div class="header-navigation">
+<ul class="nav nav-tabs">
+  <li class="<%= action == 'index' ? 'active' : '' %>">
+    <%= link_to t('views.bootstrap3.tabs.index'), action: :index %>
+  </li>
+  <li class="<%= ["new", "create"].include?(action) ? 'active' : '' %>">
+    <%= link_to t('views.bootstrap3.tabs.new'), action: :new %>
+  </li>
+  <% unless(resource.nil?) -%>
+  <li class="<%= ["edit", "update"].include?(action) ? 'active' : '' %>">
+    <%= link_to t('views.bootstrap3.tabs.edit'), action: :edit, id: resource.id %>
+  </li>
+  <% end -%>
+</ul>
+</div>
