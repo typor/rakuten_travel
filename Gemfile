@@ -27,6 +27,13 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'quiet_assets'
+  gem 'libnotify', require: false
+  gem 'rb-notifu', require: false
+  gem 'growl', require: false
+end
+
+group :test do
+  gem 'database_rewinder'
 end
 
 group :development, :test do
@@ -34,4 +41,6 @@ group :development, :test do
   gem 'rspec', '~> 3.0.0.beta2'
   gem 'rspec-rails', '~> 3.0.0.beta'
   gem 'factory_girl_rails'
+  gem 'webmock', '1.15.2'
+  gem 'vcr'
 end
