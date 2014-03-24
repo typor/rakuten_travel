@@ -1,7 +1,7 @@
 module RakutenTravelApi
   module Base
-    class Params
-      BASE_VALID_NAMES = %w(applicationId affiliateId).freeze
+    class RequestParams
+      BASE_VALID_NAMES = %w(applicationId affiliateId page)
       attr_accessor :invalid_params_action
 
       # Initialize
@@ -12,31 +12,25 @@ module RakutenTravelApi
       # @param [Symbol] invalid_params_action :raise or :stdout or :none
       #    If invalid_params_action is nil, invalid_params_action set to RakutenApi.config.invalid_params_action
       def initialize(application_id = nil, affiliate_id = nil, invalid_params_action = nil)
-        init_params application_id, affiliate_id
         @invalid_params_action = invalid_params_action || :raise
-      end
-
-      def init_params(application_id, affiliate_id)
         @params = {}
-        add_param('applicationId', application_id)
-        add_param('affiliateId', affiliate_id)
+        add_params application_id: application_id, affiliate_id: affiliate_id
       end
 
       def add_param(name, value)
         _name = normalize(name)
-        if valid_name?(_name)
-          @params[_name] = value
-        else
-          if @invalid_params_action == :raise
-            raise 'passed invalid param: ' + name.to_s
-          elsif @invalid_params_action == :stdout
-            puts "Warning: " + name.to_s + ' is invalid name'
-          end
+        raise ArgumentError.new('invalid parameter name: ' + name.to_s) unless valid_name?(_name)
+        @params[_name] = value
+      rescue => e
+        if @invalid_params_action == :raise
+          raise e
+        elseif @invalid_params_action == :stdout
+          puts e.message
         end
       end
 
       def add_params(params)
-        raise 'Need hash' unless params.kind_of?(Hash)
+        raise ArgumentError.new('params is not Hash') unless params.kind_of?(Hash)
         params.each_pair do |k, v|
           add_param(k, v)
         end

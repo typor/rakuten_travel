@@ -1,32 +1,5 @@
-require_relative 'base/client'
-require_relative 'base/params'
-require_relative 'base/response'
-
 module RakutenTravelApi
-  class SimpleHotelSearch < ::RakutenTravelApi::Base::Client
-    REQUEST_PATH = "https://app.rakuten.co.jp/services/api/Travel/SimpleHotelSearch/20131024".freeze
-
-    def initialize(application_id, affiliate_id = nil)
-      super(REQUEST_PATH, application_id, affiliate_id)
-    end
-
-    def init_params(application_id, affiliate_id)
-      @params = Params.new(application_id, affiliate_id)
-    end
-
-    def request
-      yield @params if block_given?
-      Response.new(get_request)
-    end
-
-    class Params < ::RakutenTravelApi::Base::Params
-      VALID_NAMES = %w(largeClassCode middleClassCode smallClassCode detailClassCode).freeze
-
-      def valid_names
-        @@valid_names ||= (VALID_NAMES + BASE_VALID_NAMES).freeze
-      end
-    end
-
+  module SimpleHotelSearch
     class Response < ::RakutenTravelApi::Base::Response
       attr_reader :page_count, :current_page
 
@@ -63,6 +36,5 @@ module RakutenTravelApi
         hotels
       end
     end
-
   end
 end

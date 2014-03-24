@@ -2,6 +2,7 @@ module RakutenTravelApi
   module Base
     class Client
       API_END_POINT = "https://app.rakuten.co.jp/".freeze
+      attr_reader :response
 
       def initialize(request_url, application_id = nil, affiliate_id = nil)
         init_params(application_id, affiliate_id)
