@@ -30,6 +30,8 @@ ActiveRecord::Schema.define(version: 20140323074340) do
     t.string   "address1",     null: false
     t.string   "address2",     null: false
     t.string   "telephone_no", null: false
+    t.text     "image_url"
+    t.text     "url"
     t.text     "access"
     t.datetime "created_at"
     t.datetime "updated_at"

@@ -1,7 +1,7 @@
 module RakutenTravelApi
-  module SimpleHotelSearch
+  module HotelDetailSearch
     class RequestParams < ::RakutenTravelApi::Base::RequestParams
-      VALID_NAMES = %w(largeClassCode middleClassCode smallClassCode detailClassCode page)
+      VALID_NAMES = %w(hotelNo carrier datumType hotelThumbnailSize responseType)
 
       # @override
       def valid_names
