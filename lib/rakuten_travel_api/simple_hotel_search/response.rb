@@ -27,14 +27,19 @@ module RakutenTravelApi
 
       def get_hotels
         return [] unless @body.key? 'hotels'
-        hotels = []
-        @body['hotels'].each do |hotel|
-          next unless hotel.key? 'hotel'
-          v = hotel['hotel'].first
-          hotels << v['hotelBasicInfo']
-        end
-        hotels
+        [].tap {|hotels|
+          @body['hotels'].each do |hotel|
+            begin
+              hotels << hotel['hotel'][0].values[0].merge(
+                hotel['hotel'][1].values[0]
+              )
+            rescue => e
+              puts e.message
+            end
+          end
+        }
       end
+
     end
   end
 end
