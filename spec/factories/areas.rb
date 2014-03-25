@@ -2,10 +2,10 @@
 
 FactoryGirl.define do
   factory :area do
-    name "MyString"
-    large "MyString"
-    middle "MyString"
-    small "MyString"
-    detail "MyString"
+    sequence(:name){|n| "Area#{n}" }
+    large "japan"
+    middle "tokyo"
+    small "tokyo"
+    detail "D"
   end
 end

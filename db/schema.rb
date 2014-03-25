@@ -24,6 +24,7 @@ ActiveRecord::Schema.define(version: 20140323074340) do
   end
 
   create_table "hotels", force: true do |t|
+    t.integer  "area_id",      null: false
     t.string   "no",           null: false
     t.string   "name",         null: false
     t.string   "postal_code",  null: false

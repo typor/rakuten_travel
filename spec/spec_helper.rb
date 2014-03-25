@@ -29,9 +29,15 @@ RSpec.configure do |config|
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
   config.use_transactional_fixtures = false
   config.order = "random"
+  config.include FactoryGirl::Syntax::Methods
 
   config.before :suite do
-    DatabaseRewinder.clean_all
+    begin
+      DatabaseRewinder.clean_all
+      FactoryGirl.lint
+    rescue
+      DatabaseRewinder.clean_all
+    end
   end
 
   config.after :each do
