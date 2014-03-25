@@ -1,0 +1,34 @@
+<% title t('.title') %>
+<%= render partial: '/shared/navigation' %>
+<div class="table-responsive">
+  <table class="table table-bordered table-striped table-hover table-condensed">
+    <thead>
+      <th></th>
+      <th><%= Hotel.human_attribute_name(:no) %></th>
+      <th><%= Hotel.human_attribute_name(:name) %></th>
+      <th><%= Hotel.human_attribute_name(:postal_code) %></th>
+      <th><%= Hotel.human_attribute_name(:address1) %></th>
+      <th><%= Hotel.human_attribute_name(:address2) %></th>
+      <th><%= Hotel.human_attribute_name(:access) %></th>
+      <th></th>
+    </thead>
+    <tbody>
+      <% @hotels.each do |hotel| -%>
+        <tr>
+          <td><%= image_tag(hotel.image_url, width: 60, class: 'img-responsive') %>
+          <td><%= hotel.no %></td>
+          <td><%= hotel.name %></td>
+          <td><%= hotel.postal_code %></td>
+          <td><%= hotel.address1 %></td>
+          <td><%= hotel.address2 %></td>
+          <td><%= hotel.access %></td>
+          <td>
+            <%= edit_link(hotel) %>
+            <%= destroy_link(hotel) %>
+          </td>
+        </tr>
+      <% end -%>
+    </tbody>
+  </table>
+</div>
+<%= paginate @hotels %>

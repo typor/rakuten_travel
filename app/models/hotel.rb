@@ -1,5 +1,5 @@
 class Hotel < ActiveRecord::Base
-  validates :area, presence: true
+  validates :area_id, presence: true
   validates :no, presence: true, uniqueness: true, length: { maximum: 64 }
   validates :name, presence: true, length: { maximum: 255 }
   validates :postal_code, presence: true, length: { maximum: 8 }
@@ -11,6 +11,10 @@ class Hotel < ActiveRecord::Base
   validates :access, presence: true
 
   belongs_to :area
+
+  def safe_keys
+    self.attributes.keys.select{|k, v| %w(id created_at updated_at).include?(k) != true }
+  end
 
   def from_api(response)
     api_map.each_pair do |k,v|

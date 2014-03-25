@@ -10,6 +10,6 @@ module ApplicationHelper
 
   def destroy_link(resouce)
     link_to raw('<i class="glyphicon glyphicon-trash"></i>&nbsp;&nbsp;' + t('views.bootstrap3.global.destroy')),
-      {action: :destroy, id: resouce}, class: 'btn btn-danger btn-sm', method: :delete, confirm: t('views.bootstrap3.global.confirm_destroy')
+      {action: :destroy, id: resouce}, class: 'btn btn-danger btn-sm', method: :delete, data: { confirm: t('views.bootstrap3.global.confirm_destroy') }
   end
 end

@@ -3,7 +3,6 @@
 <div class="table-responsive">
   <table class="table table-bordered table-striped table-hover table-condensed">
     <thead>
-      <th><%= Area.human_attribute_name(:id) %></th>
       <th><%= Area.human_attribute_name(:name) %></th>
       <th><%= Area.human_attribute_name(:large) %></th>
       <th><%= Area.human_attribute_name(:middle) %></th>
@@ -14,7 +13,6 @@
     <tbody>
       <% @areas.each do |area| -%>
         <tr>
-          <td><%= area.id %></td>
           <td><%= area.name %></td>
           <td><%= area.large %></td>
           <td><%= area.middle %></td>

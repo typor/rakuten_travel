@@ -37,7 +37,11 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-sm-3 col-md-2 sidebar">
-      Side
+      <ul class="nav nav-sidebar">
+        <li><a href="#">Overview</a></li>
+        <li><%= link_to 'ホテル', hotels_path %></li>
+        <li><%= link_to '地区', areas_path %></li>
+      </ul>
     </div>
     <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
       <%= yield %>

@@ -9,6 +9,12 @@ describe Hotel do
     end
   end
 
+  describe '#safe_keys' do
+    subject(:safe_keys) { described_class.new.safe_keys }
+    it { expect(safe_keys).to_not be_include('created_at') }
+    it { expect(safe_keys).to be_include('area_id') }
+  end
+
   describe '#from_api' do
     let(:response) {
       {

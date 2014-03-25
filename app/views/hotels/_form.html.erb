@@ -1,0 +1,15 @@
+<%= bootstrap_form_for(resource, layout: :horizontal, label_col: "col-md-2", control_col: "col-md-4") do |f| %>
+  <%= f.collection_select :area_id, Area.select(:id, :name).all, :id, :name %>
+  <%= f.text_field :no, maxlenght: 32 %>
+  <%= f.text_field :name, maxlenght: 255 %>
+  <%= f.text_field :postal_code, maxlenght: 8 %>
+  <%= f.text_field :address1, maxlenght: 64 %>
+  <%= f.text_field :address2, maxlenght: 255, control_col: "col-md-8" %>
+  <%= f.text_field :telephone_no, maxlenght: 32 %>
+  <%= f.text_field :url, maxlenght: 512, control_col: "col-md-8" %>
+  <%= f.text_field :image_url, maxlenght: 512, control_col: "col-md-8" %>
+  <%= f.text_area :access, rows: 2, control_col: "col-md-8" %>
+  <%= f.form_group do %>
+    <%= f.primary %>
+  <% end %>
+<% end %>

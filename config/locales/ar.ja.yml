@@ -13,6 +13,7 @@ ja:
         detail: "詳細区分"
       hotel:
         ID: "ID"
+        area_id: "地域"
         no: "ホテルNo"
         name: "ホテル名"
         postal_code: "郵便番号"
@@ -21,3 +22,4 @@ ja:
         telephone_no: "電話番号"
         image_url: "画像URL"
         url: "URL"
+        access: 'アクセス'

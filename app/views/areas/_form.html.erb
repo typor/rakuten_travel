@@ -1,5 +1,5 @@
-<%= bootstrap_form_for(resource, layout: :horizontal, label_col: "col-md-2", control_col: "col-md-8") do |f| %>
-  <%= f.text_field :name %>
+<%= bootstrap_form_for(resource, layout: :horizontal, label_col: "col-md-2", control_col: "col-md-3") do |f| %>
+  <%= f.text_field :name, control_col: 'col-md-6' %>
   <%= f.text_field :large %>
   <%= f.text_field :middle %>
   <%= f.text_field :small %>
