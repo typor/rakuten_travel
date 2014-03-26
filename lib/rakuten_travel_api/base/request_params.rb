@@ -1,7 +1,7 @@
 module RakutenTravelApi
   module Base
     class RequestParams
-      BASE_VALID_NAMES = %w(applicationId affiliateId)
+      BASE_VALID_NAMES = %w(applicationId affiliateId elements)
       attr_accessor :invalid_params_action
 
       # Initialize
