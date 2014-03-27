@@ -23,6 +23,8 @@ ActiveRecord::Schema.define(version: 20140323074340) do
     t.datetime "updated_at"
   end
 
+  add_index "areas", ["middle", "small", "detail"], name: "index_areas_on_middle_and_small_and_detail", unique: true
+
   create_table "hotels", force: true do |t|
     t.integer  "area_id",      null: false
     t.string   "no",           null: false
