@@ -1,11 +1,6 @@
 require 'spec_helper'
 
 describe Api::AreaApi do
-  describe '#normalize' do
-    it do
-      expect(described_class.new.normalize('applicationId')).to eq 'application_id'
-    end
-  end
 
   describe '#to_area' do
     let(:example_params) {

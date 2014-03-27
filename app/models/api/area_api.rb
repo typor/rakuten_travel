@@ -30,19 +30,10 @@ class Api::AreaApi
       if MAP.key? k
         attributes[MAP[k]] = v
       elsif k != 'largeClassName'
-        if attributes.key? :name
-          attributes[:name] = attributes[:name] + '-' + v
-        else
-          attributes[:name] = v
-        end
+        attributes[:name] = attributes.key?(:name) ? attributes[:name] + '-' + v : v
       end
     end
     Area.new(attributes)
-  end
-
-
-  def normalize(name)
-    name.underscore
   end
 
 end
