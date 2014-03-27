@@ -3,7 +3,6 @@ module RakutenTravelApi
     class RequestParams
       BASE_VALID_NAMES = %w(applicationId affiliateId elements)
       attr_accessor :invalid_params_action
-      attr_reader :errors
 
       # Initialize
       # @param [String] application_id Rakuten Web Service applicationId
@@ -15,7 +14,6 @@ module RakutenTravelApi
       def initialize(application_id = nil, affiliate_id = nil, invalid_params_action = nil)
         @invalid_params_action = invalid_params_action || :raise
         @params = {}
-        @errors = {}
         add_params application_id: application_id, affiliate_id: affiliate_id
       end
 
@@ -61,18 +59,6 @@ module RakutenTravelApi
         @params
       end
 
-      def valid?
-        validate
-        @errors.size == 0
-      end
-
-      def validate
-        clear_error
-        if @params['applicationId'].blank?
-          add_error('applicationId', 'applicationId is required.')
-        end
-      end
-
       def valid_name?(name)
         valid_names.include? name
       end
@@ -87,16 +73,6 @@ module RakutenTravelApi
         BASE_VALID_NAMES
       end
 
-      def add_error(key, message)
-        name = normalize(key)
-        return unless valid_name?(name)
-        @errors[name] ||= []
-        @errors[name] << message
-      end
-
-      def clear_error()
-        @errors = {}
-      end
     end
   end
 end

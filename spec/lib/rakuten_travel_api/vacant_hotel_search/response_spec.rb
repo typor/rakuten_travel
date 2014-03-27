@@ -19,17 +19,9 @@ describe RakutenTravelApi::VacantHotelSearch::Response do
     }
 
     context 'response' do
-      it 'is a Response' do
-        expect(response).to be_kind_of(::RakutenTravelApi::VacantHotelSearch::Response)
-      end
-
-      it 'is success' do
-        expect(response).to be_success
-      end
-
-      it {
-        expect(response.rooms).to be_kind_of Array
-      }
+      it { expect(response).to be_kind_of(::RakutenTravelApi::VacantHotelSearch::Response) }
+      it { expect(response).to be_success }
+      it { expect(response.rooms).to be_kind_of Array }
     end
 
   end
