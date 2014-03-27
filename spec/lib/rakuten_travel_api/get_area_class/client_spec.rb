@@ -27,6 +27,7 @@ describe RakutenTravelApi::GetAreaClass::Client do
 
       it { expect(response.areas).to be_kind_of Array }
       it { expect(response.areas[0]).to be_kind_of Hash }
+      it { expect(response.areas[0].tapp).to be_kind_of Hash }
     end
   end
 
