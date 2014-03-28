@@ -6,12 +6,12 @@ class Api::AreaApi
     "detailClassCode" => :detail,
   }.freeze
 
-  def initalize(application_id)
+  def initialize(application_id)
     @client = RakutenTravelApi::GetAreaClass::Client.new(application_id)
     @areas = nil
   end
 
-  def areas
+  def request
     return @areas if @areas
     @response ||= @client.request
     unless @response.success?
@@ -19,9 +19,10 @@ class Api::AreaApi
     end
 
     @areas = []
-    @response.each do |f|
+    @response.areas.each do |f|
       @areas << to_area(f)
     end
+    @areas
   end
 
   def to_area(params)
