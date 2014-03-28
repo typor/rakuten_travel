@@ -13,7 +13,7 @@ describe RakutenTravelApi::VacantHotelSearch::Response do
     let(:response) {
       VCR.use_cassette('vacant_hotel_search/response') do
         client.request do |o|
-          o.add_params(large_class_code: 'japan', middle_class_code: 'tokyo', small_class_code: 'tokyo', detail_class_code: 'D')
+          o.add_params(large_class_code: 'japan', middle_class_code: 'tokyo', small_class_code: 'tokyo', detail_class_code: 'A')
         end
       end
     }

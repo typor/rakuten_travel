@@ -2,7 +2,7 @@ class CreateHotels < ActiveRecord::Migration
   def change
     create_table :hotels do |t|
       t.integer :area_id, null: false
-      t.string :no, length: 64, null: false
+      t.string :no, length: 64, null: false, unique: true
       t.string :name, length: 255, null: false
       t.string :postal_code, length: 8, null: false
       t.string :address1, length: 64, null: false

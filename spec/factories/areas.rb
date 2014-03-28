@@ -2,7 +2,7 @@
 
 FactoryGirl.define do
   factory :area do
-    sequence(:name){|n| "Area#{n}" }
+    sequence(:long_name){|n| "Area#{n}" }
     large "japan"
     middle "tokyo"
     small "tokyo"

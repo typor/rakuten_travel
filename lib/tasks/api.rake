@@ -9,4 +9,16 @@ namespace :api do
       end
     end
   end
+
+  task import_hotels: :environment do
+    Area.where(enabled: true).each do |area|
+      Api::HotelApi.new(Settings.application_id, Settings.affiliate_id).request(area).each_with_index do |hotel, i|
+        if hotel.save
+          puts "[#{i+1}] Saving ... " + hotel.no.to_s + ' ' + hotel.name
+        else
+          puts "[#{i+1}] Skipping ... " + hotel.no.to_s + ' ' + hotel.name
+        end
+      end
+    end
+  end
 end

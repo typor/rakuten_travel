@@ -16,25 +16,4 @@ class Hotel < ActiveRecord::Base
     self.attributes.keys.select{|k, v| %w(id created_at updated_at).include?(k) != true }
   end
 
-  def from_api(response)
-    api_map.each_pair do |k,v|
-      next unless response.key?(k)
-      self.send("#{v}=", response[k])
-    end
-    self
-  end
-
-  def api_map
-    {
-      "hotelNo" => :no,
-      "hotelName" => :name,
-      "postalCode" => :postal_code,
-      "address1" => :address1,
-      "address2" => :address2,
-      "telephoneNo" => :telephone_no,
-      "access" => :access,
-      "hotelImageUrl" => :image_url,
-      "hotelInformationUrl" => :url
-    }
-  end
 end
