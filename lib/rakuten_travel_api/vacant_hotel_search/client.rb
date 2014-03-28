@@ -9,10 +9,6 @@ module RakutenTravelApi
 
       def init_params(application_id, affiliate_id)
         @params = ::RakutenTravelApi::VacantHotelSearch::RequestParams.new(application_id, affiliate_id)
-        @params.add_params(
-          checkin_date: 30.days.since.strftime('%Y-%m-%d'),
-          checkout_date: 31.days.since.strftime('%Y-%m-%d'),
-        )
       end
 
       def request
