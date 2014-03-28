@@ -14,7 +14,8 @@
 ActiveRecord::Schema.define(version: 20140328122401) do
 
   create_table "areas", force: true do |t|
-    t.string   "name",                       null: false
+    t.string   "long_name",                  null: false
+    t.string   "short_name"
     t.string   "large",                      null: false
     t.string   "middle",                     null: false
     t.string   "small"

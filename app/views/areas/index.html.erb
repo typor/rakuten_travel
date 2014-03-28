@@ -4,24 +4,18 @@
   <table class="table table-bordered table-striped table-hover table-condensed">
     <thead>
       <th></th>
-      <th><%= Area.human_attribute_name(:name) %></th>
-      <th><%= Area.human_attribute_name(:large) %></th>
-      <th><%= Area.human_attribute_name(:middle) %></th>
-      <th><%= Area.human_attribute_name(:small) %></th>
-      <th><%= Area.human_attribute_name(:detail) %></th>
+      <th><%= Area.human_attribute_name(:long_name) %></th>
+      <th><%= Area.human_attribute_name(:short_name) %></th>
+      <th><%= Area.human_attribute_name(:section) %></th>
       <th></th>
     </thead>
     <tbody>
       <% @areas.each do |area| -%>
         <tr>
-          <td>
-            <%= area.enable_label %>
-          </td>
-          <td><%= area.name %></td>
-          <td><%= area.large %></td>
-          <td><%= area.middle %></td>
-          <td><%= area.small %></td>
-          <td><%= area.detail %></td>
+          <td><%= area.enable_label %></td>
+          <td><%= area.long_name %></td>
+          <td><%= area.short_name %></td>
+          <td><%= area.section %></td>
           <td>
             <%= edit_link(area) %>
             <%= destroy_link(area) %>

@@ -1,6 +1,7 @@
 class Area < ActiveRecord::Base
   after_initialize :init
-  validates :name, presence: true, length: { maximum: 255 }
+  validates :long_name, presence: true, length: { maximum: 255 }
+  validates :short_name, length: { maximum: 32 }
   validates :large, presence: true, length: { maximum: 32 }
   validates :middle, presence: true, length: { maximum: 16 }, uniqueness: {scope: [:middle, :small, :detail]}
   validates :small, length: { maximum: 16 }

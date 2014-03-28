@@ -1,9 +1,18 @@
 module AreaDecorator
+  def name
+    return short_name unless short_name.blank?
+    long_name
+  end
+
   def enable_label
     if enabled
-      raw('<span class="label label-info">有効</span>')
+      raw('<span class="label label-info">' + t('global.enabled') + '</span>')
     else
-      raw('<span class="label label-warning">無効</span>')
+      raw('<span class="label label-warning">' + t('global.disabled') + '</span>')
     end
+  end
+
+  def section
+    [large, middle, small, detail].compact.join(' / ')
   end
 end

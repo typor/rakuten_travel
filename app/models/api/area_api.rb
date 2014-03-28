@@ -31,7 +31,7 @@ class Api::AreaApi
       if MAP.key? k
         attributes[MAP[k]] = v
       elsif k != 'largeClassName'
-        attributes[:name] = attributes.key?(:name) ? attributes[:name] + '-' + v : v
+        attributes[:long_name] = attributes.key?(:long_name) ? attributes[:long_name] + '/' + v : v
       end
     end
     Area.new(attributes)

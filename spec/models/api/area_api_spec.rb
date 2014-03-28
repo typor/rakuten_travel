@@ -35,7 +35,7 @@ describe Api::AreaApi do
     }
     subject(:area) { described_class.new('ab').to_area(example_params) }
     it { expect(area).to be_kind_of Area }
-    it { expect(area.name).to eq '北海道-札幌市内-JR札幌駅周辺・新札幌駅' }
+    it { expect(area.long_name).to eq '北海道/札幌市内/JR札幌駅周辺・新札幌駅' }
     it { expect(area.large).to eq 'japan' }
     it { expect(area.middle).to eq 'hokkaido' }
     it { expect(area.small).to eq 'sapporo' }

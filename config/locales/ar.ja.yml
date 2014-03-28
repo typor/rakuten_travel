@@ -6,12 +6,14 @@ ja:
     attributes:
       area:
         id: "ID"
-        name: "名前"
+        long_name: "名前"
+        short_name: '表示名'
         large: "大区分"
         middle: "中区分"
         small: "小区分"
         detail: "詳細区分"
         enabled: "有効"
+        section: "区分"
       hotel:
         ID: "ID"
         area_id: "地域"

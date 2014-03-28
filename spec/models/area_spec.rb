@@ -1,9 +1,9 @@
 require 'spec_helper'
 
 describe Area do
-  let(:example_model) { described_class.new(name: 'foo', large: 'bar', middle: 'baz', small: 'qux', detail: 'quux') }
+  let(:example_model) { described_class.new(long_name: 'foo', large: 'bar', middle: 'baz', small: 'qux', detail: 'quux') }
   describe '#validate' do
-    let(:attributes) { {name: 'foo', large: 'a', middle: 'b', small: 'c', detail: 'd'} }
+    let(:attributes) { {long_name: 'foo', large: 'a', middle: 'b', small: 'c', detail: 'd'} }
     before {
       described_class.new(attributes).save
     }

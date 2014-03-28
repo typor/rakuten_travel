@@ -1,7 +1,8 @@
 class CreateAreas < ActiveRecord::Migration
   def change
     create_table :areas do |t|
-      t.string :name, length: 255, null: false
+      t.string :long_name, length: 255, null: false
+      t.string :short_name, length: 32
       t.string :large, length: 16, null: false
       t.string :middle, length: 16, null: false
       t.string :small, length: 16

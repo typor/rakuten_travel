@@ -1,4 +1,7 @@
 ja:
+  global:
+    enabled: '有効'
+    disabled: '無効'
   areas:
     index:
       title: '地域設定'
