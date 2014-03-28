@@ -8,7 +8,7 @@ class Area < ActiveRecord::Base
   validates :detail, length: { maximum: 16 }
 
   def init
-    self.enabled ||= false
+    self.enabled ||= false if self.respond_to? :enabled
   end
 
   def to_api_params

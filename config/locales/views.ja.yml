@@ -13,3 +13,14 @@ ja:
       title: '地域編集'
     update:
       title: '地域編集'
+  hotels:
+    index:
+      title: 'ホテル管理'
+    new:
+      title: 'ホテル情報登録'
+    create:
+      title: 'ホテル情報登録'
+    edit:
+      title: 'ホテル情報更新'
+    update:
+      title: 'ホテル情報更新'

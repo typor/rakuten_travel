@@ -4,28 +4,29 @@
   <table class="table table-bordered table-striped table-hover table-condensed">
     <thead>
       <th></th>
-      <th><%= Hotel.human_attribute_name(:no) %></th>
       <th><%= Hotel.human_attribute_name(:name) %></th>
-      <th><%= Hotel.human_attribute_name(:postal_code) %></th>
-      <th><%= Hotel.human_attribute_name(:address1) %></th>
       <th><%= Hotel.human_attribute_name(:address2) %></th>
-      <th><%= Hotel.human_attribute_name(:access) %></th>
       <th></th>
     </thead>
     <tbody>
       <% @hotels.each do |hotel| -%>
         <tr>
-          <td><%= image_tag(hotel.image_url, width: 60, class: 'img-responsive') %>
-          <td><%= hotel.no %></td>
-          <td><%= hotel.name %></td>
-          <td><%= hotel.postal_code %></td>
-          <td><%= hotel.address1 %></td>
-          <td><%= hotel.address2 %></td>
-          <td><%= hotel.access %></td>
+          <td><%= image_tag(hotel.image_url, width: 80, class: 'img-responsive') %>
+          <td>
+            <%= hotel.no %><br>
+            <%= link_to hotel.name, hotel.url, target: '_blank' %>
+          </td>
+          <td>
+            <%= hotel.postal_code %><br>
+            <%= hotel.address1 %><%= hotel.address2 %>
+          </td>
           <td>
             <%= edit_link(hotel) %>
             <%= destroy_link(hotel) %>
           </td>
+        </tr>
+        <tr>
+          <td colspan="5"><%= hotel.access %></td>
         </tr>
       <% end -%>
     </tbody>

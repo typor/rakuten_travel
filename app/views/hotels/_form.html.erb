@@ -1,5 +1,5 @@
 <%= bootstrap_form_for(resource, layout: :horizontal, label_col: "col-md-2", control_col: "col-md-4") do |f| %>
-  <%= f.collection_select :area_id, Area.select(:id, :name).all, :id, :name %>
+  <%= f.collection_select :area_id, Area.select(:id, :long_name).all, :id, :long_name %>
   <%= f.text_field :no, maxlenght: 32 %>
   <%= f.text_field :name, maxlenght: 255 %>
   <%= f.text_field :postal_code, maxlenght: 8 %>
