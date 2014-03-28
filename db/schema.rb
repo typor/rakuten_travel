@@ -11,14 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140323074340) do
+ActiveRecord::Schema.define(version: 20140328122401) do
 
   create_table "areas", force: true do |t|
-    t.string   "name",       null: false
-    t.string   "large",      null: false
-    t.string   "middle",     null: false
+    t.string   "name",                       null: false
+    t.string   "large",                      null: false
+    t.string   "middle",                     null: false
     t.string   "small"
     t.string   "detail"
+    t.boolean  "enabled",    default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -36,6 +37,11 @@ ActiveRecord::Schema.define(version: 20140323074340) do
     t.text     "image_url"
     t.text     "url"
     t.text     "access"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "rooms", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
   end

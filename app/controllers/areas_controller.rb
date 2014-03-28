@@ -36,7 +36,7 @@ class AreasController < ApplicationController
   private
 
   def request_params
-    params.require(:area).permit(:name, :large, :middle, :small, :detail)
+    params.require(:area).permit(:name, :large, :middle, :small, :detail, :enabled)
   end
 
   def load_resource

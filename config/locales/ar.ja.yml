@@ -11,6 +11,7 @@ ja:
         middle: "中区分"
         small: "小区分"
         detail: "詳細区分"
+        enabled: "有効"
       hotel:
         ID: "ID"
         area_id: "地域"

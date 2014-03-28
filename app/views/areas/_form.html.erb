@@ -5,6 +5,9 @@
   <%= f.text_field :small %>
   <%= f.text_field :detail %>
   <%= f.form_group do %>
+    <%= f.check_box :enabled %>
+  <% end %>
+  <%= f.form_group do %>
     <%= f.primary %>
   <% end %>
 <% end %>

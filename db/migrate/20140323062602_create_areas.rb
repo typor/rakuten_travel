@@ -6,6 +6,7 @@ class CreateAreas < ActiveRecord::Migration
       t.string :middle, length: 16, null: false
       t.string :small, length: 16
       t.string :detail, length: 16
+      t.boolean :enabled, default: false
       t.timestamps
     end
     add_index :areas, [:middle, :small, :detail], unique: true

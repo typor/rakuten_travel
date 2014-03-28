@@ -198,6 +198,7 @@ ja:
       previous: '<'
       next: '>'
       last: ">>"
+      truncate: '...'
     bootstrap3:
       tabs:
         index: '一覧'

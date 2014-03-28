@@ -1,9 +1,14 @@
 class Area < ActiveRecord::Base
+  after_initialize :init
   validates :name, presence: true, length: { maximum: 255 }
   validates :large, presence: true, length: { maximum: 32 }
   validates :middle, presence: true, length: { maximum: 16 }, uniqueness: {scope: [:middle, :small, :detail]}
   validates :small, length: { maximum: 16 }
   validates :detail, length: { maximum: 16 }
+
+  def init
+    self.enabled ||= false
+  end
 
   def to_api_params
     {
