@@ -1,7 +1,7 @@
 class Api::HotelApi
   MAP = {
     'hotelNo' => :no,
-    'hotelName' => :name,
+    'hotelName' => :long_name,
     'postalCode' => :postal_code,
     'address1' => :address1,
     'address2' => :address2,
@@ -9,6 +9,9 @@ class Api::HotelApi
     'access' => :access,
     'hotelImageUrl' => :image_url,
     'hotelInformationUrl' => :url,
+    'latitude' => :latitude,
+    'longitude' => :longitude,
+    'hotelRoomNum' => :room_num,
     area_id: :area_id
   }.freeze
 

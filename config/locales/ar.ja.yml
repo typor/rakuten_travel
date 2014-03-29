@@ -17,8 +17,10 @@ ja:
       hotel:
         ID: "ID"
         area_id: "地域"
-        no: "ホテルNo"
-        name: "ホテル名"
+        no: "No"
+        long_name: "名前"
+        short_name: "表示名"
+        name: 'ホテル名'
         postal_code: "郵便番号"
         address1: "都道府県"
         address2: "住所"

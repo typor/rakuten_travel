@@ -27,17 +27,19 @@ module RakutenTravelApi
 
       def get_hotels
         return [] unless @body.key? 'hotels'
-        [].tap {|hotels|
-          @body['hotels'].each do |hotel|
-            begin
-              hotels << hotel['hotel'][0].values[0].merge(
-                hotel['hotel'][1].values[0]
-              )
-            rescue => e
-              puts e.message
+        keys = %w(hotelBasicInfo hotelRatingInfo hotelDetailInfo)
+        @body['hotels'].map do |hotel|
+          {}.tap do |result|
+            hotel['hotel'].each do |hash|
+              key, value = hash.shift
+              if keys.include? key
+                result.merge!(value)
+              elsif key == 'hotelFacilitiesInfo'
+                result.merge!('hotelRoomNum' => value['hotelRoomNum'])
+              end
             end
           end
-        }
+        end.compact
       end
 
     end

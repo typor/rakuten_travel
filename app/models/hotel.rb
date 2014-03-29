@@ -1,7 +1,8 @@
 class Hotel < ActiveRecord::Base
   validates :area_id, presence: true
   validates :no, presence: true, uniqueness: true, length: { maximum: 64 }
-  validates :name, presence: true, length: { maximum: 255 }
+  validates :long_name, presence: true, length: { maximum: 255 }
+  validates :short_name, length: { maximum: 32 }
   validates :postal_code, presence: true, length: { maximum: 8 }
   validates :address1, presence: true, length: { maximum: 64 }
   validates :address2, presence: true, length: { maximum: 255 }

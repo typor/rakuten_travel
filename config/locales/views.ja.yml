@@ -2,6 +2,7 @@ ja:
   global:
     enabled: '有効'
     disabled: '無効'
+    google_map_link_name: 'Googleマップで表示'
   areas:
     index:
       title: '地域設定'

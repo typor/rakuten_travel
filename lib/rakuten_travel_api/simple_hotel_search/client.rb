@@ -9,6 +9,7 @@ module RakutenTravelApi
 
       def init_params(application_id, affiliate_id)
         @params = ::RakutenTravelApi::SimpleHotelSearch::RequestParams.new(application_id, affiliate_id)
+        @params.add_params datum_type: 1, hotel_thumbnail_size: 3, responseType: 'large'
       end
 
       def request

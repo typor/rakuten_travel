@@ -4,17 +4,17 @@
   <table class="table table-bordered table-striped table-hover table-condensed">
     <thead>
       <th></th>
-      <th><%= Hotel.human_attribute_name(:name) %></th>
+      <th><%= Hotel.human_attribute_name(:long_name) %></th>
       <th><%= Hotel.human_attribute_name(:address2) %></th>
       <th></th>
     </thead>
     <tbody>
       <% @hotels.each do |hotel| -%>
         <tr>
-          <td><%= image_tag(hotel.image_url, width: 80, class: 'img-responsive') %>
+          <td><%= hotel.image %></td>
           <td>
             <%= hotel.no %><br>
-            <%= link_to hotel.name, hotel.url, target: '_blank' %>
+            <%= hotel.link %>
           </td>
           <td>
             <%= hotel.postal_code %><br>
@@ -26,7 +26,7 @@
           </td>
         </tr>
         <tr>
-          <td colspan="5"><%= hotel.access %></td>
+          <td colspan="5"><%= hotel.google_map_link %><br><%= hotel.access %></td>
         </tr>
       <% end -%>
     </tbody>

@@ -1,14 +1,18 @@
 <%= bootstrap_form_for(resource, layout: :horizontal, label_col: "col-md-2", control_col: "col-md-4") do |f| %>
-  <%= f.collection_select :area_id, Area.select(:id, :long_name).all, :id, :long_name %>
-  <%= f.text_field :no, maxlenght: 32 %>
-  <%= f.text_field :name, maxlenght: 255 %>
-  <%= f.text_field :postal_code, maxlenght: 8 %>
-  <%= f.text_field :address1, maxlenght: 64 %>
-  <%= f.text_field :address2, maxlenght: 255, control_col: "col-md-8" %>
-  <%= f.text_field :telephone_no, maxlenght: 32 %>
-  <%= f.text_field :url, maxlenght: 512, control_col: "col-md-8" %>
-  <%= f.text_field :image_url, maxlenght: 512, control_col: "col-md-8" %>
+  <%= f.collection_select :area_id, Area.select(:id, :long_name).all, :id, :long_name,  control_col: "col-md-8" %>
+  <%= f.text_field :no, maxlength: 32 %>
+  <%= f.text_field :long_name, maxlength: 255, control_col: "col-md-8" %>
+  <%= f.text_field :short_name, maxlength: 32 %>
+  <%= f.text_field :postal_code, maxlength: 8 %>
+  <%= f.text_field :address1, maxlength: 64 %>
+  <%= f.text_field :address2, maxlength: 255, control_col: "col-md-8" %>
+  <%= f.text_field :telephone_no, maxlength: 32 %>
+  <%= f.text_field :url, maxlength: 512, control_col: "col-md-8" %>
+  <%= f.text_field :image_url, maxlength: 512, control_col: "col-md-8" %>
   <%= f.text_area :access, rows: 2, control_col: "col-md-8" %>
+  <%= f.text_field :latitude, maxlength: 16 %>
+  <%= f.text_field :longitude, maxlength: 16 %>
+  <%= f.number_field :room_num, max: 9999, min: 0 %>
   <%= f.form_group do %>
     <%= f.primary %>
   <% end %>
