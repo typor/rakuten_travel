@@ -1,28 +1,15 @@
-== README
+## RakutenTravel API samples
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### Usage rake tasks
 
-Things you may want to cover:
+<pre>
+bin/rake api:get_area_class
+</pre>
 
-* Ruby version
+open http://localhost:3000/areas
 
-* System dependencies
+Some area to eanbeld
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+<pre>
+bin/rake api:import_hotels
+</pre>
