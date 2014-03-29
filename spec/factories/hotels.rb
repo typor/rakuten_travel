@@ -2,5 +2,15 @@
 
 FactoryGirl.define do
   factory :hotel do
+    area { Area.first || create(:area) }
+    sequence(:no){|n| "123#{n}" }
+    name 'dummy'
+    postal_code '123-4567'
+    address1 '東京都'
+    address2 '渋谷区'
+    telephone_no '03-1234-5678'
+    image_url 'http://example.com/example.png'
+    url 'http://example.com/'
+    access 'dummy'
   end
 end

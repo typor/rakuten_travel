@@ -30,13 +30,12 @@ module RakutenTravelApi
         [].tap do |results|
           @body['hotels'].each do |hotel|
             hotel_info = hotel['hotel'].shift['hotelBasicInfo']
-            hotel['hotel'].each do |room|
-              room_info = {}
-              room['roomInfo'].map(&:values).flatten.each do |info|
-                room_info.merge!(info)
-              end
-              results << hotel_info.merge(room_info)
-            end
+            hotel_info.merge!(hotel['hotel'].shift['hotelDetailInfo'])
+            hotel_info.merge!(hotel['hotel'].shift['hotelReserveInfo'])
+            room = hotel['hotel'].first
+            next unless room.key?('roomInfo')
+            room['roomInfo'].map(&:values).flatten.each{|o| hotel_info.merge!(o)}
+            results << hotel_info
           end
         end
       end

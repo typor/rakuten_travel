@@ -1,3 +1,5 @@
+require 'digest/md5'
+
 module RakutenTravelApi
   module Base
     class Client
@@ -26,8 +28,16 @@ module RakutenTravelApi
         @params.to_hash
       end
 
+      def parameter_digest
+        Digest::MD5.hexdigest(@params.to_hash.values.to_s)
+      end
+
       def add_param(name, value)
         @params[name] = value
+      end
+
+      def add_params(params)
+        @params.add_params params
       end
 
       protected

@@ -9,6 +9,8 @@ module RakutenTravelApi
 
       def init_params(application_id, affiliate_id)
         @params = ::RakutenTravelApi::VacantHotelSearch::RequestParams.new(application_id, affiliate_id)
+        # set default params
+        @params.add_params response_type: 'large', search_pattern: '1', datum_type: '1'
       end
 
       def request
