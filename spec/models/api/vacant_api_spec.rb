@@ -21,6 +21,37 @@ describe Api::VacantApi do
   #   it { response }
   # end
 
+  describe '#build_plan' do
+    let(:params) {
+      {
+       "planId" => 10000,
+       "planName" => "宿泊プラン【朝食付】",
+       "pointRate" => 10,
+       "withDinnerFlag" => 0,
+       "withBreakfastFlag" => 1,
+       "payment" => "1",
+       "planContents" => 'foo'
+      }
+    }
+    let(:room) { create(:room, hotel: hotel) }
+    it { expect { api.build_plan(hotel, room, params) }.to change(Plan, :count).by(1) }
+
+    context 'attributes' do
+      subject(:plan) { api.build_plan(hotel, room, params) }
+      it do
+        expect(plan.hotel_id).to eq hotel.id
+        expect(plan.room_id).to eq room.id
+        expect(plan.name).to eq '宿泊プラン【朝食付】'
+        expect(plan.code).to eq 10000
+        expect(plan.point_rate).to eq 10
+        expect(plan.with_dinner).to eq false
+        expect(plan.with_breakfast).to eq true
+        expect(plan.payment_code).to eq 1
+        expect(plan.description).to eq 'foo'
+      end
+    end
+  end
+
   describe '#build_room' do
     context '喫煙' do
       let(:params) {

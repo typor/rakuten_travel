@@ -5,6 +5,7 @@ class Api::VacantApi
     @client = RakutenTravelApi::VacantHotelSearch::Client.new(application_id, affiliate_id)
     @rooms = nil
     @room_cache = {}
+    @plan_cache = {}
   end
 
   def request(hotel, checkin)
@@ -27,6 +28,8 @@ class Api::VacantApi
     response.rooms.map do |params|
       room = build_room(hotel, params)
       next if room.nil?
+      plan = build_plan(hotel, room, params)
+      next if plan.nil?
     end
     []
   end
@@ -35,15 +38,47 @@ class Api::VacantApi
     code = params['roomClass']
     name = params['roomName']
     return nil if code.blank? || name.blank?
-    return @room_cache[code] if @room_cache[code].presence
+    return @room_cache[code] if @room_cache[code].present?
 
-    room = Room.find_by(hotel_id: hotel.id, code: code)
-    @room_cache[code] = room if room.presence
-
-    # 喫煙可能かどうかは 【喫煙】の文字列で判定する
-    smoking = name.include?('喫煙')
-    room = Room.new(hotel: hotel, code: code, name: name, smoking: smoking)
-    return nil unless room.save
-    @room_cache[code] = room
+    room = Room.find_by(hotel_id: hotel.id, code: code) || Room.new
+    room.attributes = {
+      hotel_id: hotel.id,
+      code: code,
+      name: name,
+      smoking: name.include?('喫煙') # 喫煙可能かどうかは 【喫煙】の文字列で判定する
+    }
+    if room.save
+      @room_cache[code] = room
+    else
+      nil
+    end
   end
+
+  def build_plan(hotel, room, params)
+    code = params['planId']
+    return nil if code.blank?
+    return @plan_cache[code] if @plan_cache[code].present?
+
+    plan = Plan.find_by(hotel_id: hotel.id, room_id: room.id, code: code) || Plan.new
+
+    plan.attributes = {
+      hotel_id: hotel.id,
+      room_id: room.id,
+      code: code,
+      name: params['planName'],
+      point_rate: params['pointRate'],
+      with_dinner: params['withDinnerFlag'],
+      with_breakfast: params['withBreakfastFlag'],
+      payment_code: params['payment'].to_i,
+      description: params['planContents']
+    }
+
+    if plan.save
+      @plan_cache[code] = plan
+    else
+      nil
+    end
+  end
+
+
 end

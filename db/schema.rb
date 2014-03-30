@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(version: 20140330143013) do
   create_table "plans", force: true do |t|
     t.integer  "hotel_id"
     t.integer  "room_id"
+    t.integer  "code",                           null: false
     t.string   "name",                           null: false
     t.integer  "payment_code",   default: 1,     null: false
     t.text     "description"
