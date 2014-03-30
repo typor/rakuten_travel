@@ -23,17 +23,17 @@ class Api::HotelApi
   def request(area)
     return @hotels if @hotels
 
-    @hotels = api_call(area.id) do |client|
+    @hotels = do_call(area.id) do |client|
       client.request {|o| o.add_params area.to_api_params }
     end
 
     while @client.next?
-      @hotels += api_call(area.id) {|client| client.next}
+      @hotels += do_call(area.id) {|client| client.next}
     end
     @hotels.compact
   end
 
-  def api_call(area_id)
+  def do_call(area_id)
     response = yield @client if block_given?
     raise response.body.to_s unless response.success?
 

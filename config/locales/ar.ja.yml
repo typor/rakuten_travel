@@ -15,7 +15,7 @@ ja:
         enabled: "有効"
         section: "区分"
       hotel:
-        ID: "ID"
+        id: "ID"
         area_id: "地域"
         no: "No"
         long_name: "名前"
@@ -28,3 +28,9 @@ ja:
         image_url: "画像URL"
         url: "URL"
         access: 'アクセス'
+      room:
+        id: 'ID'
+        hotel_id: 'ホテル'
+        code: 'コード'
+        name: '名前'
+        smoking: '喫煙'

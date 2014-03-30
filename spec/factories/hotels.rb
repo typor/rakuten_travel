@@ -4,7 +4,7 @@ FactoryGirl.define do
   factory :hotel do
     area { Area.first || create(:area) }
     sequence(:no){|n| "123#{n}" }
-    name 'dummy'
+    long_name 'dummy'
     postal_code '123-4567'
     address1 '東京都'
     address2 '渋谷区'

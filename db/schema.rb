@@ -47,6 +47,10 @@ ActiveRecord::Schema.define(version: 20140328122401) do
   end
 
   create_table "rooms", force: true do |t|
+    t.integer  "hotel_id",                   null: false
+    t.string   "code",                       null: false
+    t.string   "name",                       null: false
+    t.boolean  "smoking",    default: false, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
