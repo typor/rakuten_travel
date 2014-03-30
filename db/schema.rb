@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140328122401) do
+ActiveRecord::Schema.define(version: 20140330143013) do
 
   create_table "areas", force: true do |t|
     t.string   "long_name",                  null: false
@@ -45,6 +45,22 @@ ActiveRecord::Schema.define(version: 20140328122401) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "plans", force: true do |t|
+    t.integer  "hotel_id"
+    t.integer  "room_id"
+    t.string   "name",                           null: false
+    t.integer  "payment_code",   default: 1,     null: false
+    t.text     "description"
+    t.integer  "point_rate",     default: 0
+    t.boolean  "with_dinner",    default: false
+    t.boolean  "with_breakfast", default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "plans", ["hotel_id"], name: "index_plans_on_hotel_id"
+  add_index "plans", ["room_id"], name: "index_plans_on_room_id"
 
   create_table "rooms", force: true do |t|
     t.integer  "hotel_id",                   null: false
