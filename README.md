@@ -13,3 +13,9 @@ Some area to eanbeld
 <pre>
 bin/rake api:import_hotels
 </pre>
+
+
+12 days since
+<pre>
+bin/rake api:import_rooms HOTEL_NO=509 START=12
+</pre>

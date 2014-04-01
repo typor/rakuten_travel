@@ -22,4 +22,22 @@ namespace :api do
       end
     end
   end
+
+  desc "ホテルNoを元に最新の施設情報を取得します。"
+  task import_rooms: :environment do
+    if ENV['HOTEL_NO'].blank?
+      puts "ENV['HOTEL_NO']を指定してください。"
+      return
+    end
+
+    hotel = Hotel.find_by(no: ENV['HOTEL_NO'])
+
+    Api::VacantApi.new(Settings.application_id, Settings.affiliate_id).request(hotel, ENV['START'] || 1).each_with_index do |hotel, i|
+      if charge.save
+        puts "[#{i+1}] Saving ... " + charge.plan.name + ' ' + charge.room.name + ' ' + charge.price
+      else
+        puts "[#{i+1}] Skipping"
+      end
+    end
+  end
 end

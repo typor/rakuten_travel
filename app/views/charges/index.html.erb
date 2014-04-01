@@ -1,0 +1,29 @@
+<% title t('.title') %>
+<%= render partial: '/shared/navigation' %>
+<div class="table-responsive">
+  <table class="table table-bordered table-striped table-hover table-condensed">
+    <thead>
+      <th></th>
+      <th><%= Charge.human_attribute_name(:hotel) %></th>
+      <th><%= Charge.human_attribute_name(:room) %></th>
+      <th><%= Charge.human_attribute_name(:plan) %></th>
+      <th><%= Charge.human_attribute_name(:stay_day) %></th>
+      <th><%= Charge.human_attribute_name(:amount) %></th>
+      <th></th>
+    </thead>
+    <tbody>
+      <% @charges.each do |charge| -%>
+        <tr>
+          <td><%= charge.hotel.long_name %></td>
+          <td><%= charge.room.name %></td>
+          <td><%= charge.plan.name %></td>
+          <td><%= charge.stay_day %></td>
+          <td><%= charge.amount %></td>
+          <td>
+          </td>
+        </tr>
+      <% end -%>
+    </tbody>
+  </table>
+</div>
+<%= paginate @charges %>

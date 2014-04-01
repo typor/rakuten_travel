@@ -8,13 +8,13 @@ class Api::VacantApi
     @plan_cache = {}
   end
 
-  def request(hotel, checkin)
-    @rooms = do_call(hotel.id) do |client|
+  def request(hotel, start)
+    @rooms = do_call(hotel) do |client|
       client.request {|o|
         o.add_param :search_pattern, 1 # 宿泊プランごと
         o.add_param :hotel_no, hotel.no
-        o.add_param :checkin_date, checkin.strftime('%Y-%m-%d')
-        o.add_param :checkout_date, (checkin + 1.days).strftime('%Y-%m-%d')
+        o.add_param :checkin_date, start.to_i.days.since.strftime('%Y-%m-%d')
+        o.add_param :checkout_date, (start.to_i + 1).days.since.strftime('%Y-%m-%d')
       }
     end
 
@@ -31,6 +31,8 @@ class Api::VacantApi
       plan = build_plan(hotel, params)
       next if plan.nil?
       charge = build_charge(hotel, room, plan, params)
+      next if charge.nil?
+      charge
       # @todo Add charge_histories
     end
     []
