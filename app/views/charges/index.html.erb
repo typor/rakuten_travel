@@ -3,7 +3,6 @@
 <div class="table-responsive">
   <table class="table table-bordered table-striped table-hover table-condensed">
     <thead>
-      <th></th>
       <th><%= Charge.human_attribute_name(:hotel) %></th>
       <th><%= Charge.human_attribute_name(:room) %></th>
       <th><%= Charge.human_attribute_name(:plan) %></th>
@@ -19,8 +18,7 @@
           <td><%= charge.plan.name %></td>
           <td><%= charge.stay_day %></td>
           <td><%= charge.amount %></td>
-          <td>
-          </td>
+          <td></td>
         </tr>
       <% end -%>
     </tbody>
