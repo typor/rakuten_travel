@@ -2,13 +2,11 @@
 
 FactoryGirl.define do
   factory :plan do
+    sequence(:code){|n| 1000 + n }
+    name 'dummy'
     hotel { Hotel.first || create(:hotel) }
     point_rate 1
     with_dinner false
     with_breakfast false
-    after(:build) {|plan|
-      plan.room = Room.first || create(:room)
-      plan.hotel = plan.room.hotel
-    }
   end
 end

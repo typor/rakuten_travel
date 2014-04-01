@@ -28,8 +28,10 @@ class Api::VacantApi
     response.rooms.map do |params|
       room = build_room(hotel, params)
       next if room.nil?
-      plan = build_plan(hotel, room, params)
+      plan = build_plan(hotel, params)
       next if plan.nil?
+      charge = build_charge(hotel, room, plan, params)
+      # @todo Add charge_histories
     end
     []
   end
@@ -54,16 +56,15 @@ class Api::VacantApi
     end
   end
 
-  def build_plan(hotel, room, params)
+  def build_plan(hotel, params)
     code = params['planId']
     return nil if code.blank?
     return @plan_cache[code] if @plan_cache[code].present?
 
-    plan = Plan.find_by(hotel_id: hotel.id, room_id: room.id, code: code) || Plan.new
+    plan = Plan.find_by(hotel_id: hotel.id, code: code) || Plan.new
 
     plan.attributes = {
       hotel_id: hotel.id,
-      room_id: room.id,
       code: code,
       name: params['planName'],
       point_rate: params['pointRate'],
@@ -80,5 +81,32 @@ class Api::VacantApi
     end
   end
 
+  def build_charge(hotel, room, plan, params)
+    stay_day = parse_date(params['stayDate'])
+    amount = params['total']
+    return false if stay_day.nil? || amount.nil?
+
+    charge = Charge.find_by(hotel_id: hotel.id, room_id: room.id, plan_id: plan.id, stay_day: stay_day) || Charge.new
+    charge.attributes = {
+      hotel_id: hotel.id,
+      room_id: room.id,
+      plan_id: plan.id,
+      stay_day: stay_day,
+      amount: amount
+    }
+
+    if charge.save
+      charge
+    else
+      nil
+    end
+  end
+
+  def parse_date(d)
+    return nil if d.nil?
+    Date.strptime(d, '%Y-%m-%d').strftime('%Y%m%d').to_i
+  rescue
+    nil
+  end
 
 end

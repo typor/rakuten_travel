@@ -12,6 +12,8 @@ class Hotel < ActiveRecord::Base
   validates :access, presence: true
 
   belongs_to :area
+  has_many :plans
+  has_many :rooms
 
   def safe_keys
     self.attributes.keys.select{|k, v| %w(id created_at updated_at).include?(k) != true }

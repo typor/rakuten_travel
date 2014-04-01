@@ -1,8 +1,6 @@
 class Plan < ActiveRecord::Base
   belongs_to :hotel
-  belongs_to :room
   validates :hotel_id, presence: true
-  validates :room_id, presence: true
   validates :code, presence: true, numericality: true
   validates :name, presence: true, length: { maximum: 255 }
   validates :description, length: { maximum: 3000 }

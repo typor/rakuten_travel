@@ -33,14 +33,12 @@ describe Api::VacantApi do
        "planContents" => 'foo'
       }
     }
-    let(:room) { create(:room, hotel: hotel) }
-    it { expect { api.build_plan(hotel, room, params) }.to change(Plan, :count).by(1) }
+    it { expect { api.build_plan(hotel, params) }.to change(Plan, :count).by(1) }
 
     context 'attributes' do
-      subject(:plan) { api.build_plan(hotel, room, params) }
+      subject(:plan) { api.build_plan(hotel, params) }
       it do
         expect(plan.hotel_id).to eq hotel.id
-        expect(plan.room_id).to eq room.id
         expect(plan.name).to eq '宿泊プラン【朝食付】'
         expect(plan.code).to eq 10000
         expect(plan.point_rate).to eq 10
@@ -84,4 +82,30 @@ describe Api::VacantApi do
       end
     end
   end
+
+  describe '#build_charge' do
+    let(:params) {
+      {'stayDate' => '2014-10-10', 'total' => '2000' }
+    }
+    let(:room) { create(:room, hotel: hotel) }
+    let(:plan) { create(:plan, hotel: hotel) }
+    it { expect{ api.build_charge(hotel, room, plan, params)}.to change(Charge, :count).by(1) }
+
+    context 'attributes' do
+      let(:charge) { api.build_charge(hotel, room, plan, params) }
+      it do
+        expect(charge.hotel.id).to eq hotel.id
+        expect(charge.plan.id).to eq plan.id
+        expect(charge.room.id).to eq room.id
+        expect(charge.stay_day).to eq 20141010
+        expect(charge.amount).to eq 2000
+      end
+    end
+  end
+
+  describe '#parse_date' do
+    it { expect(api.parse_date('2014-10-10')).to eq 20141010 }
+    it { expect(api.parse_date('2014-10-32')).to be_nil }
+  end
+
 end
