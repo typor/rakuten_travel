@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140401101208) do
+ActiveRecord::Schema.define(version: 20140402122057) do
 
   create_table "areas", force: true do |t|
     t.string   "long_name",                  null: false
@@ -27,18 +27,31 @@ ActiveRecord::Schema.define(version: 20140401101208) do
 
   add_index "areas", ["middle", "small", "detail"], name: "index_areas_on_middle_and_small_and_detail", unique: true
 
+  create_table "charge_histories", force: true do |t|
+    t.integer  "charge_id"
+    t.datetime "researched_at",                null: false
+    t.integer  "amount",        default: 0,    null: false
+    t.boolean  "can_stay",      default: true, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "charge_histories", ["charge_id"], name: "index_charge_histories_on_charge_id"
+
   create_table "charges", force: true do |t|
     t.integer  "hotel_id"
     t.integer  "room_id"
     t.integer  "plan_id"
-    t.integer  "stay_day"
-    t.integer  "amount"
+    t.integer  "stay_day",                  null: false
+    t.integer  "amount",     default: 0,    null: false
+    t.boolean  "can_stay",   default: true, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "charges", ["hotel_id"], name: "index_charges_on_hotel_id"
   add_index "charges", ["plan_id"], name: "index_charges_on_plan_id"
+  add_index "charges", ["room_id", "plan_id", "stay_day"], name: "index_charges_on_room_id_and_plan_id_and_stay_day", unique: true
   add_index "charges", ["room_id"], name: "index_charges_on_room_id"
 
   create_table "hotels", force: true do |t|

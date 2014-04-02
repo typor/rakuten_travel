@@ -7,9 +7,5 @@ class Charge < ActiveRecord::Base
   validates :room_id, presence: true
   validates :plan_id, presence: true
   validates :amount, presence: true, numericality: { greater_than_or_equal_to: 0 }
-  validates :stay_day, presence: true, numericality: { greater_than_or_equal_to: 20140101 }
-
-  def validate_stay_day
-    # stayDate
-  end
+  validates :stay_day, presence: true, numericality: { greater_than_or_equal_to: 20140101 }, uniqueness: {scope: [:room_id, :plan_id, :stay_day] }
 end

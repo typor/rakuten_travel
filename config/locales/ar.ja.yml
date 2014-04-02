@@ -3,6 +3,10 @@ ja:
     models:
       area: "地域"
       hotel: "ホテル"
+      room: '部屋'
+      plan: 'プラン'
+      charge: '宿泊料金'
+      charge_history: '宿泊料金履歴'
     attributes:
       area:
         id: "ID"
@@ -34,3 +38,26 @@ ja:
         code: 'コード'
         name: '名前'
         smoking: '喫煙'
+      plan:
+        id: 'ID'
+        hotel_id: 'ホテル'
+        code: 'コード'
+        name: '名前'
+        description: '説明'
+        payment_code: '支払方法'
+        point_rate: 'ポイントレート(%)'
+        with_dinner: '夕食'
+        with_breakfast: '朝食'
+      charge:
+        id: 'ID'
+        hotel_id: 'ホテル'
+        room_id: '部屋'
+        plan_id: 'プラン'
+        amount: '料金'
+        stay_day: '宿泊日'
+        can_stay: '宿泊可否'
+      charge_history:
+        id: 'ID'
+        amount: '料金'
+        researched_at: '調査日'
+        can_stay: '宿泊可否'
