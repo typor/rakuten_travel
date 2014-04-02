@@ -39,7 +39,7 @@ describe Api::VacantApi do
       subject(:plan) { api.build_plan(hotel.id, params) }
       it do
         expect(plan.hotel_id).to eq hotel.id
-        expect(plan.name).to eq '宿泊プラン【朝食付】'
+        expect(plan.long_name).to eq '宿泊プラン【朝食付】'
         expect(plan.code).to eq 10000
         expect(plan.point_rate).to eq 10
         expect(plan.with_dinner).to eq false

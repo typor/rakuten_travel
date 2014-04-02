@@ -32,8 +32,6 @@ ActiveRecord::Schema.define(version: 20140402122057) do
     t.datetime "researched_at",                null: false
     t.integer  "amount",        default: 0,    null: false
     t.boolean  "can_stay",      default: true, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   add_index "charge_histories", ["charge_id"], name: "index_charge_histories_on_charge_id"
@@ -76,7 +74,8 @@ ActiveRecord::Schema.define(version: 20140402122057) do
   create_table "plans", force: true do |t|
     t.integer  "hotel_id"
     t.integer  "code",                           null: false
-    t.string   "name",                           null: false
+    t.text     "long_name"
+    t.string   "short_name"
     t.integer  "payment_code",   default: 1,     null: false
     t.text     "description"
     t.integer  "point_rate",     default: 0

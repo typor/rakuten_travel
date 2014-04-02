@@ -3,7 +3,8 @@ class CreatePlans < ActiveRecord::Migration
     create_table :plans do |t|
       t.belongs_to :hotel, index: true
       t.integer :code, null: false
-      t.string :name, null: false, length: 255
+      t.text :long_name
+      t.string :short_name, length: 64 # キーワードを減らしたわかりやすいプラン名を自分でつけるところ
       t.integer :payment_code, null: false, default: 1
       t.text :description
       t.integer :point_rate, default: 0

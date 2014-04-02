@@ -86,7 +86,7 @@ class Api::VacantApi
     plan.attributes = {
       hotel_id: hotel_id,
       code: code,
-      name: params['planName'],
+      long_name: params['planName'],
       point_rate: params['pointRate'],
       with_dinner: params['withDinnerFlag'],
       with_breakfast: params['withBreakfastFlag'],
@@ -119,6 +119,7 @@ class Api::VacantApi
     if charge.save
       charge
     else
+      puts charge.errors.full_messages
       nil
     end
   end
