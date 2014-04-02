@@ -27,9 +27,12 @@ group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'quiet_assets'
-  gem 'libnotify', require: false
-  gem 'rb-notifu', require: false
+  gem 'rb-inotify', require: false
+  gem 'rb-fsevent', require: false
+  gem 'rb-fchange', require: false
   gem 'growl', require: false
+  gem 'terminal-notifier-guard', require: false
+  gem 'rb-notifu', require: false
 end
 
 group :test do

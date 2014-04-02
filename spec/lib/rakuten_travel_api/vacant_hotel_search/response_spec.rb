@@ -26,7 +26,6 @@ describe RakutenTravelApi::VacantHotelSearch::Response do
     context 'room' do
       subject(:room) { response.rooms.first }
       it {
-        room.tapp
         expect(room).to be_key 'total'
         expect(room).to be_key 'hotelNo'
         expect(room).to be_key 'roomClass'
