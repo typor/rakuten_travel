@@ -5,7 +5,6 @@ class CreateChargeHistories < ActiveRecord::Migration
       t.datetime :researched_at, null: false
       t.integer :amount, default: 0, null: false
       t.boolean :can_stay, default: true, null: false
-      t.timestamps
     end
   end
 end

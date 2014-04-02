@@ -7,19 +7,19 @@ describe Api::VacantApi do
     end
   end
 
-  let(:hotel) { create(:hotel, no: '509') }
+  let(:hotel) { create(:hotel, no: '163') }
   let(:api) { described_class.new(Settings.application_id) }
-  # describe '#request' do
-  #   let(:checkin) { 10.day.since }
-  #   let(:vcr_name) { 'models/api/vacant_api/' + hotel.no + '_' + checkin.strftime('%Y%m%d') }
-  #   subject(:response) {
-  #     VCR.use_cassette(vcr_name) do
-  #       api.request(hotel, checkin)
-  #     end
-  #   }
+  describe '#request' do
+    let(:checkin) { 10 }
+    let(:vcr_name) { 'models/api/vacant_api/' + hotel.no + '_' + checkin.days.since.strftime('%Y%m%d') }
+    subject(:response) {
+      VCR.use_cassette(vcr_name) do
+        api.request(hotel, checkin)
+      end
+    }
 
-  #   it { response }
-  # end
+    it { expect(response.size).to be > 0 }
+  end
 
   describe '#build_plan' do
     let(:params) {
@@ -33,10 +33,10 @@ describe Api::VacantApi do
        "planContents" => 'foo'
       }
     }
-    it { expect { api.build_plan(hotel, params) }.to change(Plan, :count).by(1) }
+    it { expect { api.build_plan(hotel.id, params) }.to change(Plan, :count).by(1) }
 
     context 'attributes' do
-      subject(:plan) { api.build_plan(hotel, params) }
+      subject(:plan) { api.build_plan(hotel.id, params) }
       it do
         expect(plan.hotel_id).to eq hotel.id
         expect(plan.name).to eq '宿泊プラン【朝食付】'
@@ -55,7 +55,7 @@ describe Api::VacantApi do
       let(:params) {
         {'roomClass' => 'sm', 'roomName' => '喫煙シングル'}
       }
-      subject(:room) { api.build_room(hotel, params) }
+      subject(:room) { api.build_room(hotel.id, params) }
       it do
         expect(room.hotel_id).to eq hotel.id
         expect(room.code).to eq 'sm'
@@ -63,9 +63,9 @@ describe Api::VacantApi do
         expect(room.smoking).to eq true
       end
       context '同じものをいれても、SAVEはされない' do
-        before { api.build_room(hotel, params) }
-        it { expect{ api.build_room(hotel, params) }.to change(Room, :count).by(0) }
-        it { expect(api.build_room(hotel, params)).to be_kind_of Room }
+        before { api.build_room(hotel.id, params) }
+        it { expect{ api.build_room(hotel.id, params) }.to change(Room, :count).by(0) }
+        it { expect(api.build_room(hotel.id, params)).to be_kind_of Room }
       end
     end
 
@@ -73,7 +73,7 @@ describe Api::VacantApi do
       let(:params) {
         {'roomClass' => 'sm', 'roomName' => '禁煙シングル'}
       }
-      subject(:room) { api.build_room(hotel, params) }
+      subject(:room) { api.build_room(hotel.id, params) }
       it do
         expect(room.hotel_id).to eq hotel.id
         expect(room.code).to eq 'sm'
@@ -89,10 +89,10 @@ describe Api::VacantApi do
     }
     let(:room) { create(:room, hotel: hotel) }
     let(:plan) { create(:plan, hotel: hotel) }
-    it { expect{ api.build_charge(hotel, room, plan, params)}.to change(Charge, :count).by(1) }
+    it { expect{ api.build_charge(hotel.id, room.id, plan.id, params)}.to change(Charge, :count).by(1) }
 
     context 'attributes' do
-      let(:charge) { api.build_charge(hotel, room, plan, params) }
+      let(:charge) { api.build_charge(hotel.id, room.id, plan.id, params) }
       it do
         expect(charge.hotel.id).to eq hotel.id
         expect(charge.plan.id).to eq plan.id

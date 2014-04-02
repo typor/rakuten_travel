@@ -14,4 +14,5 @@ describe Hotel do
     it { expect(safe_keys).to_not be_include('created_at') }
     it { expect(safe_keys).to be_include('area_id') }
   end
+
 end

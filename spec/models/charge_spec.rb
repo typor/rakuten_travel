@@ -1,11 +1,11 @@
 require 'spec_helper'
 
 describe Charge do
-  describe '#save' do
-    let(:hotel) { create(:hotel) }
-    let(:room) { create(:room, hotel: hotel) }
-    let(:plan) { create(:plan, hotel: hotel) }
+  let(:hotel) { create(:hotel) }
+  let(:room) { create(:room, hotel: hotel) }
+  let(:plan) { create(:plan, hotel: hotel) }
 
+  describe '#save' do
     it 'should save' do
       model = described_class.new
       model.attributes = {
@@ -27,5 +27,10 @@ describe Charge do
         expect(model.errors[:stay_day].size).to eq 1
       }
     end
+  end
+
+  describe '#add_history' do
+    let!(:charge) { create(:charge, hotel: hotel, room: room, plan: plan, amount: 1000, stay_day: 20140402, can_stay: true) }
+    it { expect{ charge.add_history }.to change(ChargeHistory, :count).by(1) }
   end
 end
