@@ -53,20 +53,21 @@ ActiveRecord::Schema.define(version: 20140402122057) do
   add_index "charges", ["room_id"], name: "index_charges_on_room_id"
 
   create_table "hotels", force: true do |t|
-    t.integer  "area_id",                  null: false
-    t.string   "no",                       null: false
-    t.string   "long_name",                null: false
+    t.integer  "area_id",                      null: false
+    t.string   "no",                           null: false
+    t.string   "long_name",                    null: false
     t.string   "short_name"
-    t.string   "postal_code",              null: false
-    t.string   "address1",                 null: false
-    t.string   "address2",                 null: false
-    t.string   "telephone_no",             null: false
+    t.string   "postal_code",                  null: false
+    t.string   "address1",                     null: false
+    t.string   "address2",                     null: false
+    t.string   "telephone_no",                 null: false
     t.text     "image_url"
     t.text     "url"
     t.text     "access"
     t.string   "latitude"
     t.string   "longitude"
     t.integer  "room_num",     default: 0
+    t.boolean  "enabled",      default: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end

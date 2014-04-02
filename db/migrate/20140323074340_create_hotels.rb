@@ -15,6 +15,7 @@ class CreateHotels < ActiveRecord::Migration
       t.string :latitude, length: 16
       t.string :longitude, length: 16
       t.integer :room_num, default: 0
+      t.boolean :enabled, default: false
       t.timestamps
     end
   end

@@ -24,4 +24,12 @@ module HotelDecorator
     my = URI.escape(name)
     link_to params[:name], "https://maps.google.co.jp/maps?q=loc:#{latitude},#{longitude}", target: '_blank'
   end
+
+  def enable_label
+    if enabled
+      raw('<span class="label label-info">' + t('global.enabled') + '</span>')
+    else
+      raw('<span class="label label-warning">' + t('global.disabled') + '</span>')
+    end
+  end
 end

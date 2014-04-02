@@ -9,8 +9,9 @@
       <th class="col-md-2"></th>
     </thead>
     <tbody>
-      <% @hotels.each do |hotel| -%>
+        <% @hotels.each do |hotel| -%>
         <tr>
+          <td><%= hotel.enable_label %></td>
           <td><%= hotel.image %></td>
           <td>
             <%= hotel.no %><br>
@@ -31,5 +32,7 @@
       <% end -%>
     </tbody>
   </table>
+
+
 </div>
 <%= paginate @hotels %>
