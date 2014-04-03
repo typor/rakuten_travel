@@ -2,7 +2,8 @@
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
-
+require 'capybara/rails'
+require 'capybara/rspec'
 require 'vcr'
 VCR.configure do |c|
   c.cassette_library_dir = File.expand_path(File.dirname(__FILE__) + '/fixtures/vcr')
@@ -30,6 +31,7 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = false
   config.order = "random"
   config.include FactoryGirl::Syntax::Methods
+  config.include Capybara::DSL
 
   config.before :suite do
     begin
