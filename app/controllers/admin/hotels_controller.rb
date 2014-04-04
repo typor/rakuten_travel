@@ -1,4 +1,4 @@
-class HotelsController < ApplicationController
+class Admin::HotelsController < Admin::ApplicationController
   before_filter :load_resource, only: [:edit, :update, :destroy]
   def index
     @hotels = Hotel.order(:id).page params[:page]

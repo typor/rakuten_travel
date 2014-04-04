@@ -15,25 +15,25 @@ ja:
         signin: 'ログイン'
       create:
         <<: *sessions_new
-  areas:
-    index:
-      title: '地域設定'
-    new:
-      title: '地域登録'
-    create:
-      title: '地域登録'
-    edit:
-      title: '地域編集'
-    update:
-      title: '地域編集'
-  hotels:
-    index:
-      title: 'ホテル管理'
-    new:
-      title: 'ホテル情報登録'
-    create:
-      title: 'ホテル情報登録'
-    edit:
-      title: 'ホテル情報更新'
-    update:
-      title: 'ホテル情報更新'
+    areas:
+      index:
+        title: '地域設定'
+      new:
+        title: '地域登録'
+      create:
+        title: '地域登録'
+      edit:
+        title: '地域編集'
+      update:
+        title: '地域編集'
+    hotels:
+      index:
+        title: 'ホテル管理'
+      new:
+        title: 'ホテル情報登録'
+      create:
+        title: 'ホテル情報登録'
+      edit:
+        title: 'ホテル情報更新'
+      update:
+        title: 'ホテル情報更新'

@@ -46,3 +46,8 @@ RSpec.configure do |config|
     DatabaseRewinder.clean
   end
 end
+
+def login(user = nil)
+  user ||= create(:user, password: 'password', password_confirmation: 'password')
+  session[:user_id] = user.id
+end
