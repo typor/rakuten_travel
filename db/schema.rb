@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140402122057) do
+ActiveRecord::Schema.define(version: 20140403121554) do
 
   create_table "areas", force: true do |t|
     t.string   "long_name",                  null: false
@@ -96,5 +96,23 @@ ActiveRecord::Schema.define(version: 20140402122057) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "users", force: true do |t|
+    t.string   "email",                                  null: false
+    t.string   "crypted_password",                       null: false
+    t.string   "salt",                                   null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "failed_logins_count",        default: 0
+    t.datetime "lock_expires_at"
+    t.string   "unlock_token"
+    t.datetime "last_login_at"
+    t.datetime "last_logout_at"
+    t.datetime "last_activity_at"
+    t.string   "last_login_from_ip_address"
+  end
+
+  add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["last_logout_at", "last_activity_at"], name: "index_users_on_last_logout_at_and_last_activity_at"
 
 end

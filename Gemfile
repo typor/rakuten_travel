@@ -16,6 +16,10 @@ gem 'tapp'
 gem 'thin'
 gem 'bootstrap_form', git: 'git@github.com:bootstrap-ruby/rails-bootstrap-forms.git'
 gem 'kaminari'
+# authenticate
+gem 'sorcery', '~> 0.8.5'
+gem 'bcrypt-ruby'
+gem 'email_validator'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
@@ -46,4 +50,5 @@ group :development, :test do
   gem 'rspec', '~> 3.0.0.beta2'
   gem 'rspec-rails', '~> 3.0.0.beta'
   gem 'factory_girl_rails'
+  gem 'capybara'
 end

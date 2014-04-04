@@ -3,6 +3,18 @@ ja:
     enabled: '有効'
     disabled: '無効'
     google_map_link_name: 'Googleマップで表示'
+    login_successful: 'ログインしました。'
+    login_failure: 'ログインに失敗しました。'
+    need_login: 'ログインが必要です。'
+  admin:
+    sessions:
+      new: &sessions_new
+        title: 'ログイン'
+        email: 'メールアドレス'
+        password: 'パスワード'
+        signin: 'ログイン'
+      create:
+        <<: *sessions_new
   areas:
     index:
       title: '地域設定'
