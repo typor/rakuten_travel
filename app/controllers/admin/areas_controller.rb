@@ -1,4 +1,4 @@
-class AreasController < ApplicationController
+class Admin::AreasController < ::Admin::ApplicationController
   before_filter :load_resource, only: [:edit, :update, :destroy]
   def index
     @areas = Area.order(enabled: :desc, id: :asc).page params[:page]

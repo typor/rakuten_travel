@@ -13,6 +13,6 @@ module AreaDecorator
   end
 
   def section
-    [large, middle, small, detail].compact.join(' / ')
+    [large, middle, small.blank? ? nil : small, detail.blank? ? nil : detail].compact.join(' / ')
   end
 end

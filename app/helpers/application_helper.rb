@@ -33,4 +33,12 @@ module ApplicationHelper
     css_class = FLASH_MAP.key?(key) ? FLASH_MAP[key] : ''
     simple_format(message, {class: 'alert ' + css_class}, wrapper_tag: 'div', sanitize: false)
   end
+
+  def horizontal_form_for(resource, options = {}, &block)
+    options = {layout: :horizontal, label_col: 'col-md-2', control_col: 'col-md-6'}.merge! options
+    unless options.key? :url
+      options[:url] = resource.new_record? ? url_for(action: :create) : url_for(action: :update, id: resource.id)
+    end
+    bootstrap_form_for(resource, options, &block)
+  end
 end
