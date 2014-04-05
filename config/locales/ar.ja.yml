@@ -33,6 +33,9 @@ ja:
         url: "URL"
         access: 'アクセス'
         enabled: "有効"
+        latitude: '緯度'
+        longitude: '経度'
+        room_num: '部屋数'
       room:
         id: 'ID'
         hotel_id: 'ホテル'
@@ -62,3 +65,8 @@ ja:
         amount: '料金'
         researched_at: '調査日'
         can_stay: '宿泊可否'
+      user:
+        id: 'ID'
+        email: 'メールアドレス'
+        password: 'パスワード'
+        password_confirmation: 'パスワード(確認)'

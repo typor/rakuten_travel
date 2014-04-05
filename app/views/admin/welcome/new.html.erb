@@ -1,0 +1,18 @@
+<% title t('.title') %>
+<div class="col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2">
+  <%= render_flash_messages %>
+  <div class="panel panel-primary">
+    <div class="panel-heading"><%= t('.title') %></div>
+    <div class="panel-body">
+      <p class="text-info"><%= raw(t('.read')) %></p>
+      <%= horizontal_form_for @user, label_col: 'col-md-3', control_col: 'col-md-6' do |f| -%>
+        <%= f.email_field :email, required: 'required', maxlength: 255, autocomplete: 'off', class: 'ime-disabled', control_col: 'col-md-8' %>
+        <%= f.password_field :password, required: 'required', autocomplete: 'off', class: 'ime-disabled' %>
+        <%= f.password_field :password_confirmation, required: 'required', autocomplete: 'off' %>
+        <%= f.form_group do %>
+          <%= f.primary %>
+        <% end %>
+      <% end -%>
+    </div>
+  </div>
+</div>
