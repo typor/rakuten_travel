@@ -7,14 +7,17 @@ ja:
     login_failure: 'ログインに失敗しました。'
     need_login: 'ログインが必要です。'
   admin:
+    welcome:
+      successful: "ユーザ登録が完了しました。\nログインして管理画面を利用してください。"
+      new:
+        title: '管理画面へのログイン用ユーザ登録'
+        read: "管理画面を利用するには、ログイン用ユーザの登録が必要です。"
     sessions:
-      new: &sessions_new
+      new:
         title: 'ログイン'
         email: 'メールアドレス'
         password: 'パスワード'
         signin: 'ログイン'
-      create:
-        <<: *sessions_new
     areas:
       index:
         title: '地域設定'

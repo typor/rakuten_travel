@@ -9,3 +9,7 @@ end
 def should_have_submit_button_tag(name)
   expect(response.body).to have_css("button[type=\"submit\"]", text: name)
 end
+
+def should_have_submit_tag(name)
+  expect(response.body).to have_css("input[type=\"submit\"][value=\"#{name}\"]")
+end

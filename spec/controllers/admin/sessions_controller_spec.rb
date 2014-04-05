@@ -3,6 +3,7 @@ require 'form_helper'
 
 describe Admin::SessionsController do
   describe 'GET new' do
+    let!(:user) { create(:user) }
     before { get :new }
     it { expect(response).to be_success }
     it { expect(response).to render_template(:new) }
