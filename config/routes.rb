@@ -10,5 +10,6 @@ RakutenTravel::Application.routes.draw do
     resources :areas, except: %w(show)
     resources :hotels
     resources :charges
+    resources :plans
   end
 end

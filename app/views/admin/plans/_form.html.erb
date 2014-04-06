@@ -1,0 +1,16 @@
+<%= horizontal_form_for(resource, control_col: 'col-md-3') do |f| %>
+  <%= f.collection_select :hotel_id, Hotel.select(:id, :long_name).load, :id, :long_name,  control_col: "col-md-8" %>
+  <%= f.number_field :code %>
+  <%= f.text_field :long_name, control_col: 'col-md-8' %>
+  <%= f.text_field :short_name, control_col: 'col-md-6' %>
+  <%= f.number_field :point_rate, max: 99, min: 0, append: '%', control_col: 'col-md-2' %>
+  <%= f.text_area :description, control_col: 'col-md-8', rows: 5 %>
+  <%= f.select :payment_code, options_for_select(Plan.payment_codes) %>
+  <%= f.form_group do %>
+    <%= f.check_box :with_breakfast %>
+    <%= f.check_box :with_dinner %>
+  <% end %>
+  <%= f.form_group do %>
+    <%= f.primary %>
+  <% end %>
+<% end %>

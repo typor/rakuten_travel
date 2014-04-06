@@ -9,4 +9,19 @@ class Plan < ActiveRecord::Base
   validates :point_rate, presence: true, numericality: { greater_than_or_equal_to: 0, less_than: 100 }
   validates :with_dinner, inclusion: {in: [true, false]}
   validates :with_breakfast, inclusion: {in: [true, false]}
+
+  def self.payment_codes
+    {
+      I18n.t('global.cash_only') => 0,
+      I18n.t('global.creditcard_only') => 1,
+      I18n.t('global.cash_and_creditcard') => 2
+    }
+  end
+
+  def self.safe_keys(refresh = false)
+    if refresh || !(defined? @@safe_keys)
+      @@safe_keys = new.attributes.keys.select{|k, v| %w(id created_at updated_at).include?(k) != true }
+    end
+    @@safe_keys
+  end
 end

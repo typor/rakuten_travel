@@ -203,7 +203,7 @@ ja:
       tabs:
         index: '一覧'
         new: '新規登録'
-        edit: '更新'
+        edit: '編集'
         show: '詳細'
       global:
         edit: '編集'

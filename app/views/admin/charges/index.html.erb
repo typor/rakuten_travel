@@ -3,22 +3,20 @@
 <div class="table-responsive">
   <table class="table table-bordered table-striped table-hover table-condensed">
     <thead>
-      <th><%= Charge.human_attribute_name(:hotel) %></th>
-      <th><%= Charge.human_attribute_name(:room) %></th>
-      <th><%= Charge.human_attribute_name(:plan) %></th>
-      <th><%= Charge.human_attribute_name(:stay_day) %></th>
-      <th><%= Charge.human_attribute_name(:amount) %></th>
       <th></th>
+      <th><%= Charge.human_attribute_name(:stay_day) %></th>
+      <th><%= Charge.human_attribute_name(:hotel_id) %></th>
+      <th><%= Charge.human_attribute_name(:room_id) %></th>
+      <th><%= Charge.human_attribute_name(:amount) %></th>
     </thead>
     <tbody>
       <% @charges.each do |charge| -%>
         <tr>
-          <td><%= charge.hotel.long_name %></td>
-          <td><%= charge.room.name %></td>
-          <td><%= charge.plan.long_name %></td>
+          <td><%= charge.stay_label %></td>
           <td><%= charge.stay_day %></td>
-          <td><%= charge.amount %></td>
-          <td></td>
+          <td><%= charge.hotel.long_name %></td>
+          <td><%= charge.room.name %><br><%= charge.plan.long_name %></td>
+          <td><%= charge.price %></td>
         </tr>
       <% end -%>
     </tbody>

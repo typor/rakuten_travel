@@ -2,6 +2,13 @@ ja:
   global:
     enabled: '有効'
     disabled: '無効'
+    can_stay: '宿泊可'
+    cannot_stay: '宿泊不可'
+    with_breakfast: '朝食込'
+    with_dinner: '夕食込'
+    cash_only: '現金のみ'
+    creditcard_only: 'カードのみ'
+    cash_and_creditcard: '現金/カード'
     google_map_link_name: 'Googleマップで表示'
     login_successful: 'ログインしました。'
     login_failure: 'ログインに失敗しました。'
@@ -23,20 +30,26 @@ ja:
         title: '地域設定'
       new:
         title: '地域登録'
-      create:
-        title: '地域登録'
       edit:
-        title: '地域編集'
-      update:
         title: '地域編集'
     hotels:
       index:
         title: 'ホテル管理'
       new:
         title: 'ホテル情報登録'
-      create:
-        title: 'ホテル情報登録'
       edit:
         title: 'ホテル情報更新'
-      update:
-        title: 'ホテル情報更新'
+    charges:
+      index:
+        title: '料金一覧'
+      new:
+        title: '料金登録'
+      edit:
+        title: '料金更新'
+    plans:
+      index:
+        title: 'プラン一覧'
+      new:
+        title: 'プラン登録'
+      edit:
+        title: 'プラン更新'
