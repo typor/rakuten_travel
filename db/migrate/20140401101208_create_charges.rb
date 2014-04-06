@@ -7,6 +7,7 @@ class CreateCharges < ActiveRecord::Migration
       t.integer :stay_day, null: false
       t.integer :amount, default: 0, null: false
       t.boolean :can_stay, default: true, null: false
+      t.boolean :executed, default: true, null: false
       t.timestamps
     end
     add_index(:charges, [:room_id, :plan_id, :stay_day], unique: true)

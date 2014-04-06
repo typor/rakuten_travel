@@ -18,6 +18,14 @@ module RakutenTravelApi
         @status == 200
       end
 
+      def not_found?
+        @status == 404
+      end
+
+      def maintenance?
+        @status == 503
+      end
+
       def error?
         !success?
       end

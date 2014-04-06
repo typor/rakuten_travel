@@ -8,17 +8,51 @@ describe Api::VacantApi do
   end
 
   let(:hotel) { create(:hotel, no: '163') }
-  let(:api) { described_class.new(Settings.application_id) }
+  let(:api) { described_class.new(hotel, Settings.application_id) }
   describe '#request' do
     let(:checkin) { 10 }
     let(:vcr_name) { 'models/api/vacant_api/' + hotel.no + '_' + checkin.days.since.strftime('%Y%m%d') }
     subject(:response) {
       VCR.use_cassette(vcr_name) do
-        api.request(hotel, checkin)
+        api.request(checkin)
       end
     }
 
     it { expect(response.size).to be > 0 }
+  end
+
+  describe '#before_request, #after_request' do
+    let!(:room) { create(:room, hotel: hotel) }
+    let!(:plan_1) { create(:plan, hotel: hotel) }
+    let!(:plan_2) { create(:plan, hotel: hotel) }
+    let!(:charge_1_1) { create(:charge, hotel: hotel, room: room, plan: plan_1, stay_day: 20140401, can_stay: true, executed: true) }
+    let!(:charge_1_2) { create(:charge, hotel: hotel, room: room, plan: plan_1, stay_day: 20140402, can_stay: true, executed: true) }
+    let!(:charge_2_1) { create(:charge, hotel: hotel, room: room, plan: plan_2, stay_day: 20140401, can_stay: true, executed: true) }
+    let!(:charge_2_2) { create(:charge, hotel: hotel, room: room, plan: plan_2, stay_day: 20140402, can_stay: true, executed: true) }
+
+    before {
+      api.before_request(hotel.id, 20140401)
+    }
+    it '該当日付の executed が falseになること' do
+      expect(charge_1_1.reload.executed).to eq false
+      expect(charge_1_2.reload.executed).to eq true
+      expect(charge_2_1.reload.executed).to eq false
+      expect(charge_2_2.reload.executed).to eq true
+    end
+
+    describe '#after_request' do
+      before {
+        expect{ api.after_request(hotel.id, 20140401) }.to change(ChargeHistory, :count).by(2)
+      }
+      it 'executedがtrueになり、can_stayがfalseになること' do
+        charge_1_1.reload
+        expect(charge_1_1.executed).to eq true
+        expect(charge_1_1.can_stay).to eq false
+        charge_2_1.reload
+        expect(charge_2_1.executed).to eq true
+        expect(charge_2_1.can_stay).to eq false
+      end
+    end
   end
 
   describe '#build_plan' do

@@ -1,6 +1,6 @@
 namespace :api do
   desc "楽天のエリア検索APIを呼び出し、地区情報をDBに登録します。"
-  task get_area_class: :environment do
+  task import_areas: :environment do
     Api::AreaApi.new(Settings.application_id).request.each_with_index do |area, i|
       if area.save
         puts "Adding ... " + area.long_name
@@ -37,20 +37,27 @@ namespace :api do
     end
   end
 
-  desc "ホテルNoを元に最新の施設情報を取得します。"
-  task import_rooms: :environment do
+  desc "ホテルNoを元に最新の予約可能な施設情報を取得します。 HOTEL_NO=*** CHECKIN=*** COUNT=***"
+  task research_by_hotel_no: :environment do
     if ENV['HOTEL_NO'].blank?
       puts "ENV['HOTEL_NO']を指定してください。"
       return
     end
 
     hotel = Hotel.find_by(no: ENV['HOTEL_NO'])
+    checkin = ENV['CHECKIN']
+    checkin = 1 if checkin.to_i <= 0
+    count = ENV['COUNT']
+    count = 1 if count.to_i <= 0
 
-    Api::VacantApi.new(Settings.application_id, Settings.affiliate_id).request(hotel, ENV['START'] || 1).each_with_index do |charge, i|
-      if charge.save
-        puts "[#{i+1}] Saving ... " + charge.plan.name + '...' + charge.room.name + '...' + charge.amount.to_s
-      else
-        puts "[#{i+1}] Skipping"
+    count.to_i.times do |i|
+      charges = Api::VacantApi.new(hotel, Settings.application_id, Settings.affiliate_id).request(checkin.to_i + i)
+      if charges.size == 0
+        puts "指定されたCHECKINの日付における予約可能な部屋は存在しません。"
+      end
+
+      charges.each_with_index do |charge, i|
+        puts "[#{i+1}] Adding ... " + charge.plan.long_name + '...' + charge.room.name + '...' + charge.amount.to_s
       end
     end
   end
