@@ -1,9 +1,17 @@
+def should_have_text_tag(name)
+  should_have_input_tag('text', name: name)
+end
+
 def should_have_email_tag(name)
-  expect(response.body).to have_css("input[type=\"email\"][name=\"#{name}\"]")
+  should_have_input_tag('email', name: name)
+end
+
+def should_have_number_tag(name)
+  should_have_input_tag('number', name: name)
 end
 
 def should_have_password_tag(name)
-  expect(response.body).to have_css("input[type=\"password\"][name=\"#{name}\"]")
+  should_have_input_tag('password', name: name)
 end
 
 def should_have_submit_button_tag(name)
@@ -11,5 +19,14 @@ def should_have_submit_button_tag(name)
 end
 
 def should_have_submit_tag(name)
-  expect(response.body).to have_css("input[type=\"submit\"][value=\"#{name}\"]")
+  should_have_input_tag('submit', value: name)
+end
+
+def should_have_input_tag(type, options = {})
+  css = ''
+  options.each_pair do |k,v|
+    css << "[#{k}=\"#{v}\"]"
+  end
+
+  expect(response.body).to have_css("input[type=\"#{type}\"]" + css)
 end
