@@ -1,58 +1,90 @@
 # HotelNoをキーに検索する
 class Api::VacantApi
-  attr_accessor :client
+  attr_accessor :client, :hotel
 
-  def initialize(application_id, affiliate_id = nil)
+  def initialize(hotel, application_id, affiliate_id = nil)
     @client = RakutenTravelApi::VacantHotelSearch::Client.new(application_id, affiliate_id)
-    @rooms = nil
+    @hotel = hotel
+    clear_cache
+  end
+
+  def clear_cache
     @room_cache = {}
     @plan_cache = {}
   end
 
-  def request(hotel, start)
-    @charges = do_call(hotel) do |client|
+  def request(checkin, checkout = nil)
+    checkout ||= (checkin + 1)
+    stay_day = checkin.to_i.days.since.strftime('%Y%m%d')
+
+    before_request(@hotel.id, stay_day)
+
+    @requested = 0.days.since.strftime('%Y-%m-%d %H:%M:%S')
+
+    @charges = do_call do |client|
       client.request {|o|
-        o.add_param :search_pattern, 1 # 宿泊プランごと
-        o.add_param :hotel_no, hotel.no
-        o.add_param :checkin_date, start.to_i.days.since.strftime('%Y-%m-%d')
-        o.add_param :checkout_date, (start.to_i + 1).days.since.strftime('%Y-%m-%d')
+        o.add_param :page, nil
+        o.add_param :hotel_no, @hotel.no
+        o.add_param :checkin_date, checkin.to_i.days.since.strftime('%Y-%m-%d')
+        o.add_param :checkout_date, checkout.to_i.days.since.strftime('%Y-%m-%d')
       }
     end
 
     while @client.next?
-      @charges += do_call(hotel) {|client| client.next}
+      @charges += do_call {|client| client.next}
     end
+
+    after_request(@hotel.id, stay_day)
 
     @charges.compact
+  rescue Exception => e
+    Rails.logger.error e.message
+    Rails.logger.error e.backtrace.join("\n")
+    []
   end
 
-  def do_call(hotel)
-    response = block_given? ? (yield @client) : @client.request
-    @requested = 0.days.since.strftime('%Y-%m-%d %H:%M:%S')
+  def before_request(hotel_id, stay_day)
+    # marked target charge data
+    Charge.where(hotel_id: hotel_id, stay_day: stay_day).update_all(executed: false)
+  end
 
-    # @todo 部屋が完全にない場合と、エラーの場合で分けて処理する
-    raise response.body.to_s unless response.success?
-
-    response.rooms.map do |params|
-      build!(hotel, params)
+  def after_request(hotel_id, stay_day)
+    # unmarked target charge data
+    Charge.where(hotel_id: hotel_id, stay_day: stay_day, executed: false).each do |charge|
+      charge.update(executed: true, can_stay: false)
+      charge.add_history(@requested)
     end
   end
 
-  def build!(hotel, params)
-    room = build_room(hotel.id, params)
+  def do_call
+    response = block_given? ? (yield @client) : @client.request
+    if response.error?
+      if response.not_found?
+        return
+      else
+        raise response.body.to_s
+      end
+    end
+
+    response.rooms.map do |params|
+      build!(params)
+    end
+  end
+
+  def build!(params)
+    room = build_room(@hotel.id, params)
     raise "Failure creating room object" if room.nil?
 
-    plan = build_plan(hotel.id, params)
+    plan = build_plan(@hotel.id, params)
     raise "Failure creating plan object" if plan.nil?
 
-    charge = build_charge(hotel.id, room.id, plan.id, params)
+    charge = build_charge(@hotel.id, room.id, plan.id, params)
     raise "Failure creating charge object" if charge.nil?
 
     charge.add_history(@requested)
     charge
   rescue Exception => e
-    # todo log
-    puts e.message
+    Rails.logger.error e.message
     nil
   end
 
@@ -72,6 +104,7 @@ class Api::VacantApi
     if room.save
       @room_cache[code] = room
     else
+      Rails.logger.error(room.errors.full_messages)
       nil
     end
   end
@@ -97,6 +130,7 @@ class Api::VacantApi
     if plan.save
       @plan_cache[code] = plan
     else
+      Rails.logger.error(plan.errors.full_messages)
       nil
     end
   end
@@ -113,13 +147,14 @@ class Api::VacantApi
       plan_id: plan_id,
       stay_day: stay_day,
       amount: amount,
-      can_stay: true
+      can_stay: true,
+      executed: true
     }
 
     if charge.save
       charge
     else
-      puts charge.errors.full_messages
+      Rails.logger.error(charge.errors.full_messages)
       nil
     end
   end

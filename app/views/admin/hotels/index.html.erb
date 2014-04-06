@@ -1,38 +1,20 @@
 <% title t('.title') %>
 <%= render partial: '/shared/navigation' %>
-<div class="table-responsive">
-  <table class="table table-bordered table-striped table-hover table-condensed">
-    <thead>
-      <th></th>
-      <th><%= Hotel.human_attribute_name(:long_name) %></th>
-      <th><%= Hotel.human_attribute_name(:address2) %></th>
-      <th class="col-md-2"></th>
-    </thead>
-    <tbody>
-        <% @hotels.each do |hotel| -%>
-        <tr>
-          <td><%= hotel.enable_label %></td>
-          <td><%= hotel.image %></td>
-          <td>
-            <%= hotel.no %><br>
-            <%= hotel.link %>
-          </td>
-          <td>
-            <%= hotel.postal_code %><br>
-            <%= hotel.address1 %><%= hotel.address2 %>
-          </td>
-          <td>
-            <%= edit_link(hotel) %>
-            <%= destroy_link(hotel) %>
-          </td>
-        </tr>
-        <tr>
-          <td colspan="5"><%= hotel.google_map_link %><br><%= hotel.access %></td>
-        </tr>
-      <% end -%>
-    </tbody>
-  </table>
-
-
-</div>
+<ul class="media-list">
+  <% @hotels.each do |hotel| -%>
+  <li class="media" style="border-bottom:1px solid #eee;">
+    <p class="pull-left"><%= hotel.image %></p>
+    <p class="pull-left"><%= hotel.enable_label %></p>
+    <p class="pull-right">
+      <%= edit_link(hotel) %>
+      <%= destroy_link(hotel) %>
+    </p>
+    <div class="media-body">
+      <h4 class="media-heading">[<%= hotel.no %>]&nbsp;<%= hotel.link %></h4>
+      <%= hotel.postal_code %>&nbsp;<%= hotel.address1 %><%= hotel.address2 %>(<%= hotel.google_map_link %>)<br>
+      <%= hotel.access %>
+    </div>
+  </li>
+  <% end -%>
+</ul>
 <%= paginate @hotels %>

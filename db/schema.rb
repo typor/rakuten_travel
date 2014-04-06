@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 20140403121554) do
     t.integer  "stay_day",                  null: false
     t.integer  "amount",     default: 0,    null: false
     t.boolean  "can_stay",   default: true, null: false
+    t.boolean  "executed",   default: true, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
