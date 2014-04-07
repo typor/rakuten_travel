@@ -9,14 +9,60 @@ module ApplicationHelper
     content_for :title, page_title.to_s + ' | kengos.jp'
   end
 
-  def edit_link(resouce)
-    link_to raw('<i class="fa fa-edit"></i>&nbsp;&nbsp;' + t('views.bootstrap3.global.edit')),
-      {action: :edit, id: resouce}, {class: 'btn btn-primary btn-sm'}
+  def show_link(resource)
+    link_to raw('<i class="fa fa-info-circle"></i>&nbsp;&nbsp;' + t('views.bootstrap3.global.show')),
+      {action: :show, id: resource}, {class: 'btn btn-info btn-sm'}
   end
 
-  def destroy_link(resouce)
+  def edit_link(resource)
+    link_to raw('<i class="fa fa-edit"></i>&nbsp;&nbsp;' + t('views.bootstrap3.global.edit')),
+      {action: :edit, id: resource}, {class: 'btn btn-primary btn-sm'}
+  end
+
+  def destroy_link(resource)
     link_to raw('<i class="fa fa-trash-o"></i>&nbsp;&nbsp;' + t('views.bootstrap3.global.destroy')),
-      {action: :destroy, id: resouce}, class: 'btn btn-danger btn-sm', method: :delete, data: { confirm: t('views.bootstrap3.global.confirm_destroy') }
+      {action: :destroy, id: resource}, class: 'btn btn-danger btn-sm', method: :delete, data: { confirm: t('views.bootstrap3.global.confirm_destroy') }
+  end
+
+  def nav_content_tag(tag, urls, css_class = 'active', options = {}, &block)
+    css = current_urls?(urls) ? css_class : ''
+    content_tag(tag, {class: css}.merge(options), &block)
+  end
+
+  def current_urls?(urls)
+    if urls.kind_of?(String) || urls.kind_of?(Symbol)
+      return params[:action] == urls.to_s
+    end
+
+    if urls.kind_of?(Hash)
+      return false if urls[:action].to_s != params[:action]
+      return true if urls[:controller].nil?
+      return f[:controller].present? && f[:controller].to_s == params[:controller]
+    end
+
+    if urls.kind_of?(Array)
+      urls.each do |f|
+        if f.kind_of?(String) || f.kind_of?(Symbol)
+          next if f.to_s != params[:action]
+        elsif f.kind_of?(Hash)
+          # todo
+          next if f[:action].to_s != params[:action] || f[:controller].present? && f[:controller].to_s != params[:controller]
+        else
+          next
+        end
+        return true
+      end
+    end
+
+    false
+  end
+
+  def controller?(*controllers)
+    controllers.include?(params[:controller])
+  end
+
+  def action?(*actions)
+    actions.include?(params[:action])
   end
 
   def render_flash_messages

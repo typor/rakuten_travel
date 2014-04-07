@@ -65,7 +65,7 @@ namespace :api do
     checkin = 1 if checkin.to_i <= 0
     count = ENV['COUNT']
     count = 1 if count.to_i <= 0
-    sleep_time = Settings.api_sleep_time || 0.8
+    sleep_time = Settings.api_sleep_time rescue 0.8
     Hotel.where(enabled: true).each do |hotel|
       puts "Importing ... " + hotel.no + " " + hotel.long_name
       api = Api::VacantApi.new(hotel, Settings.application_id, Settings.affiliate_id)

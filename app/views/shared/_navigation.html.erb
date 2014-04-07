@@ -1,19 +1,23 @@
 <%
   resource ||= nil
-  action ||= controller.action_name
 %>
 <div class="header-navigation">
 <ul class="nav nav-tabs">
-  <li class="<%= action == 'index' ? 'active' : '' %>">
+  <%= nav_content_tag(:li, :index) do -%>
     <%= link_to raw("<i class=\"fa fa-list\"></i>&nbsp;&nbsp;") + t('views.bootstrap3.tabs.index'), action: :index %>
-  </li>
-  <li class="<%= ["new", "create"].include?(action) ? 'active' : '' %>">
+  <% end -%>
+  <%= nav_content_tag(:li, [:new, :create]) do -%>
     <%= link_to raw("<i class=\"fa fa-file-o\"></i>&nbsp;&nbsp;") + t('views.bootstrap3.tabs.new'), action: :new %>
-  </li>
-  <% unless(resource.nil?) -%>
-  <li class="<%= ["edit", "update"].include?(action) ? 'active' : '' %>">
-    <%= link_to raw("<i class=\"fa fa-edit\"></i>&nbsp;&nbsp;") + t('views.bootstrap3.tabs.edit'), action: :edit, id: resource.id %>
-  </li>
+  <% end -%>
+  <% if(resource.present?) -%>
+    <%= nav_content_tag(:li, :show) do -%>
+      <%= link_to raw("<i class=\"fa fa-info-circle\"></i>&nbsp;&nbsp;") + t('views.bootstrap3.tabs.show'), action: :show, id: resource.id %>
+    <% end -%>
+    <% if params[:action] == 'edit' %>
+      <%= nav_content_tag(:li, [:edit, :update]) do -%>
+        <%= link_to raw("<i class=\"fa fa-edit\"></i>&nbsp;&nbsp;") + t('views.bootstrap3.tabs.edit'), action: :edit, id: resource.id %>
+      <% end -%>
+    <% end -%>
   <% end -%>
 </ul>
 </div>

@@ -1,0 +1,51 @@
+<% title @hotel.name %>
+<%= render partial: '/shared/navigation', locals: {resource: @hotel} %>
+<div class="media">
+  <p class="pull-left"><%= @hotel.image %></p>
+  <p class="pull-left"><%= @hotel.enable_label %></p>
+  <p class="pull-right">
+    <%= edit_link(@hotel) %>
+    <%= destroy_link(@hotel) %>
+  </p>
+  <div class="media-body">
+    <h4 class="media-heading">[<%= @hotel.no %>]&nbsp;<%= @hotel.link %></h4>
+    <%= @hotel.postal_code %>&nbsp;<%= @hotel.address1 %><%= @hotel.address2 %>(<%= @hotel.google_map_link %>)<br>
+    <%= @hotel.access %>
+  </div>
+</div>
+<h3>Rooms</h3>
+<ul class="list-group">
+<% @hotel.rooms.each do |room| -%>
+  <li class="list-group-item"><%= room.name %></li>
+<% end -%>
+</ul>
+<h3>Plans</h3>
+<ul class="list-group">
+  <% @hotel.plans.each do |plan| -%>
+  <li class="list-group-item"><%= plan.long_name %></li>
+  <% end -%>
+</ul>
+<h3>Charges</h3>
+<div class="table-responsive">
+<table class="table table-bordered table-condensed">
+<thead>
+  <th class="col-md-3"></th>
+<% 0.upto(6) do |i| %>
+  <th style="font-size:10px;"><%= l(i.days.since.to_date, format: :long) %></th>
+<% end -%>
+</thead>
+<tbody>
+<% @hotel.charges_by(0, 6).each do |r| -%>
+<tr>
+  <th><span style="font-size:12px;"><%= r[:room].name %></span></th>
+<% r[:charges].each_pair do |k,v| %>
+  <td class="<%= v[:can_stay] ? 'bg-primary' : ''%>">
+    <%= v[:can_stay] ? '可' : '不可' %><br>
+    <%= v[:amount] > 0 ? v[:amount] : '-' %>
+  </td>
+<% end -%>
+</tr>
+<% end -%>
+</tbody>
+</table>
+</div>

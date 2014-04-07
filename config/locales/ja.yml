@@ -208,6 +208,7 @@ ja:
       global:
         edit: '編集'
         destroy: '削除'
+        show: '詳細'
         confirm_destroy: '削除してよろしいですか?'
   activemodel:
     errors:
