@@ -1,7 +1,9 @@
 class Admin::HotelsController < Admin::ApplicationController
   before_filter :load_resource, only: [:edit, :update, :destroy]
   def index
-    @hotels = Hotel.order(:id).page params[:page]
+    @hotels = Hotel
+    @hotels = @hotels.where(area_id: params[:area_id]) if params[:area_id].present?
+    @hotels = @hotels.order(enabled: :desc).page params[:page]
   end
 
   def new
