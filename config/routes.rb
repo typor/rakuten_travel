@@ -1,3 +1,5 @@
+require 'sidekiq/web'
+require 'rakuten_travel/admin_constraint'
 RakutenTravel::Application.routes.draw do
 
   namespace :admin do
@@ -11,5 +13,6 @@ RakutenTravel::Application.routes.draw do
     resources :hotels
     resources :charges
     resources :plans
+    mount Sidekiq::Web => '/sidekiq', constraints: ::RakutenTravel::AdminConstraint.new
   end
 end
