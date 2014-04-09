@@ -21,6 +21,9 @@ gem 'kaminari'
 gem 'sorcery', '~> 0.8.5'
 gem 'bcrypt-ruby'
 gem 'email_validator'
+# sidekiq
+gem 'sidekiq'
+gem 'sinatra', '>= 1.3.0', require: nil
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

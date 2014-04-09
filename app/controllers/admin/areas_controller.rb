@@ -1,5 +1,5 @@
 class Admin::AreasController < ::Admin::ApplicationController
-  before_filter :load_resource, only: [:edit, :update, :destroy]
+  before_filter :load_resource, only: [:edit, :update, :destroy, :import_hotels]
   def index
     @areas = Area.order(enabled: :desc, id: :asc).page params[:page]
   end
@@ -30,6 +30,16 @@ class Admin::AreasController < ::Admin::ApplicationController
 
   def destroy
     @area.destroy
+    redirect_to action: :index
+  end
+
+  def import_hotels
+    jid = ImportHotelWorker.perform_async(@area.id)
+    if jid.nil?
+      flash[:error] = 'failed'
+    else
+      flash[:notice] = 'pushing into sidekiq' + jid.to_s
+    end
     redirect_to action: :index
   end
 

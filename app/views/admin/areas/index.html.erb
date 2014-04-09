@@ -8,6 +8,7 @@
       <th><%= Area.human_attribute_name(:short_name) %></th>
       <th><%= Area.human_attribute_name(:section) %></th>
       <th></th>
+      <th></th>
     </thead>
     <tbody>
       <% @areas.each do |area| -%>
@@ -16,6 +17,7 @@
           <td><%= area.long_name %></td>
           <td><%= area.short_name %></td>
           <td><%= area.section %></td>
+          <td><%= link_to 'ホテル取込', import_hotels_admin_area_path(area) %></td>
           <td>
             <%= edit_link(area) %>
             <%= destroy_link(area) %>
