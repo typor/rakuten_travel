@@ -1,0 +1,19 @@
+<% title @area.long_name %>
+<%= render partial: '/shared/navigation', locals: {resource: @area} %>
+<div class="media">
+  <p class="pull-left"><%= @area.enable_label %></p>
+  <p class="pull-right">
+    <%= edit_link(@area) %>
+    <%= destroy_link(@area) %>
+  </p>
+  <div class="media-body">
+    <h4 class="media-heading"><%= @area.long_name %></h4>
+    <p>
+      <%= Area.human_attribute_name(:short_name) %>:&nbsp;<%= @area.short_name.presence || raw('<span class="label label-warning">未設定</span>') %><br>
+      区分コード:&nbsp;<%= @area.section %><br>
+      ホテル数:&nbsp;<%= Hotel.where(area_id: @area.id).count %>
+    </p>
+  </div>
+</div>
+<%= link_to 'ホテル取込', import_hotels_admin_area_path(@area) %>
+<p></p>

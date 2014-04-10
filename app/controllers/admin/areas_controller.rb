@@ -1,5 +1,5 @@
 class Admin::AreasController < ::Admin::ApplicationController
-  before_filter :load_resource, only: [:edit, :update, :destroy, :import_hotels]
+  before_filter :load_resource, except: [:index, :new, :create]
   def index
     @areas = Area.order(enabled: :desc, id: :asc).page params[:page]
   end
@@ -15,6 +15,9 @@ class Admin::AreasController < ::Admin::ApplicationController
     else
       render :new
     end
+  end
+
+  def show
   end
 
   def edit
