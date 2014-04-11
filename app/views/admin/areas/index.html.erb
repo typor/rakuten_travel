@@ -5,20 +5,15 @@
     <thead>
       <th></th>
       <th><%= Area.human_attribute_name(:long_name) %></th>
-      <th><%= Area.human_attribute_name(:short_name) %></th>
-      <th><%= Area.human_attribute_name(:section) %></th>
-      <th></th>
       <th></th>
     </thead>
     <tbody>
       <% @areas.each do |area| -%>
         <tr>
-          <td><%= area.enable_label %></td>
-          <td><%= area.long_name %></td>
-          <td><%= area.short_name %></td>
-          <td><%= area.section %></td>
-          <td><%= link_to 'ホテル取込', import_hotels_admin_area_path(area) %></td>
+          <td><%= area.toggle_link %></td>
+          <td><%= area.name %><br><%= Area.human_attribute_name(:section) %>:&nbsp;<%= area.section %></td>
           <td>
+            <%= area.import_link %>
             <%= edit_link(area) %>
             <%= destroy_link(area) %>
           </td>

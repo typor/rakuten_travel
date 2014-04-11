@@ -9,6 +9,10 @@ module ApplicationHelper
     content_for :title, page_title.to_s + ' | kengos.jp'
   end
 
+  def include_js(filename, pos = :foot)
+    content_for :foot, javascript_include_tag(filename)
+  end
+
   def show_link(resource)
     link_to raw('<i class="fa fa-info-circle"></i>&nbsp;&nbsp;' + t('views.bootstrap3.global.show')),
       {action: :show, id: resource}, {class: 'btn btn-info btn-sm'}

@@ -1,7 +1,7 @@
 class Admin::AreasController < ::Admin::ApplicationController
-  before_filter :load_resource, only: [:edit, :update, :destroy, :import_hotels]
+  before_filter :load_resource, except: [:index, :new, :create]
   def index
-    @areas = Area.order(enabled: :desc, id: :asc).page params[:page]
+    @areas = Area.order(id: :asc).page params[:page]
   end
 
   def new
@@ -41,6 +41,14 @@ class Admin::AreasController < ::Admin::ApplicationController
       flash[:notice] = 'pushing into sidekiq' + jid.to_s
     end
     redirect_to action: :index
+  end
+
+  def toggle
+    status = @area.update(enabled: @area.enabled ? false : true)
+    respond_to do |format|
+      format.html { redirect_to action: :index }
+      format.json { render json: {status: status, enabled: @area.enabled} }
+    end
   end
 
   private

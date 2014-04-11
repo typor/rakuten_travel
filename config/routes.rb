@@ -10,9 +10,8 @@ RakutenTravel::Application.routes.draw do
     post 'welcome' => 'welcome#create'
     resources :sessions, only: %w(create)
     resources :areas, except: %w(show) do
-      member do
-        get 'import_hotels'
-      end
+      get 'import_hotels', on: :member
+      get 'toggle', on: :member
     end
     resources :hotels
     resources :charges
