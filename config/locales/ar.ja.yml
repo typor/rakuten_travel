@@ -18,6 +18,7 @@ ja:
         detail: "詳細区分"
         enabled: "有効"
         section: "区分"
+        hotel_count: "ホテル数"
       hotel:
         id: "ID"
         area_id: "地域"

@@ -5,19 +5,22 @@
     <thead>
       <th></th>
       <th><%= Area.human_attribute_name(:long_name) %></th>
-      <th><%= Area.human_attribute_name(:section) %></th>
       <th></th>
     </thead>
     <tbody>
       <% @areas.each do |area| -%>
         <tr>
-          <td><%= area.enable_label %></td>
-          <td><%= area.name %></td>
-          <td><%= area.section %></td>
-          <td><%= show_link(area) %></td>
+          <td><%= area.toggle_link %></td>
+          <td><%= area.name %><br><%= Area.human_attribute_name(:section) %>:&nbsp;<%= area.section %></td>
+          <td>
+            <%= area.import_link %>
+            <%= edit_link(area) %>
+            <%= destroy_link(area) %>
+          </td>
         </tr>
       <% end -%>
     </tbody>
   </table>
 </div>
 <%= paginate @areas %>
+<%= include_js 'admin/areas' %>

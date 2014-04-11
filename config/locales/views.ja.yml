@@ -13,6 +13,10 @@ ja:
     login_successful: 'ログインしました。'
     login_failure: 'ログインに失敗しました。'
     need_login: 'ログインが必要です。'
+  decorators:
+    area_decorator:
+      import_hotel: 'ホテル情報取込'
+      confirm_import_hotel: "ホテル情報取込処理の予約をおこないます。\nよろしいですか?"
   admin:
     welcome:
       success: "ユーザ登録が完了しました。\nログインして管理画面を利用してください。"
