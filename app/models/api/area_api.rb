@@ -1,7 +1,6 @@
 class Api::AreaApi
   def initialize(application_id)
     @client = RakutenTravelApi::GetAreaClass::Client.new(application_id)
-    @verbose = false
   end
 
   def request
