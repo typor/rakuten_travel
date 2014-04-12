@@ -2,6 +2,15 @@ def should_have_text_tag(name)
   should_have_input_tag('text', name: name)
 end
 
+def should_have_select_tag(name)
+  expect(response.body).to have_css("select[name=\"#{name}\"]")
+end
+
+def should_have_checkbox_tag(name)
+  should_have_input_tag('checkbox', name: name)
+  should_have_input_tag('hidden', name: name, value: 0)
+end
+
 def should_have_email_tag(name)
   should_have_input_tag('email', name: name)
 end

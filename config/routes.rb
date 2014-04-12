@@ -16,6 +16,7 @@ RakutenTravel::Application.routes.draw do
     resources :hotels
     resources :charges
     resources :plans
+    resources :rooms
     mount Sidekiq::Web => '/sidekiq', constraints: ::RakutenTravel::AdminConstraint.new
   end
 end

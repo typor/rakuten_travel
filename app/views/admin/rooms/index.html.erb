@@ -1,0 +1,26 @@
+<% title t('.title') %>
+<%= render partial: '/shared/navigation' %>
+<div class="table-responsive">
+  <table class="table table-bordered table-striped table-hover table-condensed">
+    <thead>
+      <th><%= Room.human_attribute_name(:hotel_id) %></th>
+      <th><%= Room.human_attribute_name(:name) %></th>
+      <td><%= Room.human_attribute_name(:smoking) %></td>
+      <th></th>
+    </thead>
+    <tbody>
+      <% @rooms.each do |room| -%>
+        <tr>
+          <td><%= room.admin_hotel_link %></td>
+          <td><%= room.code %><br><%= room.name %></td>
+          <td><%= room.smoking_label %></td>
+          <td>
+            <%= edit_link(room) %>
+            <%= destroy_link(room) %>
+          </td>
+        </tr>
+      <% end -%>
+    </tbody>
+  </table>
+</div>
+<%= paginate @rooms %>

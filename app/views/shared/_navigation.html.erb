@@ -1,5 +1,6 @@
 <%
   resource ||= nil
+  visible_show ||= false
 %>
 <div class="header-navigation">
 <ul class="nav nav-tabs">
@@ -10,8 +11,10 @@
     <%= link_to raw("<i class=\"fa fa-file-o\"></i>&nbsp;&nbsp;") + t('views.bootstrap3.tabs.new'), action: :new %>
   <% end -%>
   <% if(resource.present?) -%>
+    <% if(visible_show) -%>
     <%= nav_content_tag(:li, :show) do -%>
       <%= link_to raw("<i class=\"fa fa-info-circle\"></i>&nbsp;&nbsp;") + t('views.bootstrap3.tabs.show'), action: :show, id: resource.id %>
+    <% end -%>
     <% end -%>
     <% if params[:action] == 'edit' %>
       <%= nav_content_tag(:li, [:edit, :update]) do -%>

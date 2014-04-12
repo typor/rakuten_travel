@@ -1,0 +1,13 @@
+<%= horizontal_form_for(resource, control_col: 'col-md-3') do |f| %>
+  <%= f.collection_select :hotel_id,
+    resource.new_record? ? Hotel.select(:id, :long_name).where(enabled: true) : [resource.hotel], :id, :long_name,
+    control_col: "col-md-8" %>
+  <%= f.text_field :code %>
+  <%= f.text_field :name, control_col: 'col-md-8' %>
+  <%= f.form_group do %>
+    <%= f.check_box :smoking %>
+  <% end %>
+  <%= f.form_group do %>
+    <%= f.primary %>
+  <% end %>
+<% end %>
