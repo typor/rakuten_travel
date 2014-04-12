@@ -26,4 +26,5 @@ RakutenTravel::Application.configure do
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
   config.assets.debug = true
+  config.logger = ::ActiveSupport::Logger.new(Rails.root.join('log', 'development.log').to_s, 1, 10 * 1024 * 1024)
 end

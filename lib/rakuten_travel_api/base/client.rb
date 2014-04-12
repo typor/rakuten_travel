@@ -4,10 +4,11 @@ module RakutenTravelApi
   module Base
     class Client
       API_END_POINT = "https://app.rakuten.co.jp/".freeze
-      attr_reader :response
+      attr_reader :response, :id
 
       def initialize(request_url, application_id = nil, affiliate_id = nil)
         init_params(application_id, affiliate_id)
+        @id = Digest::MD5.hexdigest(application_id.to_s + affiliate_id.to_s) + '-' + SecureRandom.hex(12)
         @request_url = request_url
         yield @params if block_given?
       end

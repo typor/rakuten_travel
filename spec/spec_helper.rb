@@ -5,6 +5,9 @@ require 'rspec/rails'
 require 'capybara/rails'
 require 'capybara/rspec'
 require 'vcr'
+require 'sidekiq/testing'
+Sidekiq::Testing.fake!
+
 VCR.configure do |c|
   c.cassette_library_dir = File.expand_path(File.dirname(__FILE__) + '/fixtures/vcr')
   c.hook_into :webmock
@@ -36,6 +39,7 @@ RSpec.configure do |config|
   config.before :suite do
     begin
       DatabaseRewinder.clean_all
+      Sidekiq::Worker.clear_all
       FactoryGirl.lint
     rescue
       DatabaseRewinder.clean_all
@@ -44,6 +48,7 @@ RSpec.configure do |config|
 
   config.after :each do
     DatabaseRewinder.clean
+    Sidekiq::Worker.clear_all
   end
 end
 

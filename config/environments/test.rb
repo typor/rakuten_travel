@@ -33,4 +33,5 @@ RakutenTravel::Application.configure do
 
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
+  config.logger = ::ActiveSupport::Logger.new(Rails.root.join('log', 'test.log').to_s, 1, 1 * 1024 * 1024)
 end
