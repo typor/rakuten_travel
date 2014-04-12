@@ -1,10 +1,14 @@
 <% title t('.title') %>
 <%= render partial: '/shared/navigation' %>
+<div class="pull-right" style="margin-bottom:1em;">
+  <%= link_to icon('plus-square') + raw('&nbsp;&nbsp;') + t('.import'), import_admin_areas_path, class: 'btn btn-primary' %>
+</div>
 <div class="table-responsive">
   <table class="table table-bordered table-striped table-hover table-condensed">
     <thead>
       <th></th>
       <th><%= Area.human_attribute_name(:long_name) %></th>
+      <th><%= Area.human_attribute_name(:updated_at) %></th>
       <th></th>
     </thead>
     <tbody>
@@ -12,7 +16,8 @@
         <tr>
           <td><%= area.toggle_link %></td>
           <td><%= area.name %><br><%= Area.human_attribute_name(:section) %>:&nbsp;<%= area.section %></td>
-          <td>
+          <td><%= l area.updated_at, format: :short %></td>
+          <td class="col-md-3">
             <%= area.import_link %>
             <%= edit_link(area) %>
             <%= destroy_link(area) %>

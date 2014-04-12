@@ -6,7 +6,7 @@ module AreaDecorator
 
   def import_link
     link_to icon('cloud-download') + raw("&nbsp;&nbsp;") + t('decorators.area_decorator.import_hotel'), import_hotels_admin_area_path(self),
-              class: 'btn btn-sm btn-default', data: {confirm: t('decorators.area_decorator.confirm_import_hotel')}
+              class: 'btn btn-sm btn-success', data: {confirm: t('decorators.area_decorator.confirm_import_hotel')}
   end
 
   def enable_label

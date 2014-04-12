@@ -5,6 +5,9 @@ class ApplicationController < ActionController::Base
   layout 'application'
 
   def render_404
-    render template: "errors/error_404", status: 404
+    respond_to do |format|
+      format.html { render template: "errors/error_404", status: 404 }
+      format.any { head :not_found }
+    end
   end
 end

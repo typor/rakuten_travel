@@ -1,5 +1,5 @@
 class Admin::AreasController < ::Admin::ApplicationController
-  before_filter :load_resource, except: [:index, :new, :create]
+  before_filter :load_resource, except: [:index, :new, :create, :import]
   def index
     @areas = Area.order(id: :asc).page params[:page]
   end
@@ -34,12 +34,16 @@ class Admin::AreasController < ::Admin::ApplicationController
   end
 
   def import_hotels
-    jid = ImportHotelWorker.perform_async(@area.id)
-    if jid.nil?
-      flash[:error] = 'failed'
+    job_id = ImportHotelsByAreaWorker.perform_async(@area.id)
+    if job_id
+      flash[:notice] = I18n.t('sidekiq.successful_perform_async', job_id: job_id)
     else
-      flash[:notice] = 'pushing into sidekiq' + jid.to_s
+      flash[:error] = I18n.t('sidekiq.failure_perform_async')
     end
+  rescue Exception => e
+    Rails.logger.fatal "[#{self.class.to_s}] " + e.backtrace.join("\n")
+    flash[:error] = I18n.t('sidekiq.failure_perform_async')
+  ensure
     redirect_to action: :index
   end
 
@@ -49,6 +53,20 @@ class Admin::AreasController < ::Admin::ApplicationController
       format.html { redirect_to action: :index }
       format.json { render json: {status: status, enabled: @area.enabled} }
     end
+  end
+
+  def import
+    job_id = ImportAreasWorker.perform_async
+    if job_id
+      flash[:notice] = I18n.t('sidekiq.successful_perform_async', job_id: job_id)
+    else
+      flash[:error] = I18n.t('sidekiq.failure_perform_async')
+    end
+  rescue Exception => e
+    Rails.logger.fatal "[#{self.class.to_s}] " + e.backtrace.join("\n")
+    flash[:error] = I18n.t('sidekiq.failure_perform_async')
+  ensure
+    redirect_to action: :index
   end
 
   private

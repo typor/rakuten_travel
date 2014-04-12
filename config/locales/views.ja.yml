@@ -17,9 +17,14 @@ ja:
     not_smoking: '禁煙'
   decorators:
     area_decorator:
-      import_hotel: 'ホテル情報取込'
+      import_hotel: 'ホテル取込'
       confirm_import_hotel: "ホテル情報取込処理の予約をおこないます。\nよろしいですか?"
+  sidekiq:
+    successful_perform_async: "Job(%{job_id})を登録しました。"
+    failure_perform_async: "JOBの登録に失敗しました。"
   admin:
+    project_name: '楽天トラベルAPI Admin'
+    sidekiq: 'Job管理'
     welcome:
       success: "ユーザ登録が完了しました。\nログインして管理画面を利用してください。"
       new:
@@ -34,6 +39,7 @@ ja:
     areas:
       index:
         title: '地域設定'
+        import: '地域情報取込'
       new:
         title: '地域登録'
       edit:

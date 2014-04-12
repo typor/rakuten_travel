@@ -44,4 +44,70 @@ describe Admin::AreasController do
       expect(response).to redirect_to admin_areas_path
     }
   end
+
+  describe 'GET import_hotels' do
+    let!(:area) { create(:area) }
+    before {
+      expect {
+        get :import_hotels, id: area.id
+      }.to change(ImportHotelsByAreaWorker.jobs, :size).by(1)
+    }
+    it {
+      expect(response).to redirect_to admin_areas_path
+      expect(flash[:notice]).to be
+    }
+  end
+
+  describe 'GET toggle' do
+    context 'enabled is  is true' do
+      let!(:area) { create(:area, enabled: true) }
+      before {
+        get :toggle, id: area.id, format: :json
+      }
+      it {
+        json = JSON.parse(response.body)
+        expect(json['status']).to eq true
+        expect(json['enabled']).to eq false
+      }
+    end
+    context 'enabled is false' do
+      let!(:area) { create(:area, enabled: false) }
+      before {
+        get :toggle, id: area.id, format: :json
+      }
+      it {
+        json = JSON.parse(response.body)
+        expect(json['status']).to eq true
+        expect(json['enabled']).to eq true
+      }
+    end
+  end
+
+  describe 'GET import' do
+    before {
+      expect {
+        get :import
+      }.to change(ImportAreasWorker.jobs, :size).by(1)
+    }
+    it {
+      expect(response).to redirect_to admin_areas_path
+      expect(flash[:notice]).to be
+    }
+  end
+
+  describe '404' do
+    context 'html' do
+      before {
+        get :toggle, id: 0
+      }
+      it { expect(response).to render_template('errors/error_404') }
+    end
+
+    context 'json' do
+      before {
+        get :toggle, id: 0, format: :json
+      }
+      it { expect(response).to be_not_found }
+    end
+  end
 end
