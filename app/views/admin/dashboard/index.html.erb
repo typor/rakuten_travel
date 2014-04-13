@@ -1,1 +1,17 @@
-<h2>Dashboard#index</h2>
+<div class="col-md-4">
+  <!-- todo cache -->
+  <ul class="media-list">
+    <li class="media">
+      <%= render partial: 'bar', locals: {size: Area.where(enabled: true).count, total: Area.count, label: link_to(t('activerecord.models.area'), admin_areas_path) } %>
+    </li>
+    <li class="media">
+      <%= render partial: 'bar', locals: {size: Hotel.where(enabled: true).count, total: Hotel.count, label: link_to(t('activerecord.models.hotel'), admin_hotels_path) } %>
+    </li>
+    <li class="media">
+      <%= render partial: 'bar', locals: {size: Room.where(enabled: true).count, total: Room.count, label: link_to(t('activerecord.models.room'), admin_rooms_path) } %>
+    </li>
+    <li class="media">
+      <%= render partial: 'bar', locals: {size: Plan.where(enabled: true).count, total: Plan.count, label: link_to(t('activerecord.models.plan'), admin_rooms_path) } %>
+    </li>
+  </ul>
+</div>
