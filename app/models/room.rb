@@ -1,9 +1,14 @@
 class Room < ActiveRecord::Base
   validates :hotel_id, presence: true
   validates :code, presence: true, length: { maximum: 32 }, uniqueness: { scope: :hotel_id }
-  validates :name, presence: true, length: { maximum: 255 }
-  validates :smoking, inclusion: {in: [true, false]}
+  validates :long_name, presence: true, length: { maximum: 255 }
+  validates :short_name, length: { maximum: 32 }
+  validates_inclusion_of :smoking, :ladies, :enabled, in: [true, false]
   belongs_to :hotel
+
+  def name
+    short_name.presence || long_name
+  end
 
   def self.safe_keys(refresh = false)
     if refresh || !(defined? @@safe_keys)

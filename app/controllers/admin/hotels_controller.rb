@@ -49,7 +49,7 @@ class Admin::HotelsController < Admin::ApplicationController
   private
 
   def request_params
-    params.require(:hotel).permit(Hotel.new.safe_keys)
+    params.require(:hotel).permit(Hotel.safe_keys)
   end
 
   def load_resource

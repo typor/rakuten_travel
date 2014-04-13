@@ -1,6 +1,6 @@
 module HotelDecorator
   def image(width = 80)
-    image_tag(image_url, width: width, class: 'img-responsive')
+    image_tag(hotel_image_url, width: width, class: 'img-responsive')
   end
 
   def toggle_link
@@ -8,17 +8,8 @@ module HotelDecorator
       class: 'toggle-link', data: {'enabled-label' => t('global.enabled'), 'disabled-label' => t('global.disabled')}
   end
 
-  def name
-    return short_name unless short_name.blank?
-    long_name
-  end
-
   def link
     link_to name, url, target: '_blank'
-  end
-
-  def full_address
-    hotel.address1 + address2
   end
 
   def google_map_link(params = {})

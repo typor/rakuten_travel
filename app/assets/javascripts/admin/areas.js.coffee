@@ -12,3 +12,9 @@ $ ->
         element.find('span').attr('class', 'label label-warning').text(element.data('disabled-label'))
         alertify.success("無効にしました。");
   )
+  $("a.import-hotel-link").on('ajax:success', (data, response, xhr)->
+    if(response.status)
+      alertify.success("取込JOB" + response.job_id + ' を登録しました。')
+    else
+      alertify.error("JOB登録に失敗しました。");
+  )

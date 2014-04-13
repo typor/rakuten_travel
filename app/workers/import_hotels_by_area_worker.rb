@@ -3,8 +3,6 @@ class ImportHotelsByAreaWorker
   sidekiq_options queue: :import
 
   def perform(area_id)
-    logger.info "Starting"
-
     area = Area.find_by(id: area_id)
     if area.nil?
       logger.error "Unknown Area id: #{area_id}"
@@ -15,15 +13,14 @@ class ImportHotelsByAreaWorker
     hotels = api.request(area)
     c = 0
     hotels.each do |hotel|
-      if area.save
+      if hotel.save
         logger.info "Saving #{hotel.no}"
         c += 1
       else
-        logger.error "Failed to save [#{area.long_name}]" + area.errors.full_messages.join("\n")
+        logger.error "Failed to save [#{area.long_name}]" + hotel.errors.full_messages.join("\n")
       end
     end
-    logger.info "Finished"
     # set all nil
-    hotels = api = area nil
+    hotels = api = area = nil
   end
 end

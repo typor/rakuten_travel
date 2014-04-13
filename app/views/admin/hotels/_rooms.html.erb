@@ -1,0 +1,19 @@
+<h3><%= t('activerecord.models.room') %></h3>
+<div class="table-responsive">
+  <table class="table table-bordered table-striped table-hover table-condensed">
+    <thead>
+      <th><%= Room.human_attribute_name(:code) %></th>
+      <th><%= Room.human_attribute_name(:smoking) %></th>
+      <th><%= Room.human_attribute_name(:name) %></th>
+    </thead>
+    <tbody>
+      <% rooms.each do |room| -%>
+        <tr>
+          <td><%= room.code %></td>
+          <td><%= room.smoking_label %></td>
+          <td><%= room.name %></td>
+        </tr>
+      <% end -%>
+    </tbody>
+  </table>
+</div>

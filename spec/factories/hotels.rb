@@ -9,7 +9,7 @@ FactoryGirl.define do
     address1 '東京都'
     address2 '渋谷区'
     telephone_no '03-1234-5678'
-    image_url 'http://example.com/example.png'
+    hotel_image_url 'http://example.com/example.png'
     url 'http://example.com/'
     access 'dummy'
   end

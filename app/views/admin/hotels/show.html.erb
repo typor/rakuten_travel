@@ -13,18 +13,14 @@
     <%= @hotel.access %>
   </div>
 </div>
-<h3>Rooms</h3>
-<ul class="list-group">
-<% @hotel.rooms.each do |room| -%>
-  <li class="list-group-item"><%= room.name %></li>
-<% end -%>
-</ul>
-<h3>Plans</h3>
-<ul class="list-group">
-  <% @hotel.plans.each do |plan| -%>
-  <li class="list-group-item"><%= plan.long_name %></li>
-  <% end -%>
-</ul>
+<div class="row">
+  <div class="col-md-6">
+    <%= render partial: 'rooms', locals: {rooms: @hotel.rooms} %>
+  </div>
+  <div class="col-md-6">
+    <%= render partial: 'plans', locals: {plans: @hotel.plans} %>
+  </div>
+</div>
 <h3>Charges</h3>
 <div class="table-responsive">
 <table class="table table-bordered table-condensed">

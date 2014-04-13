@@ -36,17 +36,25 @@ class Admin::AreasController < ::Admin::ApplicationController
   end
 
   def import_hotels
-    job_id = ImportHotelsByAreaWorker.perform_async(@area.id)
-    if job_id
-      flash[:notice] = I18n.t('sidekiq.successful_perform_async', job_id: job_id)
-    else
-      flash[:error] = I18n.t('sidekiq.failure_perform_async')
+    begin
+      job_id = ImportHotelsByAreaWorker.perform_async(@area.id)
+    rescue Exception => e
+      Rails.logger.fatal "[#{self.class.to_s}] " + e.backtrace.join("\n")
     end
-  rescue Exception => e
-    Rails.logger.fatal "[#{self.class.to_s}] " + e.backtrace.join("\n")
-    flash[:error] = I18n.t('sidekiq.failure_perform_async')
-  ensure
-    redirect_to action: :index
+
+    respond_to do |format|
+      format.html {
+        if job_id.present?
+          flash[:notice] = I18n.t('sidekiq.successful_perform_async', job_id: job_id)
+        else
+          flash[:error] = I18n.t('sidekiq.failure_perform_async')
+        end
+        redirect_to action: :index
+      }
+      format.json {
+        render json: { status: job_id.present?, job_id: job_id }
+      }
+    end
   end
 
   def toggle

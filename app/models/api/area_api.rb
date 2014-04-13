@@ -4,13 +4,13 @@ class Api::AreaApi
   end
 
   def request
-    @response ||= @client.request
-    unless @response.success?
+    response ||= @client.request
+    unless response.success?
       Rails.logger.error "[#{@client.id}] Response error" + @response.body.to_s
       return []
     end
 
-    @response.areas.map do |f|
+    response.areas.map do |f|
       build_area(f)
     end
   end

@@ -9,13 +9,23 @@ class CreateHotels < ActiveRecord::Migration
       t.string :address1, length: 64, null: false
       t.string :address2, length: 255, null: false
       t.string :telephone_no, length: 32, null: false
-      t.text :image_url
+      t.boolean :enabled, default: false
       t.text :url
+      t.text :hotel_image_url
+      t.text :room_image_url
+      t.text :review_url
       t.text :access
       t.string :latitude, length: 16
       t.string :longitude, length: 16
       t.integer :room_num, default: 0
-      t.boolean :enabled, default: false
+      t.integer :review_count, default: 0
+      t.integer :review_average, default: 0
+      t.integer :service_average, default: 0
+      t.integer :location_average, default: 0
+      t.integer :room_average, default: 0
+      t.integer :equipment_average, default: 0
+      t.integer :bath_average, default: 0
+      t.integer :meal_average, default: 0
       t.timestamps
     end
   end
