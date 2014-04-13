@@ -85,3 +85,8 @@ ja:
         email: 'メールアドレス'
         password: 'パスワード'
         password_confirmation: 'パスワード(確認)'
+        last_login_at: '最終ログイン時刻'
+        last_login_from_ip_address: 'ログインIP'
+        last_logout_at: '最終ログアウト時刻'
+        last_activity_at: '最終活動時刻'
+        lock_expires_at: 'ロック時刻'

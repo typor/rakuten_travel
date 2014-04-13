@@ -1,0 +1,15 @@
+<%= horizontal_form_for(resource, control_col: 'col-md-6') do |f| %>
+  <%= f.email_field :email, required: 'required', maxlength: 255, autocomplete: 'off', class: 'ime-disabled' %>
+  <% unless resource.new_record? %>
+  <div class="form-group">
+    <p class="col-md-6 col-md-offset-2 text-warning">
+      <%= t('.notice') %>
+    </p>
+  </div>
+  <% end -%>
+  <%= f.password_field :password, autocomplete: 'off', class: 'ime-disabled' %>
+  <%= f.password_field :password_confirmation, autocomplete: 'off', class: 'ime-disabled' %>
+  <%= f.form_group do %>
+    <%= f.primary %>
+  <% end %>
+<% end %>

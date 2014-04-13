@@ -5,12 +5,23 @@ module ApplicationHelper
     error: 'alert-danger'
   }.freeze
 
+  # @override
+  def content_for(name, content = nil, &block)
+    @has_content ||= {}
+    @has_content[name] = true
+    super(name, content, &block)
+  end
+
+  def has_content?(name)
+    (@has_content && @has_content[name]) || false
+  end
+
   def title(page_title)
     content_for :title, page_title.to_s + ' | kengos.jp'
   end
 
-  def include_js(filename, pos = :foot)
-    content_for :foot, javascript_include_tag(filename)
+  def javascript_include_tag_to(pos, filename)
+    content_for pos, javascript_include_tag(filename)
   end
 
   def show_link(resource)
@@ -39,9 +50,9 @@ module ApplicationHelper
     end
 
     if urls.kind_of?(Hash)
-      return false if urls[:action].to_s != params[:action]
+      return false if urls[:action].present? && urls[:action].to_s != params[:action]
       return true if urls[:controller].nil?
-      return f[:controller].present? && f[:controller].to_s == params[:controller]
+      return urls[:controller].present? && urls[:controller].to_s == params[:controller]
     end
 
     if urls.kind_of?(Array)

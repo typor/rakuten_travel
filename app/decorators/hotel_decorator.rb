@@ -3,6 +3,11 @@ module HotelDecorator
     image_tag(image_url, width: width, class: 'img-responsive')
   end
 
+  def toggle_link
+    link_to enable_label, toggle_admin_hotel_path(self, format: :json),
+      class: 'toggle-link', data: {'enabled-label' => t('global.enabled'), 'disabled-label' => t('global.disabled')}
+  end
+
   def name
     return short_name unless short_name.blank?
     long_name

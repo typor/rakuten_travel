@@ -4,10 +4,11 @@ $ ->
     element = $(this)
     $.ajax(url: $(this).attr('href')).done (response)->
       if(response.enabled == undefined)
-        $.notify("Something wrong", "error");
+        alertify.error("Something wrong");
       else if(response.enabled == true)
         element.find('span').attr('class', 'label label-info').text(element.data('enabled-label'))
+        alertify.success("有効にしました。");
       else
         element.find('span').attr('class', 'label label-warning').text(element.data('disabled-label'))
-      $.notify("変更しました。", "success");
+        alertify.success("無効にしました。");
   )

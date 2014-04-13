@@ -1,0 +1,38 @@
+<% title t('.title') %>
+<%= render partial: '/shared/navigation' %>
+<div class="table-responsive">
+  <table class="table table-bordered table-striped table-hover table-condensed">
+    <thead>
+      <th><%= User.human_attribute_name(:id) %></th>
+      <th><%= User.human_attribute_name(:email) %></th>
+      <th><%= User.human_attribute_name(:last_login_at) %></th>
+      <th><%= User.human_attribute_name(:last_logout_at) %></th>
+      <th><%= User.human_attribute_name(:last_activity_at) %></th>
+      <th><%= User.human_attribute_name(:lock_expires_at) %></th>
+      <th></th>
+    </thead>
+    <tbody>
+      <% @users.each do |user| -%>
+        <tr>
+          <td><%= user.id %></td>
+          <td><%= user.email %></td>
+          <td>
+            <% if user.last_login_at -%>
+              <%= l(user.last_login_at, format: :short) %>
+              <br>
+              <%= user.last_login_from_ip_address %>
+            <% end -%>
+          </td>
+          <td><%= l(user.last_logout_at, format: :short) if user.last_logout_at %></td>
+          <td><%= l(user.last_activity_at, format: :short) if user.last_activity_at %></td>
+          <td><%= l(user.lock_expires_at, format: :short) if user.lock_expires_at %></td>
+          <td class="col-md-3">
+            <%= edit_link(user) %>
+            <%= destroy_link(user) if current_user.id != user.id %>
+          </td>
+        </tr>
+      <% end -%>
+    </tbody>
+  </table>
+</div>
+<%= paginate @users %>

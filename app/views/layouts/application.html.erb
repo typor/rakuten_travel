@@ -22,8 +22,25 @@
     </div>
     <div class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">Profile</a></li>
-        <li><%= link_to t('admin.sidekiq'), admin_sidekiq_web_path, target: '_blank' %></li>
+        <%= nav_content_tag(:li, {controller: 'admin/hotels'}) do -%>
+          <%= link_to t('admin.menu.hotels'), admin_hotels_path %>
+        <% end -%>
+        <%= nav_content_tag(:li, {controller: 'admin/areas'}) do -%>
+          <%= link_to t('admin.menu.areas'), admin_areas_path %>
+        <% end -%>
+        <%= nav_content_tag(:li, {controller: 'admin/plans'}) do -%>
+          <%= link_to t('admin.menu.plans'), admin_plans_path %>
+        <% end -%>
+        <%= nav_content_tag(:li, {controller: 'admin/rooms'}) do -%>
+          <%= link_to t('admin.menu.rooms'), admin_rooms_path %>
+        <% end -%>
+        <%= nav_content_tag(:li, {controller: 'admin/charges'}) do -%>
+          <%= link_to t('admin.menu.charges'), admin_charges_path %>
+        <% end -%>
+        <%= nav_content_tag(:li, {controller: 'admin/accounts'}) do -%>
+          <%= link_to t('admin.menu.accounts'), admin_accounts_path %>
+        <% end -%>
+        <li><%= link_to t('admin.menu.sidekiq'), admin_sidekiq_web_path, target: '_blank' %></li>
       </ul>
     </div>
   </div>
@@ -31,19 +48,20 @@
 
 <div class="container-fluid">
   <div class="row">
-    <div class="col-sm-3 col-md-2 sidebar">
-      <ul class="nav nav-sidebar">
-        <li><%= link_to 'ホテル', admin_hotels_path %></li>
-        <li><%= link_to 'プラン', admin_plans_path %></li>
-        <li><%= link_to '部屋', admin_rooms_path %></li>
-        <li><%= link_to '地区', admin_areas_path %></li>
-        <li><%= link_to '料金', admin_charges_path %></li>
-      </ul>
-    </div>
-    <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+  <% if has_content?(:sidebar) %>
+    <div class="col-sm-9 col-md-10 main">
       <%= render_flash_messages %>
       <%= yield %>
     </div>
+    <div class="col-sm-3 col-md-2 sidebar">
+      <%= yield :sidebar %>
+    </div>
+  <% else %>
+    <div class="col-sm-12 col-md-12 main">
+      <%= render_flash_messages %>
+      <%= yield %>
+    </div>
+  <% end %>
   </div>
 </div>
 <footer id="footer">

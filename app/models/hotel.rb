@@ -20,6 +20,10 @@ class Hotel < ActiveRecord::Base
     self.attributes.keys.select{|k, v| %w(id created_at updated_at).include?(k) != true }
   end
 
+  def toggle_enabled
+    self.update(enabled: !self.enabled)
+  end
+
   def charges_by(start, finish)
     results = []
     rooms = Room.where(hotel_id: self.id).load
