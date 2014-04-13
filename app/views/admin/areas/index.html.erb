@@ -1,14 +1,26 @@
 <% title t('.title') %>
 <%= render partial: '/shared/navigation' %>
+<div class="search-box">
+<%= search_form_for @search, url: admin_areas_path, method: :get, class: 'form-inline', role: 'form' do |f| %>
+  <div class="form-group col-md-4">
+    <div class="input-group">
+      <%= f.text_field :long_name_cont, class: 'form-control col-md-4', placeholder: Area.human_attribute_name(:long_name) %>
+      <span class="input-group-btn">
+        <button type="submit" class="btn btn-default"><%= icon('search') %></button>
+      </span>
+    </div>
+  </div>
+<% end -%>
+</div>
 <div class="pull-right" style="margin-bottom:1em;">
   <%= link_to icon('plus-square') + raw('&nbsp;&nbsp;') + t('.import'), import_admin_areas_path, class: 'btn btn-primary' %>
 </div>
 <div class="table-responsive">
   <table class="table table-bordered table-striped table-hover table-condensed">
     <thead>
-      <th></th>
-      <th><%= Area.human_attribute_name(:long_name) %></th>
-      <th><%= Area.human_attribute_name(:updated_at) %></th>
+      <th><%= sort_link(@search, :enabled, '#') %></th>
+      <th><%= sort_link(@search, :long_name, Area.human_attribute_name(:long_name)) %></th>
+      <th><%= sort_link(@search, :updated_at, Area.human_attribute_name(:updated_at)) %></th>
       <th></th>
     </thead>
     <tbody>
