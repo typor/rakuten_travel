@@ -1,9 +1,9 @@
 class Admin::HotelsController < Admin::ApplicationController
   before_filter :load_resource, only: [:show, :edit, :update, :destroy]
   def index
-    @hotels = Hotel
-    @hotels = @hotels.where(area_id: params[:area_id]) if params[:area_id].present?
-    @hotels = @hotels.order(enabled: :desc).page params[:page]
+    @search = Hotel.search(params[:q])
+    @search.sorts = 'id asc' if @search.sorts.empty?
+    @hotels = @search.result.page params[:page]
   end
 
   def show

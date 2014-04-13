@@ -22,6 +22,8 @@ gem 'hiredis'
 gem 'redis', require:  ["redis", "redis/connection/hiredis"]
 gem 'sidekiq'
 gem 'sinatra', '>= 1.3.0', require: nil
+# search
+gem "ransack", github: "activerecord-hackery/ransack", branch: "rails-4"
 # utils
 gem 'faraday'
 gem 'settingslogic'
@@ -52,7 +54,7 @@ end
 group :development, :test do
   gem 'guard-rspec', '~> 4.2.8', require: false
   gem 'rspec', '~> 3.0.0.beta2'
-  gem 'rspec-rails', '~> 3.0.0.beta'
+  gem 'rspec-rails', '~> 3.0.0.beta2'
   gem 'factory_girl_rails'
   gem 'capybara'
 end

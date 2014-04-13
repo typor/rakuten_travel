@@ -1,7 +1,9 @@
 class Admin::AreasController < ::Admin::ApplicationController
   before_filter :load_resource, except: [:index, :new, :create, :import]
   def index
-    @areas = Area.order(id: :asc).page params[:page]
+    @search = Area.search(params[:q])
+    @search.sorts = 'id asc' if @search.sorts.empty?
+    @areas = @search.result.page params[:page]
   end
 
   def new
