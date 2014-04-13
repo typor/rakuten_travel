@@ -28,4 +28,75 @@ module HotelDecorator
       raw('<span class="label label-warning">' + t('global.disabled') + '</span>')
     end
   end
+
+  def room_num_label
+    t('global.rooms', num: room_num)
+  end
+
+  def review_score
+    bar = review_progressbar
+    score = (review_average.to_f / 100.0).to_s
+    review_link_label = Hotel.human_attribute_name(:review_count) + ' ' + content_tag(:span, review_count, itemprop: 'reivewCount')
+    review_link = link_to raw(review_link_label), review_url, target: '_blank'
+    <<-"EOS".html_safe
+<div itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+  <h5>評価 (#{review_link})</h5>
+  <meta itemprop="worstRating" content="1">
+  #{bar}
+  <meta itemprop="ratingValue" content="#{score}">
+</div>
+    EOS
+  end
+
+  def review_progressbar
+    progressbar(review_average, Hotel.human_attribute_name(:review_average))
+  end
+
+  def service_progressbar
+    progressbar(service_average, Hotel.human_attribute_name(:service_average))
+  end
+
+  def location_progressbar
+    progressbar(location_average, Hotel.human_attribute_name(:location_average))
+  end
+
+  def room_progressbar
+    progressbar(room_average, Hotel.human_attribute_name(:room_average))
+  end
+
+  def equipment_progressbar
+    progressbar(equipment_average, Hotel.human_attribute_name(:equipment_average))
+  end
+
+  def bath_progressbar
+    progressbar(bath_average, Hotel.human_attribute_name(:bath_average))
+  end
+
+  def meal_progressbar
+    progressbar(meal_average, Hotel.human_attribute_name(:meal_average))
+  end
+
+  def progressbar(value, name)
+    return if value == 0
+    width = ((value.to_f / 500.0) * 100).to_s + '%'
+    score = ((value.to_f / 100.0)).to_s
+    css_class = "progress-bar " + progressbar_css(value)
+    bar = content_tag(:div, "#{name}: #{score}", role: 'progressbar', class: css_class, 'area-value' => value, 'area-valuemin' => 0, 'area-valuemax' => 500, style: 'text-align:left; padding-left: 1em; width: ' + width)
+    content_tag(:div, raw(bar), class: 'progress')
+  end
+
+  def progressbar_css(value)
+    c = ''
+    if value < 200
+      c = 'danger'
+    elsif value >= 200 && value < 300
+      c = 'warning'
+    elsif value >= 300 && value < 400
+      c = 'info'
+    else
+      c = 'success'
+    end
+
+    'progress-bar-' + c
+  end
 end

@@ -15,6 +15,7 @@ ja:
     need_login: 'ログインが必要です。'
     smoking: '喫煙'
     not_smoking: '禁煙'
+    rooms: ! '%{num} 部屋'
   decorators:
     area_decorator:
       import_hotel: 'ホテル取込'
