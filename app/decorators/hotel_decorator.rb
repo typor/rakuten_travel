@@ -34,6 +34,7 @@ module HotelDecorator
   end
 
   def review_score
+    return '' if review_average == 0
     bar = review_progressbar
     score = (review_average.to_f / 100.0).to_s
     review_link_label = Hotel.human_attribute_name(:review_count) + ' ' + content_tag(:span, review_count, itemprop: 'reivewCount')

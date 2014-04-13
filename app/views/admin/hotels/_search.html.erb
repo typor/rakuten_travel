@@ -1,18 +1,29 @@
-<div class="search-box clearfix">
-<div class="col-md-4">
-<%= search_form_for @search, url: admin_hotels_path, method: :get, role: 'form' do |f| %>
+<div class="search-box">
+<%= search_form_for @search, url: admin_hotels_path, method: :get, class: 'form-horizontal', role: 'form' do |f| %>
   <div class="form-group">
-    <%= f.collection_select :area_id_eq, Area.select(:id, :long_name).load, :id, :long_name, {prompt: t('activerecord.models.area')}, {class: 'form-control'} %>
+    <%= f.label t('activerecord.models.area'), class: 'control-label col-md-2' %>
+    <div class="col-md-8">
+      <%= f.collection_select :area_id_eq, Area.select(:id, :long_name).load, :id, :long_name, {prompt: true}, {class: 'form-control'} %>
+    </div>
   </div>
   <div class="form-group">
-    <div class="input-group">
-      <%= f.text_field :long_name_or_short_name_cont, class: 'form-control col-md-4', placeholder: Hotel.human_attribute_name(:name) %>
-      <span class="input-group-btn">
-        <button type="submit" class="btn btn-default"><%= icon('search') %></button>
-      </span>
+    <%= f.label Hotel.human_attribute_name(:review_count), class: 'control-label col-md-2' %>
+    <div class="col-md-2">
+      <%= f.number_field :review_count_gteq, class: 'form-control'  %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :name, class: 'control-label col-md-2' %>
+    <div class="col-md-5">
+      <%= f.text_field :long_name_or_short_name_cont, class: 'form-control' %>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-md-8 col-md-offset-2">
+      <button type="submit" class="btn btn-default"><%= icon('search') %>  検索</button>
     </div>
   </div>
 <% end -%>
-</div>
 </div>
 <%= javascript_include_tag_to :foot, 'admin/hotels' %>

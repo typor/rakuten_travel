@@ -6,14 +6,21 @@
   <li class="media" style="border-bottom:1px solid #eee;">
     <p class="pull-left"><%= hotel.image %></p>
     <p class="pull-left"><%= hotel.toggle_link %></p>
-    <p class="pull-right">
-      <%= show_link(hotel) %>
-      <%= destroy_link(hotel) %>
-    </p>
     <div class="media-body">
       <h4 class="media-heading">[<%= hotel.no %>]&nbsp;<%= hotel.link %></h4>
-      <%= hotel.postal_code %>&nbsp;<%= hotel.address1 %><%= hotel.address2 %>(<%= hotel.google_map_link %>)<br>
-      <%= hotel.access %>
+      <div class="row">
+        <div class="col-md-10">
+          <%= hotel.postal_code %>&nbsp;<%= hotel.address1 %><%= hotel.address2 %>(<%= hotel.google_map_link %>)<br>
+          <%= hotel.access %><br>
+          <div style="width: 50%;">
+            <%= hotel.review_score %>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <%= show_link(hotel) %>
+          <%= destroy_link(hotel) %>
+        </div>
+      </div>
     </div>
   </li>
   <% end -%>
