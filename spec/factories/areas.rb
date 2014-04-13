@@ -6,6 +6,6 @@ FactoryGirl.define do
     large "japan"
     middle "tokyo"
     small "tokyo"
-    detail "D"
+    sequence(:detail){|n| n }
   end
 end

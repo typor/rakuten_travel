@@ -1,11 +1,12 @@
 <% title t('.title') %>
 <%= render partial: '/shared/navigation' %>
 <div class="search-box clearfix">
-<%= search_form_for @search, url: admin_hotels_path, method: :get, class: 'form-inline', role: 'form' do |f| %>
-  <div class="form-group col-md-6">
-    <%= f.collection_select :area_id_eq, Area.select(:id, :long_name).load, :id, :long_name, {prompt: t('activerecord.models.area')}, {class: "form-control"} %>
+<div class="col-md-6">
+<%= search_form_for @search, url: admin_hotels_path, method: :get, role: 'form' do |f| %>
+  <div class="form-group">
+    <%= f.collection_select :area_id_eq, Area.select(:id, :long_name).load, :id, :long_name, {prompt: t('activerecord.models.area')}, {class: 'form-control'} %>
   </div>
-  <div class="form-group col-md-5">
+  <div class="form-group">
     <div class="input-group">
       <%= f.text_field :long_name_or_short_name_cont, class: 'form-control col-md-4', placeholder: Hotel.human_attribute_name(:name) %>
       <span class="input-group-btn">
@@ -15,7 +16,8 @@
   </div>
 <% end -%>
 </div>
-<br>
+</div>
+<br class="clearfix">
 <ul class="media-list">
   <% @hotels.each do |hotel| -%>
   <li class="media" style="border-bottom:1px solid #eee;">
