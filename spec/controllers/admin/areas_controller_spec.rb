@@ -47,15 +47,27 @@ describe Admin::AreasController do
 
   describe 'GET import_hotels' do
     let!(:area) { create(:area) }
-    before {
-      expect {
-        get :import_hotels, id: area.id
-      }.to change(ImportHotelsByAreaWorker.jobs, :size).by(1)
-    }
-    it {
-      expect(response).to redirect_to admin_areas_path
-      expect(flash[:notice]).to be
-    }
+    context 'html' do
+      before {
+        expect {
+          get :import_hotels, id: area.id
+        }.to change(ImportHotelsByAreaWorker.jobs, :size).by(1)
+      }
+      it {
+        expect(response).to redirect_to admin_areas_path
+        expect(flash[:notice]).to be
+      }
+    end
+
+    context 'json' do
+      before {
+        expect {
+          get :import_hotels, id: area.id, format: :json
+        }.to change(ImportHotelsByAreaWorker.jobs, :size).by(1)
+      }
+      subject(:json) { JSON.parse(response.body) }
+      it { expect(json['status']).to eq true }
+    end
   end
 
   describe 'GET toggle' do
@@ -84,15 +96,17 @@ describe Admin::AreasController do
   end
 
   describe 'GET import' do
-    before {
-      expect {
-        get :import
-      }.to change(ImportAreasWorker.jobs, :size).by(1)
-    }
-    it {
-      expect(response).to redirect_to admin_areas_path
-      expect(flash[:notice]).to be
-    }
+    context 'html' do
+      before {
+        expect {
+          get :import
+        }.to change(ImportAreasWorker.jobs, :size).by(1)
+      }
+      it {
+        expect(response).to redirect_to admin_areas_path
+        expect(flash[:notice]).to be
+      }
+    end
   end
 
   describe '404' do

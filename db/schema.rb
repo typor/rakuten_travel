@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140403121554) do
+ActiveRecord::Schema.define(version: 20140403121552) do
 
   create_table "areas", force: true do |t|
     t.string   "long_name",                  null: false
@@ -54,21 +54,31 @@ ActiveRecord::Schema.define(version: 20140403121554) do
   add_index "charges", ["room_id"], name: "index_charges_on_room_id"
 
   create_table "hotels", force: true do |t|
-    t.integer  "area_id",                      null: false
-    t.string   "no",                           null: false
-    t.string   "long_name",                    null: false
+    t.integer  "area_id",                           null: false
+    t.string   "no",                                null: false
+    t.string   "long_name",                         null: false
     t.string   "short_name"
-    t.string   "postal_code",                  null: false
-    t.string   "address1",                     null: false
-    t.string   "address2",                     null: false
-    t.string   "telephone_no",                 null: false
-    t.text     "image_url"
+    t.string   "postal_code",                       null: false
+    t.string   "address1",                          null: false
+    t.string   "address2",                          null: false
+    t.string   "telephone_no",                      null: false
+    t.boolean  "enabled",           default: false
     t.text     "url"
+    t.text     "hotel_image_url"
+    t.text     "room_image_url"
+    t.text     "review_url"
     t.text     "access"
     t.string   "latitude"
     t.string   "longitude"
-    t.integer  "room_num",     default: 0
-    t.boolean  "enabled",      default: false
+    t.integer  "room_num",          default: 0
+    t.integer  "review_count",      default: 0
+    t.integer  "review_average",    default: 0
+    t.integer  "service_average",   default: 0
+    t.integer  "location_average",  default: 0
+    t.integer  "room_average",      default: 0
+    t.integer  "equipment_average", default: 0
+    t.integer  "bath_average",      default: 0
+    t.integer  "meal_average",      default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -80,9 +90,11 @@ ActiveRecord::Schema.define(version: 20140403121554) do
     t.string   "short_name"
     t.integer  "payment_code",   default: 1,     null: false
     t.text     "description"
-    t.integer  "point_rate",     default: 0
-    t.boolean  "with_dinner",    default: false
-    t.boolean  "with_breakfast", default: false
+    t.integer  "point_rate",     default: 0,     null: false
+    t.boolean  "with_dinner",    default: false, null: false
+    t.boolean  "with_breakfast", default: false, null: false
+    t.integer  "quo",            default: 0,     null: false
+    t.boolean  "enabled",        default: true,  null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -92,8 +104,11 @@ ActiveRecord::Schema.define(version: 20140403121554) do
   create_table "rooms", force: true do |t|
     t.integer  "hotel_id",                   null: false
     t.string   "code",                       null: false
-    t.string   "name",                       null: false
+    t.string   "long_name",                  null: false
+    t.string   "short_name"
     t.boolean  "smoking",    default: false, null: false
+    t.boolean  "ladies",     default: false, null: false
+    t.boolean  "enabled",    default: true,  null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -102,8 +117,6 @@ ActiveRecord::Schema.define(version: 20140403121554) do
     t.string   "email",                                  null: false
     t.string   "crypted_password",                       null: false
     t.string   "salt",                                   null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.integer  "failed_logins_count",        default: 0
     t.datetime "lock_expires_at"
     t.string   "unlock_token"
@@ -111,6 +124,8 @@ ActiveRecord::Schema.define(version: 20140403121554) do
     t.datetime "last_logout_at"
     t.datetime "last_activity_at"
     t.string   "last_login_from_ip_address"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

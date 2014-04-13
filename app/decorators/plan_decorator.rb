@@ -1,8 +1,4 @@
 module PlanDecorator
-  def name
-    return short_name unless short_name.blank?
-    long_name
-  end
 
   def hotel_name
     return 'Invalid hotel' unless hotel

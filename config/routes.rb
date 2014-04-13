@@ -14,10 +14,13 @@ RakutenTravel::Application.routes.draw do
       get 'import_hotels', on: :member
       get 'toggle', on: :member
     end
-    resources :hotels
+    resources :hotels do
+      get 'toggle', on: :member
+    end
     resources :charges
     resources :plans
     resources :rooms
+    resources :accounts, except: %w(show)
     mount Sidekiq::Web => '/sidekiq', constraints: ::RakutenTravel::AdminConstraint.new
   end
 end

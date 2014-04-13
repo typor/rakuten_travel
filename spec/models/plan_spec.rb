@@ -14,7 +14,7 @@ describe Plan do
 
   describe '.safe_keys' do
     subject(:safe_keys) { Plan.safe_keys }
-    it { expect(safe_keys.size).to eq 9 }
+    it { expect(safe_keys.size).to eq 11 }
     it { expect(safe_keys).to be_include 'hotel_id' }
     it { expect(safe_keys).to be_include 'code' }
     it { expect(safe_keys).to be_include 'long_name' }

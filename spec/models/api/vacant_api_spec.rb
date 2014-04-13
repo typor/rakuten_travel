@@ -87,14 +87,15 @@ describe Api::VacantApi do
   describe '#build_room' do
     context '喫煙' do
       let(:params) {
-        {'roomClass' => 'sm', 'roomName' => '喫煙シングル'}
+        {'roomClass' => 'sm', 'roomName' => '喫煙シングル(レディース)'}
       }
       subject(:room) { api.build_room(hotel.id, params) }
       it do
         expect(room.hotel_id).to eq hotel.id
         expect(room.code).to eq 'sm'
-        expect(room.name).to eq '喫煙シングル'
+        expect(room.long_name).to eq '喫煙シングル(レディース)'
         expect(room.smoking).to eq true
+        expect(room.ladies).to eq true
       end
       context '同じものをいれても、SAVEはされない' do
         before { api.build_room(hotel.id, params) }
@@ -111,7 +112,7 @@ describe Api::VacantApi do
       it do
         expect(room.hotel_id).to eq hotel.id
         expect(room.code).to eq 'sm'
-        expect(room.name).to eq '禁煙シングル'
+        expect(room.long_name).to eq '禁煙シングル'
         expect(room.smoking).to eq false
       end
     end

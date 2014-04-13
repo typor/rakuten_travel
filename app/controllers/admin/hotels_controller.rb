@@ -1,5 +1,5 @@
 class Admin::HotelsController < Admin::ApplicationController
-  before_filter :load_resource, only: [:show, :edit, :update, :destroy]
+  before_filter :load_resource, only: [:show, :edit, :update, :destroy, :toggle]
   def index
     @search = Hotel.search(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
@@ -38,10 +38,18 @@ class Admin::HotelsController < Admin::ApplicationController
     redirect_to action: :index
   end
 
+  def toggle
+    status = @hotel.toggle_enabled
+    respond_to do |format|
+      format.html { redirect_to action: :index }
+      format.json { render json: {status: status, enabled: @hotel.enabled} }
+    end
+  end
+
   private
 
   def request_params
-    params.require(:hotel).permit(Hotel.new.safe_keys)
+    params.require(:hotel).permit(Hotel.safe_keys)
   end
 
   def load_resource

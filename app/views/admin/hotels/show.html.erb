@@ -1,30 +1,49 @@
 <% title @hotel.name %>
-<%= render partial: '/shared/navigation', locals: {resource: @hotel} %>
+<%= render partial: '/shared/navigation', locals: {resource: @hotel, visible_show: true} %>
 <div class="media">
   <p class="pull-left"><%= @hotel.image %></p>
   <p class="pull-left"><%= @hotel.enable_label %></p>
-  <p class="pull-right">
-    <%= edit_link(@hotel) %>
-    <%= destroy_link(@hotel) %>
-  </p>
   <div class="media-body">
     <h4 class="media-heading">[<%= @hotel.no %>]&nbsp;<%= @hotel.link %></h4>
-    <%= @hotel.postal_code %>&nbsp;<%= @hotel.address1 %><%= @hotel.address2 %>(<%= @hotel.google_map_link %>)<br>
-    <%= @hotel.access %>
+    <div class="row">
+      <div class="col-md-9">
+        <%= @hotel.postal_code %>&nbsp;<%= @hotel.address1 %><%= @hotel.address2 %>(<%= @hotel.google_map_link %>)<br>
+        <%= @hotel.access %><br>
+        <%= @hotel.room_num_label %>
+      </div>
+      <div class="col-md-3">
+        <%= edit_link(@hotel) %>
+        <%= destroy_link(@hotel) %>
+      </div>
+    </div>
   </div>
 </div>
-<h3>Rooms</h3>
-<ul class="list-group">
-<% @hotel.rooms.each do |room| -%>
-  <li class="list-group-item"><%= room.name %></li>
-<% end -%>
-</ul>
-<h3>Plans</h3>
-<ul class="list-group">
-  <% @hotel.plans.each do |plan| -%>
-  <li class="list-group-item"><%= plan.long_name %></li>
-  <% end -%>
-</ul>
+<div class="reviews row">
+  <div class="col-md-6">
+    <%= @hotel.review_score %>
+      <h5>詳細な評価</h4>
+    <div class="row">
+      <div class="col-md-6">
+        <%= @hotel.service_progressbar %>
+        <%= @hotel.location_progressbar %>
+        <%= @hotel.room_progressbar %>
+      </div>
+      <div class="col-md-6">
+        <%= @hotel.equipment_progressbar %>
+        <%= @hotel.bath_progressbar %>
+        <%= @hotel.meal_progressbar %>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <%= render partial: 'rooms', locals: {rooms: @hotel.rooms} %>
+  </div>
+  <div class="col-md-6">
+    <%= render partial: 'plans', locals: {plans: @hotel.plans} %>
+  </div>
+</div>
 <h3>Charges</h3>
 <div class="table-responsive">
 <table class="table table-bordered table-condensed">
@@ -49,3 +68,5 @@
 </tbody>
 </table>
 </div>
+
+<%= javascript_include_tag_to :foot, 'admin/hotel' %>

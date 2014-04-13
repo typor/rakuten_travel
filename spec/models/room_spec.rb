@@ -5,9 +5,9 @@ describe Room do
     subject(:klass) { described_class.new }
     it { expect(klass).to validate_presence_of(:hotel_id) }
     it { expect(klass).to validate_presence_of(:code) }
-    it { expect(klass).to validate_presence_of(:name) }
+    it { expect(klass).to validate_presence_of(:long_name) }
     it { expect(klass).to ensure_length_of(:code).is_at_most(32) }
-    it { expect(klass).to ensure_length_of(:name).is_at_most(255) }
+    it { expect(klass).to ensure_length_of(:long_name).is_at_most(255) }
 
     describe 'uniqueness' do
       let!(:room) { create(:room) }
@@ -35,10 +35,12 @@ describe Room do
 
   describe '.safe_keys' do
     subject(:safe_keys) { described_class.safe_keys }
-    it { expect(safe_keys.size).to eq 4 }
-    it { expect(safe_keys).to be_include 'hotel_id' }
-    it { expect(safe_keys).to be_include 'code' }
-    it { expect(safe_keys).to be_include 'name' }
-    it { expect(safe_keys).to be_include 'smoking' }
+    let(:valid_keys) { %w(hotel_id code long_name short_name smoking ladies enabled) }
+    it {
+      expect(safe_keys.size).to eq valid_keys.size
+      valid_keys.each do |key|
+        expect(safe_keys).to be_include key
+      end
+    }
   end
 end

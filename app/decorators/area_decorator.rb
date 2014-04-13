@@ -5,8 +5,9 @@ module AreaDecorator
   end
 
   def import_link
-    link_to icon('cloud-download') + raw("&nbsp;&nbsp;") + t('decorators.area_decorator.import_hotel'), import_hotels_admin_area_path(self),
-              class: 'btn btn-sm btn-success', data: {confirm: t('decorators.area_decorator.confirm_import_hotel')}
+    link_to icon('cloud-download') + raw("&nbsp;&nbsp;") + t('decorators.area_decorator.import_hotel'),
+      import_hotels_admin_area_path(self, format: :json), remote: true,
+      class: 'btn btn-sm btn-success import-hotel-link', data: {type: 'json', confirm: t('decorators.area_decorator.confirm_import_hotel')}
   end
 
   def enable_label

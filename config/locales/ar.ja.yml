@@ -31,13 +31,22 @@ ja:
         address1: "都道府県"
         address2: "住所"
         telephone_no: "電話番号"
-        image_url: "画像URL"
+        hotel_image_url: "ホテル画像URL"
+        room_image_url: "部屋画像URL"
         url: "URL"
         access: 'アクセス'
         enabled: "有効"
         latitude: '緯度'
         longitude: '経度'
         room_num: '部屋数'
+        review_count: 'レビュー数'
+        review_average: '総合評価'
+        service_average: 'サービス'
+        location_average: '立地'
+        room_average: '部屋'
+        equipment_average: '設備・アメニティ'
+        bath_average: '風呂'
+        meal_average: '食事'
       room:
         id: 'ID'
         hotel_id: 'ホテル'
@@ -85,3 +94,8 @@ ja:
         email: 'メールアドレス'
         password: 'パスワード'
         password_confirmation: 'パスワード(確認)'
+        last_login_at: '最終ログイン時刻'
+        last_login_from_ip_address: 'ログインIP'
+        last_logout_at: '最終ログアウト時刻'
+        last_activity_at: '最終活動時刻'
+        lock_expires_at: 'ロック時刻'

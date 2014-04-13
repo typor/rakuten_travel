@@ -33,8 +33,6 @@ gem 'tapp'
 group :development do
   gem 'thin'
   gem 'i18n-tasks', '~> 0.3.9'
-  gem 'better_errors'
-  gem 'binding_of_caller'
   gem 'quiet_assets'
   gem 'rb-inotify', require: false
   gem 'rb-fsevent', require: false
