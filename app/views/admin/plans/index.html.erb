@@ -1,5 +1,6 @@
 <% title t('.title') %>
 <%= render partial: '/shared/navigation' %>
+<%= render partial: 'search', locals: {search: @search} %>
 <div class="table-responsive">
   <table class="table table-bordered table-striped table-hover table-condensed">
     <thead>

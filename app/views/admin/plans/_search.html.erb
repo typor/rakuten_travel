@@ -1,0 +1,50 @@
+<div class="search-box panel panel-default">
+<div class="panel-body">
+<%= search_form_for @search, url: admin_plans_path, method: :get, role: 'form' do |f| %>
+  <div class="form-group">
+    <div class="input-group col-md-4">
+      <%= f.text_field :long_name_or_short_name_cont, class: 'form-control', placeholder: Plan.human_attribute_name(:name) %>
+      <span class="input-group-btn">
+        <button type="submit" class="btn btn-default"><%= icon('search') %></button>
+      </span>
+    </div>
+  </div>
+  <div class="form-group last-form-group">
+    <div class="row">
+      <div class="col-md-3">
+        <div class="input-group">
+          <span class="input-group-addon">特典</span>
+          <%= f.number_field :quo_gteq, min: 0, step: 500, class: 'form-control input-sm' %>
+          <span class="input-group-addon">円以上</span>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="input-group">
+          <span class="input-group-addon">ポイント</span>
+          <%= f.number_field :point_rate_gteq, min: 0, max: 99, class: 'form-control input-sm' %>
+          <span class="input-group-addon">%</span>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="input-group">
+        <% Plan.payment_codes.each do |name, id| %>
+          <label for="payment_<%= id %>" class="checkbox-inline">
+            <%= check_box_tag('q[payment_code_eq_any][]', id, params[:q].try(:payment_code_eq_any).try(:include?, id), id: "payment_#{id}" ) %>
+            <%= name %>
+          </label>
+        <% end -%>
+          <label for="q_with_breakfast_eq" class="checkbox-inline">
+            <%= f.check_box :with_breakfast_eq %>
+            <%= Plan.human_attribute_name(:with_breakfast) %>
+          </label>
+          <label for="q_with_dinner_eq" class="checkbox-inline">
+            <%= f.check_box :with_dinner_eq %>
+            <%= Plan.human_attribute_name(:with_dinner) %>
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end -%>
+</div>
+</div>
