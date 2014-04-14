@@ -12,7 +12,12 @@
       <%= f.number_field :review_count_gteq, class: 'form-control'  %>
     </div>
   </div>
-
+  <div class="form-group">
+    <%= f.label :enabled, class: 'control-label col-md-2' %>
+    <div class="col-md-2">
+      <%= f.select :enabled_eq, [['有効', true], ['無効', false]], {prompt: true}, {class: 'form-control'} %>
+    </div>
+  </div>
   <div class="form-group">
     <%= f.label :name, class: 'control-label col-md-2' %>
     <div class="col-md-5">

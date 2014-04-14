@@ -24,8 +24,7 @@ class Api::HotelApi
   end
 
   def do_call(area_id)
-    response = yield api_client if block_given?
-    # response.tapp
+    response = block_given? ? (yield api_client) : api_client.request
     unless response.success?
       Rails.logger.error "[#{@client.id}] Response error" + @response.body.to_s
       return []
