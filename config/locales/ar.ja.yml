@@ -53,6 +53,8 @@ ja:
         code: 'コード'
         name: '名前'
         smoking: '喫煙'
+        ladies: 'レディース'
+        icons: 'アイコン'
       plan:
         id: 'ID'
         hotel_id: 'ホテル'

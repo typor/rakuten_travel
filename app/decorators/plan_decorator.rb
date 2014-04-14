@@ -11,6 +11,10 @@ module PlanDecorator
     raw("<span class=\"badge\">" + point_rate.to_s + "%</span>")
   end
 
+  def quo_label
+    content_tag(:span, number_with_delimiter(quo), class: 'badge') if quo >0
+  end
+
   def icons
     [].tap do |f|
       f << build_icon(t('global.with_dinner')) if with_dinner

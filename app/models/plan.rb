@@ -21,9 +21,11 @@ class Plan < ActiveRecord::Base
 
     # 文字列中から特典情報を取り出します。
     def parse_sepecial_gift(value)
-      v = /\¥?([1-9][\d\,]+)円?/.match(zen_to_han(value))
-      return 0 if v.nil?
-      v.captures.first.gsub(',', '').to_i
+      v = /\¥([1-9][\d\,]+)/.match(zen_to_han(value))
+      return v.captures.first.gsub(',', '').to_i if v.present?
+
+      v = /([1-9][\d\,]+円)/.match(zen_to_han(value))
+      v.nil? ? 0 : v.captures.first.gsub(',', '').to_i
     end
 
     def payment_codes
