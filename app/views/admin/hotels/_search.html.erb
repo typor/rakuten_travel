@@ -1,34 +1,32 @@
-<div class="search-box">
-<%= search_form_for @search, url: admin_hotels_path, method: :get, class: 'form-horizontal', role: 'form' do |f| %>
+<div class="search-box panel panel-default">
+<div class="panel-body">
+<%= search_form_for @search, url: admin_hotels_path, method: :get, role: 'form' do |f| %>
   <div class="form-group">
-    <%= f.label t('activerecord.models.area'), class: 'control-label col-md-2' %>
-    <div class="col-md-8">
-      <%= f.collection_select :area_id_eq, Area.select(:id, :long_name).load, :id, :long_name, {prompt: true}, {class: 'form-control'} %>
+    <div class="input-group col-md-6">
+      <%= f.text_field :long_name_or_short_name_cont, class: 'form-control', placeholder: Hotel.human_attribute_name(:name) %>
+      <span class="input-group-btn">
+        <button type="submit" class="btn btn-default"><%= icon('search') %></button>
+      </span>
     </div>
   </div>
-  <div class="form-group">
-    <%= f.label Hotel.human_attribute_name(:review_count), class: 'control-label col-md-2' %>
-    <div class="col-md-2">
-      <%= f.number_field :review_count_gteq, class: 'form-control'  %>
-    </div>
-  </div>
-  <div class="form-group">
-    <%= f.label :enabled, class: 'control-label col-md-2' %>
-    <div class="col-md-2">
-      <%= f.select :enabled_eq, [['有効', true], ['無効', false]], {prompt: true}, {class: 'form-control'} %>
-    </div>
-  </div>
-  <div class="form-group">
-    <%= f.label :name, class: 'control-label col-md-2' %>
-    <div class="col-md-5">
-      <%= f.text_field :long_name_or_short_name_cont, class: 'form-control' %>
-    </div>
-  </div>
-  <div class="form-group">
-    <div class="col-md-8 col-md-offset-2">
-      <button type="submit" class="btn btn-default"><%= icon('search') %>  検索</button>
+  <div class="form-group  last-form-group">
+    <div class="row">
+      <div class="col-md-5">
+        <%= f.collection_select :area_id_eq, Area.select(:id, :long_name).load, :id, :long_name, {prompt: true}, {class: 'form-control'} %>
+      </div>
+      <div class="col-md-3">
+        <div class="input-group">
+          <span class="input-group-addon">レビュー</span>
+          <%= f.number_field :review_count_gteq, min: 0, class: 'form-control input-sm' %>
+          <span class="input-group-addon">件以上</span>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <%= f.select :enabled_eq, [['有効', true], ['無効', false]], {prompt: true}, {class: 'form-control input-sm'} %>
+      </div>
     </div>
   </div>
 <% end -%>
+</div>
 </div>
 <%= javascript_include_tag_to :foot, 'admin/hotels' %>
