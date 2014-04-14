@@ -4,8 +4,9 @@
   <%= f.text_field :long_name, control_col: 'col-md-8' %>
   <%= f.text_field :short_name, control_col: 'col-md-6' %>
   <%= f.number_field :point_rate, max: 99, min: 0, append: '%', control_col: 'col-md-2' %>
+  <%= f.number_field :quo, min: 0, control_col: 'col-md-2' %>
   <%= f.text_area :description, control_col: 'col-md-8', rows: 5 %>
-  <%= f.select :payment_code, options_for_select(Plan.payment_codes) %>
+  <%= f.select :payment_code, Plan.payment_codes %>
   <%= f.form_group do %>
     <%= f.check_box :with_breakfast %>
     <%= f.check_box :with_dinner %>

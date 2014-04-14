@@ -4,14 +4,14 @@
     <thead>
       <th><%= Room.human_attribute_name(:code) %></th>
       <th><%= Room.human_attribute_name(:smoking) %></th>
-      <th><%= Room.human_attribute_name(:name) %></th>
+      <th><%= Room.human_attribute_name(:ladies) %></th>
     </thead>
     <tbody>
       <% rooms.each do |room| -%>
         <tr>
           <td><%= room.code %></td>
           <td><%= room.smoking_label %></td>
-          <td><%= room.name %></td>
+          <td><%= room.ladies_label %></td>
         </tr>
       <% end -%>
     </tbody>

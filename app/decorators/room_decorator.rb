@@ -7,6 +7,12 @@ module RoomDecorator
     end
   end
 
+  def ladies_label
+    if ladies
+      icon('check')
+    end
+  end
+
   def hotel_name
     return 'Invalid hotel' unless hotel
 
