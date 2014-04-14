@@ -1,24 +1,20 @@
 <h3><%= t('activerecord.models.plan') %></h3>
 <div class="table-responsive">
-  <table class="table table-bordered table-striped table-hover table-condensed">
+  <table class="table table-bordered table-condensed">
     <thead>
       <th><%= Plan.human_attribute_name(:code) %></th>
       <th><%= Plan.human_attribute_name(:name) %></th>
-      <th><%= Plan.human_attribute_name(:point_rate) %></th>
-      <th><%= Plan.human_attribute_name(:quo) %></th>
-      <th><%= Plan.human_attribute_name(:icons) %></th>
     </thead>
     <tbody>
       <% plans.each do |plan| -%>
         <tr>
           <td><%= plan.code %></td>
-          <td><%= plan.name %></td>
-          <td><%= plan.point %></td>
-          <td><%= plan.quo_label %></td>
           <td>
-            <% plan.icons.each do |icon| -%>
-              <%= raw(icon) %>
-            <% end -%>
+            <%= plan.name %><br>
+            <%= plan.payment_icon %>
+            <%= plan.point_icon %>
+            <%= plan.gift_icon %>
+            <%= plan.breakfast_icon %><%= plan.dinner_icon %>
           </td>
         </tr>
       <% end -%>

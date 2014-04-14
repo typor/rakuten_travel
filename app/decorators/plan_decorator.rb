@@ -8,7 +8,8 @@ module PlanDecorator
   end
 
   def point_icon
-    content_tag(:span, point_rate.to_s + '%')
+    css_class = point_rate > 1 ? 'label-success' : 'label-info'
+    content_tag(:span, point_rate.to_s + '%', class: "label #{css_class}")
   end
 
   def gift_icon
@@ -17,7 +18,7 @@ module PlanDecorator
 
   def breakfast_icon
     return '' unless with_breakfast
-    build_icon(t('global.with_breakfast'), 'label-info')
+    build_icon(t('global.with_breakfast'), 'label-primary')
   end
 
   def dinner_icon
@@ -27,11 +28,11 @@ module PlanDecorator
 
   def payment_icon
     if payment_code == 0
-      content_tag(:span, t('global.cash_only'), class: 'payment payment-cash')
+      content_tag(:span, t('global.cash_only'), class: 'label label-warning payment payment-cash')
     elsif payment_code == 1
-      content_tag(:span, t('global.cash_and_creditcard'), class: 'payment payment-cash payment-creditcard')
+      content_tag(:span, t('global.cash_and_creditcard'), class: 'label label-default payment payment-cash payment-creditcard')
     else
-      content_tag(:span, t('global.creditcard_only'), class: 'payment payment-creditcard')
+      content_tag(:span, t('global.creditcard_only'), class: 'label label-warning payment payment-creditcard')
     end
   end
 
