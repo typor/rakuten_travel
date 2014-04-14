@@ -29,8 +29,42 @@ describe Charge do
     end
   end
 
+  describe '#same?' do
+    let!(:charge) { create(:charge, hotel: hotel, room: room, plan: plan, amount: 1000, stay_day: 20140402, can_stay: true) }
+    before {
+      charge.add_history
+    }
+    it { expect(charge).to be_same }
+    it 'amount' do
+      charge.amount = 900
+      expect(charge).to_not be_same
+    end
+
+    it 'can_stay' do
+      charge.can_stay = false
+      expect(charge).to_not be_same
+    end
+
+  end
+
   describe '#add_history' do
     let!(:charge) { create(:charge, hotel: hotel, room: room, plan: plan, amount: 1000, stay_day: 20140402, can_stay: true) }
-    it { expect{ charge.add_history }.to change(ChargeHistory, :count).by(1) }
+    before {
+      expect { charge.add_history }.to change(ChargeHistory, :count).by(1)
+    }
+
+    context 'found charge_history' do
+      context 'same value' do
+        it { expect { charge.add_history }.to change(ChargeHistory, :count).by(0) }
+      end
+
+      context 'not same value' do
+        it do
+          charge.amount = 900
+          expect(charge).to_not be_same
+          expect { charge.add_history }.to change(ChargeHistory, :count).by(1)
+        end
+      end
+    end
   end
 end
