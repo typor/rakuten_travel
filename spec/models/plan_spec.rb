@@ -41,7 +41,7 @@ describe Plan do
 
   describe '.payment_codes' do
     subject(:payment_codes) { Plan.payment_codes }
-    it { expect(payment_codes).to eq({'現金のみ' => 0, 'カードのみ' => 1, '現金/カード' => 2}) }
+    it { expect(payment_codes).to eq({'現金のみ' => '0', '現金/カード' => '1', 'カードのみ' => '2'}) }
   end
 
   describe '.safe_keys' do

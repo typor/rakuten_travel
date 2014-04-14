@@ -55,16 +55,6 @@ ja:
         smoking: '喫煙'
         ladies: 'レディース'
         icons: 'アイコン'
-      plan:
-        id: 'ID'
-        hotel_id: 'ホテル'
-        code: 'コード'
-        name: '名前'
-        description: '説明'
-        payment_code: '支払方法'
-        point_rate: 'ポイントレート(%)'
-        with_dinner: '夕食'
-        with_breakfast: '朝食'
       charge:
         id: 'ID'
         hotel_id: 'ホテル'
@@ -83,9 +73,10 @@ ja:
         payment_code: '支払方法'
         description: '説明'
         point_rate: 'ポイント'
+        quo: '特典'
         with_dinner: '夕食'
         with_breakfast: '朝食'
-        icons: 'アイコン'
+        meal: '食事'
       charge_history:
         id: 'ID'
         amount: '料金'

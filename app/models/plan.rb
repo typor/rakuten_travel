@@ -7,6 +7,7 @@ class Plan < ActiveRecord::Base
   validates :description, length: { maximum: 3000 }
   validates :payment_code, presence: true, inclusion: { in: [0, 1, 2] }
   validates :point_rate, presence: true, numericality: { greater_than_or_equal_to: 0, less_than: 100 }
+  validates :quo, presence: true, numericality: { greater_than_or_equal_to: 0 }
   validates :with_dinner, inclusion: {in: [true, false]}
   validates :with_breakfast, inclusion: {in: [true, false]}
 
@@ -30,9 +31,9 @@ class Plan < ActiveRecord::Base
 
     def payment_codes
       {
-        I18n.t('global.cash_only') => 0,
-        I18n.t('global.creditcard_only') => 1,
-        I18n.t('global.cash_and_creditcard') => 2
+        I18n.t('global.cash_only') => '0',
+        I18n.t('global.cash_and_creditcard') => '1',
+        I18n.t('global.creditcard_only') => '2'
       }
     end
 

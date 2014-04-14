@@ -4,9 +4,11 @@
   <table class="table table-bordered table-striped table-hover table-condensed">
     <thead>
       <th class="col-md-2"><%= Plan.human_attribute_name(:hotel_id) %></th>
-      <th class="col-md-5"><%= Plan.human_attribute_name(:name) %></th>
+      <th class="col-md-4"><%= Plan.human_attribute_name(:name) %></th>
+      <th><%= Plan.human_attribute_name(:payment_code) %></th>
       <th><%= Plan.human_attribute_name(:point_rate) %></th>
-      <th><%= Plan.human_attribute_name(:icons) %></th>
+      <th><%= Plan.human_attribute_name(:quo) %></th>
+      <th><%= Plan.human_attribute_name(:meal) %></th>
       <th></th>
     </thead>
     <tbody>
@@ -14,12 +16,10 @@
         <tr>
           <td><%= plan.hotel_name %></td>
           <td><%= plan.code %><br><%= plan.name %></td>
-          <td><%= plan.point %></td>
-          <td>
-            <% plan.icons.each do |icon| -%>
-              <%= raw(icon) %>
-            <% end -%>
-          </td>
+          <td><%= plan.payment_icon %></td>
+          <td><%= plan.point_icon %></td>
+          <td><%= plan.gift_icon %></td>
+          <td><%= plan.breakfast_icon %><%= plan.dinner_icon %></td>
           <td>
             <%= edit_link(plan) %>
             <%= destroy_link(plan) %>
