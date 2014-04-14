@@ -7,10 +7,10 @@ describe Api::VacantApi do
     end
   end
 
-  let(:hotel) { create(:hotel, no: '163') }
+  let(:hotel) { create(:hotel, no: '509') }
   let(:api) { described_class.new(hotel, Settings.application_id) }
   describe '#request' do
-    let(:checkin) { 10 }
+    let(:checkin) { 30 }
     let(:vcr_name) { 'models/api/vacant_api/' + hotel.no + '_' + checkin.days.since.strftime('%Y%m%d') }
     subject(:response) {
       VCR.use_cassette(vcr_name) do
@@ -59,7 +59,7 @@ describe Api::VacantApi do
     let(:params) {
       {
        "planId" => 10000,
-       "planName" => "宿泊プラン【朝食付】",
+       "planName" => "宿泊プラン【朝食付】(Quoカード3,000円付き)",
        "pointRate" => 10,
        "withDinnerFlag" => 0,
        "withBreakfastFlag" => 1,
@@ -73,12 +73,13 @@ describe Api::VacantApi do
       subject(:plan) { api.build_plan(hotel.id, params) }
       it do
         expect(plan.hotel_id).to eq hotel.id
-        expect(plan.long_name).to eq '宿泊プラン【朝食付】'
+        expect(plan.long_name).to eq '宿泊プラン【朝食付】(Quoカード3,000円付き)'
         expect(plan.code).to eq 10000
         expect(plan.point_rate).to eq 10
         expect(plan.with_dinner).to eq false
         expect(plan.with_breakfast).to eq true
         expect(plan.payment_code).to eq 1
+        expect(plan.quo).to eq 3000
         expect(plan.description).to eq 'foo'
       end
     end

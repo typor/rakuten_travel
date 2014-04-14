@@ -3,9 +3,22 @@ class Api::VacantApi
   attr_accessor :client, :hotel
 
   def initialize(hotel, application_id, affiliate_id = nil)
-    @client = RakutenTravelApi::VacantHotelSearch::Client.new(application_id, affiliate_id)
+    @application_id = application_id
+    @affiliate_id = affiliate_id
+    @api_client = nil
     @hotel = hotel
     clear_cache
+  end
+
+  def requested_at
+    @requested_at ||= 0.days.since.strftime('%Y-%m-%d %H:%M:%S')
+  end
+
+  def api_client(refresh = false)
+    if refresh || @api_client.nil?
+      @api_client = RakutenTravelApi::VacantHotelSearch::Client.new(@application_id, @affiliate_id)
+    end
+    @api_client
   end
 
   def clear_cache
@@ -18,10 +31,7 @@ class Api::VacantApi
     stay_day = checkin.to_i.days.since.strftime('%Y%m%d')
 
     before_request(@hotel.id, stay_day)
-
-    @requested = 0.days.since.strftime('%Y-%m-%d %H:%M:%S')
-
-    @charges = do_call do |client|
+    charges = do_call do |client|
       client.request {|o|
         o.add_param :page, nil
         o.add_param :hotel_no, @hotel.no
@@ -30,13 +40,12 @@ class Api::VacantApi
       }
     end
 
-    while @client.next?
-      @charges += do_call {|client| client.next}
+    while api_client.next?
+      charges += do_call {|client| client.next}
     end
-
     after_request(@hotel.id, stay_day)
 
-    @charges.compact
+    charges.compact
   rescue Exception => e
     Rails.logger.error e.message
     Rails.logger.error e.backtrace.join("\n")
@@ -46,20 +55,22 @@ class Api::VacantApi
   def before_request(hotel_id, stay_day)
     # marked target charge data
     Charge.where(hotel_id: hotel_id, stay_day: stay_day).update_all(executed: false)
+    requested_at
   end
 
   def after_request(hotel_id, stay_day)
     # unmarked target charge data
     Charge.where(hotel_id: hotel_id, stay_day: stay_day, executed: false).each do |charge|
       charge.update(executed: true, can_stay: false)
-      charge.add_history(@requested)
+      charge.add_history(requested_at)
     end
   end
 
   def do_call
-    response = block_given? ? (yield @client) : @client.request
+    response = block_given? ? (yield api_client) : api_client.request
     if response.error?
       if response.not_found?
+        Rails.logger.info "VacantApi record not found"
         return
       else
         raise response.body.to_s
@@ -81,7 +92,7 @@ class Api::VacantApi
     charge = build_charge(@hotel.id, room.id, plan.id, params)
     raise "Failure creating charge object" if charge.nil?
 
-    charge.add_history(@requested)
+    charge.add_history(requested_at)
     charge
   rescue Exception => e
     Rails.logger.error e.message
@@ -120,11 +131,12 @@ class Api::VacantApi
     plan.attributes = {
       hotel_id: hotel_id,
       code: code,
-      long_name: params['planName'],
+      long_name: Plan.zen_to_han(params['planName']),
       point_rate: params['pointRate'],
       with_dinner: params['withDinnerFlag'],
       with_breakfast: params['withBreakfastFlag'],
       payment_code: params['payment'].to_i,
+      quo: Plan.parse_sepecial_gift(params['planName']),
       description: params['planContents']
     }
 
