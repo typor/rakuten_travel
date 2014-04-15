@@ -1,3 +1,4 @@
+<% title t('.title') %>
 <div class="col-md-4">
   <!-- todo cache -->
   <ul class="media-list">
@@ -12,6 +13,9 @@
     </li>
     <li class="media">
       <%= render partial: 'bar', locals: {size: Plan.where(enabled: true).count, total: Plan.count, label: link_to(t('activerecord.models.plan'), admin_rooms_path) } %>
+    </li>
+    <li class="media">
+      <%= render partial: 'bar', locals: {size: Charge.where(can_stay: true).count, total: Charge.count, label: link_to(t('activerecord.models.charge'), admin_rooms_path) } %>
     </li>
   </ul>
 </div>

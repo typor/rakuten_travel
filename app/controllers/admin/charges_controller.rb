@@ -1,7 +1,7 @@
 class Admin::ChargesController < Admin::ApplicationController
   def index
-    @charges = Charge.includes(:hotel, :room, :plan)
-    @charges = @charges.where(hotel_id: params[:hotel_id]) if params[:hotel_id]
-    @charges = @charges.order(stay_day: :asc).page params[:page]
+    @search = Charge.search(params[:q])
+    @search.sorts = 'stay_day asc' if @search.sorts.empty?
+    @charges = @search.result.page params[:page]
   end
 end

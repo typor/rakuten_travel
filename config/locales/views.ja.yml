@@ -48,6 +48,9 @@ ja:
         email: 'メールアドレス'
         password: 'パスワード'
         signin: 'ログイン'
+    dashboard:
+      index:
+        title: 'ダッシュボード'
     areas:
       index:
         title: '地域設定'

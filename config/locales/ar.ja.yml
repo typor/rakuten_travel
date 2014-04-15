@@ -68,7 +68,7 @@ ja:
         plan_id: 'プラン'
         amount: '料金'
         stay_day: '宿泊日'
-        can_stay: '宿泊可否'
+        can_stay: '宿泊可'
       plan:
         id: 'ID'
         hotel_id: 'ホテル'
