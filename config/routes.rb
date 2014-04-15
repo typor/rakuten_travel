@@ -17,7 +17,7 @@ RakutenTravel::Application.routes.draw do
     resources :hotels do
       get 'toggle', on: :member
     end
-    resources :charges
+    resources :charges, only: %w(index show)
     resources :plans
     resources :rooms
     resources :accounts, except: %w(show)

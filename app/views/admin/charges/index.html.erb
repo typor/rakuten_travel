@@ -1,4 +1,5 @@
 <% title t('.title') %>
+<%= render partial: 'navigation' %>
 <%= render partial: 'search', locals: {search: @search} %>
 <div class="table-responsive">
   <table class="table table-bordered table-striped table-hover table-condensed">
@@ -8,6 +9,7 @@
       <th><%= sort_link @search, :hotel_id, Charge.human_attribute_name(:hotel_id) %></th>
       <th><%= sort_link @search, :room_id, Charge.human_attribute_name(:room_id) %></th>
       <th><%= sort_link @search, :amount, Charge.human_attribute_name(:amount) %></th>
+      <th></th>
     </thead>
     <tbody>
       <% @charges.each do |charge| -%>
@@ -15,8 +17,9 @@
           <td><%= charge.stay_label %></td>
           <td><%= charge.stay_day %></td>
           <td><%= link_to charge.hotel.name, admin_hotel_path(charge.hotel_id) %></td>
-          <td><%= charge.room.name %><br><%= charge.plan.long_name %></td>
+          <td><%= charge.room.name %><br><%= charge.plan.name %></td>
           <td><%= charge.price %></td>
+          <td><%= show_link(charge) %></td>
         </tr>
       <% end -%>
     </tbody>

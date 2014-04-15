@@ -1,0 +1,9 @@
+<% title t('.title') %>
+<%= render partial: 'navigation', locals: {resource: @charge} %>
+<div class="row">
+  <div class="col-md-4">
+    <h3><%= t('activerecord.models.charge_history') %></h3>
+    <span class="label label-info"><%= Charge.human_attribute_name(:updated_at) %>: <%= l @charge.updated_at %></span>
+    <%= render partial: 'histories', locals: {histories: @charge.histories} %>
+  </div>
+</div>

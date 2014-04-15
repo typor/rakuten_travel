@@ -1,0 +1,14 @@
+<table class="table table-bordered">
+  <tr>
+    <th><%= ChargeHistory.human_attribute_name(:researched_at) %></th>
+    <th><%= ChargeHistory.human_attribute_name(:amount) %></th>
+    <th><%= ChargeHistory.human_attribute_name(:can_stay) %></th>
+  </tr>
+<% histories.each do |history| -%>
+  <tr>
+    <td><%= history.researched %></td>
+    <td><%= history.price %></td>
+    <td><%= history.stay_label %></td>
+  </tr>
+<% end -%>
+</table>
