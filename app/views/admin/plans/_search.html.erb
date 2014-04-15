@@ -3,7 +3,7 @@
 <%= search_form_for @search, url: admin_plans_path, method: :get, role: 'form' do |f| %>
   <div class="form-group">
     <div class="input-group col-md-4">
-      <%= f.text_field :long_name_or_short_name_cont, class: 'form-control', placeholder: Plan.human_attribute_name(:name) %>
+      <%= f.text_field :hotel_long_name_cont, class: 'form-control', placeholder: Hotel.human_attribute_name(:name) %>
       <span class="input-group-btn">
         <button type="submit" class="btn btn-default"><%= icon('search') %></button>
       </span>
@@ -14,7 +14,7 @@
       <div class="col-md-3">
         <div class="input-group">
           <span class="input-group-addon">特典</span>
-          <%= f.number_field :quo_gteq, min: 0, step: 500, class: 'form-control input-sm' %>
+          <%= f.number_field :gift_price_gteq, min: 0, step: 500, class: 'form-control input-sm' %>
           <span class="input-group-addon">円以上</span>
         </div>
       </div>
@@ -33,12 +33,12 @@
             <%= name %>
           </label>
         <% end -%>
-          <label for="q_with_breakfast_eq" class="checkbox-inline">
-            <%= f.check_box :with_breakfast_eq %>
+          <label for="q_with_breakfast_true" class="checkbox-inline">
+            <%= f.check_box :with_breakfast_true %>
             <%= Plan.human_attribute_name(:with_breakfast) %>
           </label>
-          <label for="q_with_dinner_eq" class="checkbox-inline">
-            <%= f.check_box :with_dinner_eq %>
+          <label for="q_with_dinner_true" class="checkbox-inline">
+            <%= f.check_box :with_dinner_true %>
             <%= Plan.human_attribute_name(:with_dinner) %>
           </label>
         </div>

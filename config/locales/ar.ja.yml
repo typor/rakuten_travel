@@ -1,4 +1,10 @@
 ja:
+  enumerize:
+    plan:
+      gift_type:
+        none: "なし"
+        quocard: 'QUOカード'
+        others: 'その他'
   activerecord:
     models:
       area: "地域"
@@ -73,7 +79,9 @@ ja:
         payment_code: '支払方法'
         description: '説明'
         point_rate: 'ポイント'
-        quo: '特典'
+        gift_price: '特典金額'
+        gift_type: '特典種類'
+        gift: '特典'
         with_dinner: '夕食'
         with_breakfast: '朝食'
         meal: '食事'

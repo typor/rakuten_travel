@@ -24,6 +24,7 @@ gem 'sidekiq'
 gem 'sinatra', '>= 1.3.0', require: nil
 # search
 gem "ransack", github: "activerecord-hackery/ransack", branch: "rails-4"
+gem 'enumerize'
 # utils
 gem 'faraday'
 gem 'settingslogic'

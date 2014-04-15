@@ -13,7 +13,7 @@ module PlanDecorator
   end
 
   def gift_icon
-    content_tag(:span, icon('gift') + '  ' + number_with_delimiter(quo), class: 'label label-success') if quo >0
+    content_tag(:span, icon('gift') + '  ' + number_with_delimiter(gift_price), class: 'label label-success') if gift_price >0
   end
 
   def breakfast_icon

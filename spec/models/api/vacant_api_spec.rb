@@ -79,7 +79,8 @@ describe Api::VacantApi do
         expect(plan.with_dinner).to eq false
         expect(plan.with_breakfast).to eq true
         expect(plan.payment_code).to eq 1
-        expect(plan.quo).to eq 3000
+        expect(plan.gift_price).to eq 3000
+        expect(plan.gift_type).to eq 'quocard'
         expect(plan.description).to eq 'foo'
       end
     end

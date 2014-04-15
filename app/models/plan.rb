@@ -1,4 +1,6 @@
 class Plan < ActiveRecord::Base
+  extend Enumerize
+
   belongs_to :hotel
   validates :hotel_id, presence: true
   validates :code, presence: true, numericality: true
@@ -7,9 +9,11 @@ class Plan < ActiveRecord::Base
   validates :description, length: { maximum: 3000 }
   validates :payment_code, presence: true, inclusion: { in: [0, 1, 2] }
   validates :point_rate, presence: true, numericality: { greater_than_or_equal_to: 0, less_than: 100 }
-  validates :quo, presence: true, numericality: { greater_than_or_equal_to: 0 }
+  validates :gift_price, presence: true, numericality: { greater_than_or_equal_to: 0 }
   validates :with_dinner, inclusion: {in: [true, false]}
   validates :with_breakfast, inclusion: {in: [true, false]}
+
+  enumerize :gift_type, in: {none: 0, quocard: 1, others: 999 }, predicates: { prefix: true }
 
   def name
     short_name.presence || long_name
@@ -21,12 +25,17 @@ class Plan < ActiveRecord::Base
     end
 
     # 文字列中から特典情報を取り出します。
-    def parse_sepecial_gift(value)
-      v = /\¥([1-9][\d\,]+)/.match(zen_to_han(value))
-      return v.captures.first.gsub(',', '').to_i if v.present?
+    def parse_gift(value)
+      value = zen_to_han(value).gsub(/ 　/, "")
+      v = /\¥([1-9][\d\,]+)/.match(value) || /([1-9][\d\,]+)円/.match(value)
+      return {gift_type: :none, gift_price: 0 } if v.nil?
 
-      v = /([1-9][\d\,]+円)/.match(zen_to_han(value))
-      v.nil? ? 0 : v.captures.first.gsub(',', '').to_i
+      v = v.captures.first.gsub(',', '').to_i
+      value.downcase!
+      %w(quo クオ).each do |f|
+        return {gift_type: :quocard, gift_price: v} if value.include? f
+      end
+      {gift_type: :others, gift_price: v}
     end
 
     def payment_codes
@@ -42,6 +51,9 @@ class Plan < ActiveRecord::Base
         @@safe_keys = new.attributes.keys.select{|k, v| %w(id created_at updated_at).include?(k) != true }
       end
       @@safe_keys
+    end
+
+    def gift_types
     end
   end
 end
