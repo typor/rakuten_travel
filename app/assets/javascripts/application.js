@@ -3,3 +3,4 @@
 //= require bootstrap
 //= require select2
 //= require alertify
+//= require bootstrap-datepicker

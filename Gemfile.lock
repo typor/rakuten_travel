@@ -84,6 +84,8 @@ GEM
       thread_safe
     email_validator (1.4.0)
       activemodel
+    enumerize (0.8.0)
+      activesupport (>= 3.2)
     erubis (2.7.0)
     eventmachine (1.0.3)
     execjs (2.0.2)
@@ -296,6 +298,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   database_rewinder
   email_validator
+  enumerize
   factory_girl_rails
   faraday
   font-awesome-sass

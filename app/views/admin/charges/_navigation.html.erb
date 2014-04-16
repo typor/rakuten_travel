@@ -1,0 +1,15 @@
+<%
+  resource ||= nil
+%>
+<div class="header-navigation">
+<ul class="nav nav-tabs">
+  <%= nav_content_tag(:li, :index) do -%>
+    <%= link_to raw("<i class=\"fa fa-list\"></i>&nbsp;&nbsp;") + t('views.bootstrap3.tabs.index'), action: :index %>
+  <% end -%>
+  <% if(resource.present?) -%>
+    <%= nav_content_tag(:li, :show) do -%>
+      <%= link_to raw("<i class=\"fa fa-info-circle\"></i>&nbsp;&nbsp;") + t('views.bootstrap3.tabs.show'), action: :show, id: resource.id %>
+    <% end -%>
+  <% end -%>
+</ul>
+</div>

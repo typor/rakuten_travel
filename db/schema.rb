@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140403121552) do
+ActiveRecord::Schema.define(version: 20140415001126) do
 
   create_table "areas", force: true do |t|
     t.string   "long_name",                  null: false
@@ -93,10 +93,11 @@ ActiveRecord::Schema.define(version: 20140403121552) do
     t.integer  "point_rate",     default: 0,     null: false
     t.boolean  "with_dinner",    default: false, null: false
     t.boolean  "with_breakfast", default: false, null: false
-    t.integer  "quo",            default: 0,     null: false
+    t.integer  "gift_price",     default: 0,     null: false
     t.boolean  "enabled",        default: true,  null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "gift_type"
   end
 
   add_index "plans", ["hotel_id"], name: "index_plans_on_hotel_id"

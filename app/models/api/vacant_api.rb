@@ -127,18 +127,19 @@ class Api::VacantApi
     return @plan_cache[code] if @plan_cache[code].present?
 
     plan = Plan.find_by(hotel_id: hotel_id, code: code) || Plan.new
+    name = params['planName']
+    gift = Plan.parse_gift(name)
 
-    plan.attributes = {
+    plan.attributes = gift.merge({
       hotel_id: hotel_id,
       code: code,
-      long_name: Plan.zen_to_han(params['planName']),
+      long_name: name,
       point_rate: params['pointRate'],
       with_dinner: params['withDinnerFlag'],
       with_breakfast: params['withBreakfastFlag'],
       payment_code: params['payment'].to_i,
-      quo: Plan.parse_sepecial_gift(params['planName']),
       description: params['planContents']
-    }
+    })
 
     if plan.save
       @plan_cache[code] = plan

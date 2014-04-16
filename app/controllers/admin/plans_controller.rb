@@ -2,9 +2,9 @@ class Admin::PlansController < Admin::ApplicationController
   before_filter :load_resource, only: [:edit, :update, :destroy]
 
   def index
-    @search = Plan.search(params[:q])
+    @search = Plan.includes(:hotel).search(params[:q])
     @search.sorts = 'id asc' if @search.sorts.empty?
-    @plans = @search.result.includes(:hotel).page params[:page]
+    @plans = @search.result(distinct: true).page params[:page]
   end
 
   def new

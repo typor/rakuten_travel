@@ -7,8 +7,8 @@
       <th class="col-md-2"><%= Plan.human_attribute_name(:hotel_id) %></th>
       <th class="col-md-4"><%= Plan.human_attribute_name(:name) %></th>
       <th><%= Plan.human_attribute_name(:payment_code) %></th>
-      <th><%= Plan.human_attribute_name(:point_rate) %></th>
-      <th><%= Plan.human_attribute_name(:quo) %></th>
+      <th><%= sort_link(@search, :point_rate, Plan.human_attribute_name(:point_rate)) %></th>
+      <th><%= sort_link(@search, :gift_price, Plan.human_attribute_name(:gift_price)) %></th>
       <th><%= Plan.human_attribute_name(:meal) %></th>
       <th></th>
     </thead>

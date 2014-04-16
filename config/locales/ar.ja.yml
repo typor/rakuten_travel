@@ -1,4 +1,10 @@
 ja:
+  enumerize:
+    plan:
+      gift_type:
+        none: "なし"
+        quocard: 'QUOカード'
+        others: 'その他'
   activerecord:
     models:
       area: "地域"
@@ -6,7 +12,7 @@ ja:
       room: '部屋'
       plan: 'プラン'
       charge: '宿泊料金'
-      charge_history: '宿泊料金履歴'
+      charge_history: '料金履歴'
     attributes:
       area:
         id: "ID"
@@ -62,7 +68,8 @@ ja:
         plan_id: 'プラン'
         amount: '料金'
         stay_day: '宿泊日'
-        can_stay: '宿泊可否'
+        can_stay: '宿泊可'
+        updated_at: '最終更新日時'
       plan:
         id: 'ID'
         hotel_id: 'ホテル'
@@ -73,7 +80,9 @@ ja:
         payment_code: '支払方法'
         description: '説明'
         point_rate: 'ポイント'
-        quo: '特典'
+        gift_price: '特典金額'
+        gift_type: '特典種類'
+        gift: '特典'
         with_dinner: '夕食'
         with_breakfast: '朝食'
         meal: '食事'
