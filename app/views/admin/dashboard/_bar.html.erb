@@ -1,9 +1,8 @@
 <% width = total > 0 ? ((size.to_f / total.to_f) * 10000).to_i / 100 : 0 %>
 <div class="media-body">
-<h5 class="media-heading"><%= label %>&nbsp;&nbsp;(<%= size %> / <%= total %>)</h5>
+<h5 class="media-heading"><%= label %>&nbsp;&nbsp;(<%= size %> / <%= total %>) <%= width %>%</h5>
 <div class="progress">
   <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="<%= size %>" aria-valuemin="0" aria-valuemax="<%= total %>" style="width: <%= width %>%">
   </div>
-  <%= width %>%
 </div>
 </div>

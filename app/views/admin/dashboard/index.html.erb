@@ -12,10 +12,10 @@
       <%= render partial: 'bar', locals: {size: Room.where(enabled: true).count, total: Room.count, label: link_to(t('activerecord.models.room'), admin_rooms_path) } %>
     </li>
     <li class="media">
-      <%= render partial: 'bar', locals: {size: Plan.where(enabled: true).count, total: Plan.count, label: link_to(t('activerecord.models.plan'), admin_rooms_path) } %>
+      <%= render partial: 'bar', locals: {size: Plan.where(enabled: true).count, total: Plan.count, label: link_to(t('activerecord.models.plan'), admin_plans_path) } %>
     </li>
     <li class="media">
-      <%= render partial: 'bar', locals: {size: Charge.where(can_stay: true).count, total: Charge.count, label: link_to(t('activerecord.models.charge'), admin_rooms_path) } %>
+      <%= render partial: 'bar', locals: {size: Charge.where(can_stay: true).count, total: Charge.count, label: link_to(t('activerecord.models.charge'), admin_charges_path) } %>
     </li>
   </ul>
 </div>
