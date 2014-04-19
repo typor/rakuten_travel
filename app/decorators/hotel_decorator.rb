@@ -1,6 +1,22 @@
 module HotelDecorator
-  def image(width = 80)
-    image_tag(hotel_image_url, width: width, class: 'img-responsive')
+  def image(width = 80, options = {})
+    image_tag(hotel_image_url, {width: width, alt: Hotel.human_attribute_name(:hotel_image), class: 'img-responsive'}.merge(options))
+  end
+
+  def room_image(width = 80, options = {})
+    image_tag(room_image_url, {width: width, alt: Hotel.human_attribute_name(:room_image), class: 'img-responsive'}.merge(options))
+  end
+
+  def room_type_label
+    Hotel.human_attribute_name(:room_type_count) + ': ' + room_type_count.to_s
+  end
+
+  def plan_count_label
+    Hotel.human_attribute_name(:plan_count) + ': ' + plan_count.to_s
+  end
+
+  def room_num_label
+    Hotel.human_attribute_name(:room_num) + ': ' + t('global.rooms', num: room_num)
   end
 
   def toggle_link
@@ -9,7 +25,7 @@ module HotelDecorator
   end
 
   def link
-    link_to name, url, target: '_blank'
+    link_to name, url, target: '_blank', rel: 'nofollow'
   end
 
   def google_map_link(params = {})
@@ -29,19 +45,15 @@ module HotelDecorator
     end
   end
 
-  def room_num_label
-    t('global.rooms', num: room_num)
-  end
-
   def review_score
     return '' if review_average == 0
     bar = review_progressbar
     score = (review_average.to_f / 100.0).to_s
-    review_link_label = Hotel.human_attribute_name(:review_count) + ' ' + content_tag(:span, review_count, itemprop: 'reivewCount')
+    review_link_label = Hotel.human_attribute_name(:review_count) + ': ' + content_tag(:span, review_count, itemprop: 'reivewCount')
     review_link = link_to raw(review_link_label), review_url, target: '_blank'
     <<-"EOS".html_safe
 <div itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
-  <h5>評価 (#{review_link})</h5>
+  <span>#{review_link}</span>
   <meta itemprop="worstRating" content="1">
   #{bar}
   <meta itemprop="ratingValue" content="#{score}">

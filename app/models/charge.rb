@@ -2,7 +2,7 @@ class Charge < ActiveRecord::Base
   belongs_to :hotel
   belongs_to :room
   belongs_to :plan
-  has_many :histories, class_name: "ChargeHistory", dependent: :delete_all, order: 'id DESC'
+  has_many :histories, -> { order id: :desc }, class_name: "ChargeHistory", dependent: :delete_all
   validates :hotel_id, presence: true
   validates :room_id, presence: true
   validates :plan_id, presence: true

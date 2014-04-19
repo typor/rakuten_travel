@@ -7,6 +7,9 @@ class Admin::HotelsController < Admin::ApplicationController
   end
 
   def show
+    @current = (Time.zone.parse(params[:t]) rescue DateTime.now).tapp.to_date
+    @from = (@current - Date.today).to_i
+    @to = @from + 6
   end
 
   def new

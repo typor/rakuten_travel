@@ -1,0 +1,33 @@
+<section id="hotel-info">
+  <div class="container">
+    <div class="gap"></div>
+    <div class="box">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="center">
+            <%= hotel.image(240) %>
+            <%= hotel.room_image(240) %>
+          </div>
+        </div>
+        <div class="col-md-9">
+          <h3><%= hotel.link %></h3>
+          <access>
+            <%= hotel.postal_code %><br><%= hotel.full_address %>(<%= hotel.google_map_link %>)<br>
+            <%= icon('phone') %>&nbsp;<%= hotel.telephone_no %><br>
+            <%= hotel.access %>
+          </access>
+          <div class="reviews" style="margin-top:2.5em;">
+            <%= hotel.review_score %>
+            <%= hotel.service_progressbar %>
+            <%= hotel.location_progressbar %>
+            <%= hotel.room_progressbar %>
+            <%= hotel.equipment_progressbar %>
+            <%= hotel.bath_progressbar %>
+            <%= hotel.meal_progressbar %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>

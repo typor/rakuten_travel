@@ -1,0 +1,25 @@
+<section id="pricing">
+  <div class="container">
+    <div class="box">
+      <div class="center">
+        <h2>料金</h2>
+        <p class="lead">前後3ヶ月</p>
+      </div><!--/.center-->
+      <div class="big-gap"></div>
+      <div id="pricing-table" class="row">
+        <% rooms.each do |room| %>
+          <div class="col-sm-4">
+            <ul class="plan">
+              <li class="room-name"><%= room.name %></li>
+              <li class="plan-price"><%= room.minprice %> - <%= room.maxprice %></li>
+              <li>1GB RAM</li>
+              <li>400GB Bandwidth</li>
+              <li>10 Email Address</li>
+              <li>Forum Support</li>
+            </ul>
+          </div><!--/.col-sm-4-->
+       <% end -%>
+      </div>
+    </div>
+  </div>
+</section>

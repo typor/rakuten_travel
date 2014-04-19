@@ -16,6 +16,7 @@ ja:
     smoking: '喫煙'
     not_smoking: '禁煙'
     rooms: '%{num} 部屋'
+    reviews: '評価'
   decorators:
     area_decorator:
       import_hotel: 'ホテル取込'

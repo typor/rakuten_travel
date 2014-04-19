@@ -111,7 +111,7 @@ class Api::VacantApi
       code: code,
       long_name: name,
       smoking: name.include?('喫煙'), # 喫煙可能かどうかは 【喫煙】の文字列で判定する
-      ladies: name.include?('レディース')
+      ladies: name.include?('レディース') || name.include?('レディス')
     }
     if room.save
       @room_cache[code] = room

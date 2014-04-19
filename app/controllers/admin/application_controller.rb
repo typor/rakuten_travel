@@ -1,4 +1,5 @@
 class Admin::ApplicationController < ::ApplicationController
+  layout 'admin'
   before_filter :welcome
   before_filter :require_login
 

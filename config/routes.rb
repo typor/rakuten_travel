@@ -1,6 +1,9 @@
 require 'sidekiq/web'
 require 'rakuten_travel/admin_constraint'
 RakutenTravel::Application.routes.draw do
+  namespace :front, path: '/' do
+    resources :hotels, only: %w(index show)
+  end
 
   namespace :admin do
     get "/" => "dashboard#index", as: :dashboard
