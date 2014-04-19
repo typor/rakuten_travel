@@ -2,7 +2,9 @@ require 'sidekiq/web'
 require 'rakuten_travel/admin_constraint'
 RakutenTravel::Application.routes.draw do
   namespace :front, path: '/' do
-    resources :hotels, only: %w(index show)
+    resources :hotels, only: %w(index show) do
+      get 'stay', on: :member, format: 'json'
+    end
   end
 
   namespace :admin do

@@ -67,4 +67,13 @@ describe Charge do
       end
     end
   end
+
+  describe '#within' do
+    let!(:charge1) { create(:charge, hotel: hotel, room: room, plan: plan, stay_day: 20140401) }
+    let!(:charge2) { create(:charge, hotel: hotel, room: room, plan: plan, stay_day: 20140402) }
+    let!(:charge3) { create(:charge, hotel: hotel, room: room, plan: plan, stay_day: 20140403) }
+    let!(:charge4) { create(:charge, hotel: hotel, room: room, plan: plan, stay_day: 20140404) }
+    let!(:charge5) { create(:charge, hotel: hotel, room: room, plan: plan, stay_day: 20140405) }
+    it { expect(Charge.within(20140402, 20140404).order(id: :asc).ids).to eq [charge2.id, charge3.id, charge4.id] }
+  end
 end

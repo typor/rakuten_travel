@@ -17,4 +17,30 @@ describe Hotel do
     it { expect(safe_keys).to be_include('area_id') }
   end
 
+  describe '#smoking_rooms' do
+    let(:hotel) { create(:hotel) }
+    let!(:room1) { create(:room, hotel: hotel, enabled: true, smoking: true) }
+    let!(:room2) { create(:room, hotel: hotel, enabled: true, smoking: false) }
+    let!(:room3) { create(:room, hotel: hotel, enabled: false, smoking: true) }
+    let!(:room4) { create(:room, hotel: hotel, enabled: true, smoking: true) }
+    it { expect(hotel.smoking_rooms.order(id: :asc)).to eq [room1, room4] }
+  end
+
+  describe '#nonsmoking_rooms' do
+    let(:hotel) { create(:hotel) }
+    let!(:room1) { create(:room, hotel: hotel, enabled: true, smoking: false) }
+    let!(:room2) { create(:room, hotel: hotel, enabled: true, smoking: true) }
+    let!(:room3) { create(:room, hotel: hotel, enabled: false, smoking: false) }
+    let!(:room4) { create(:room, hotel: hotel, enabled: true, smoking: false) }
+    it { expect(hotel.nonsmoking_rooms.order(id: :asc)).to eq [room1, room4] }
+  end
+
+  describe '#ladies_rooms' do
+    let(:hotel) { create(:hotel) }
+    let!(:room1) { create(:room, hotel: hotel, enabled: true, ladies: true) }
+    let!(:room2) { create(:room, hotel: hotel, enabled: true, ladies: false) }
+    let!(:room3) { create(:room, hotel: hotel, enabled: false, ladies: true) }
+    let!(:room4) { create(:room, hotel: hotel, enabled: true, ladies: true) }
+    it { expect(hotel.ladies_rooms.order(id: :asc)).to eq [room1, room4] }
+  end
 end

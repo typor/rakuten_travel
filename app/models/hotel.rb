@@ -14,6 +14,9 @@ class Hotel < ActiveRecord::Base
   belongs_to :area
   has_many :plans
   has_many :rooms
+  has_many :smoking_rooms, -> { where(enabled: true, smoking: true) }, class_name: 'Room'
+  has_many :nonsmoking_rooms, -> { where(enabled: true, smoking: false) }, class_name: 'Room'
+  has_many :ladies_rooms, -> { where(enabled: true, ladies: true) }, class_name: 'Room'
   has_many :charges
 
   def name

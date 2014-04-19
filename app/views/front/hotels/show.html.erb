@@ -1,2 +1,48 @@
 <% title @hotel.name %>
 <%= render partial: 'hotel_info', locals: {hotel: @hotel} %>
+<section id="calendar">
+  <div class="container">
+    <div class="box">
+      <div id="calendar-box" data-url="<%= stay_front_hotel_path(@hotel) %>"></div>
+    </div>
+  </div>
+</section>
+
+<% content_for :foot do %>
+<script type="text/javascript">
+$(document).ready(function () {
+  $('#calendar-box').fullCalendar({
+    eventSources: [
+      {
+        url: 'https://www.google.com/calendar/feeds/japanese__ja%40holiday.calendar.google.com/public/basic',
+        currentTimezone: 'Asia/Tokyo',
+        backgroundColor: '#f00',
+        borderColor: '#e00',
+        textColor: '#eee'
+      }
+    ],
+    header: {
+      left: '',
+      center: 'title',
+      right: ''
+    },
+    editable: false,
+    viewDisplay: function(view) {
+      console.log(view.start);
+      $.ajax({
+        url: $('#calendar-box').data('url'),
+        dataType: 'json',
+        type: "get",
+        data: {
+          "year": view.start.getFullYear(),
+          'month': view.start.getMonth() + 1
+        }
+      }).done(function(events){
+        $('#calendar').fullCalendar('removeEvents');
+        $('#calendar').fullCalendar('addEventSource', EventSource);
+      });
+    }
+  });
+});
+</script>
+<% end %>
