@@ -28,13 +28,19 @@ module HotelDecorator
     link_to name, url, target: '_blank', rel: 'nofollow'
   end
 
-  def google_map_link(params = {})
+  def google_map_url(zoom = 16)
     return nil if latitude.blank? || longitude.blank?
+    my = URI.escape(name)
+    "https://www.google.com/maps/place/#{my}/@#{latitude},#{longitude},#{zoom}z"
+  end
+
+  def google_map_link(params = {})
+    url = google_map_url
+    return nil unless url
     params = {
       name: t('global.google_map_link_name')
     }.merge(params)
-    my = URI.escape(name)
-    link_to params[:name], "https://maps.google.co.jp/maps?q=loc:#{latitude},#{longitude}", target: '_blank'
+    link_to params[:name], url, target: '_blank'
   end
 
   def enable_label

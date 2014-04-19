@@ -11,11 +11,14 @@
         </div>
         <div class="col-md-9">
           <h3><%= hotel.link %></h3>
-          <access>
-            <%= hotel.postal_code %><br><%= hotel.full_address %>(<%= hotel.google_map_link %>)<br>
-            <%= icon('phone') %>&nbsp;<%= hotel.telephone_no %><br>
-            <%= hotel.access %>
-          </access>
+          <address>
+            <p>
+              <%= hotel.postal_code %><br><%= hotel.full_address %><br>
+              <%= icon('phone') %>&nbsp;<%= hotel.telephone_no %><br>
+              <%= hotel.access %>
+            </p>
+            <%= link_to icon('map-marker') + ' GoogleMap', hotel.google_map_url, target: '_blank', class: 'btn btn-warning' %>
+          </address>
           <div class="reviews" style="margin-top:2.5em;">
             <%= hotel.review_score %>
             <%= hotel.service_progressbar %>
