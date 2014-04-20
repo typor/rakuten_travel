@@ -16,6 +16,7 @@ namespace :api do
     if ENV['AREA_ID'].nil?
       Area.where(enabled: true).each do |area|
         puts "Area: " + area.long_name
+        sleep 1
         api.request(area).each_with_index do |hotel, i|
           if hotel.save
             puts "[#{i+1}] Saving ... " + hotel.no.to_s + ' ' + hotel.long_name
@@ -56,6 +57,7 @@ namespace :api do
       charges.each_with_index do |charge, i|
         puts "[#{i+1}] Adding ... " + charge.plan.long_name + '...' + charge.room.name + '...' + charge.amount.to_s
       end
+      sleep 0.8
     end
   end
 

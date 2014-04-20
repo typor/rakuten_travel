@@ -13,6 +13,7 @@ class Api::HotelApi
   end
 
   def request(area)
+    @client = nil
     hotels = do_call(area.id) do |client|
       client.request {|o| o.add_params area.to_api_params }
     end
@@ -25,8 +26,8 @@ class Api::HotelApi
 
   def do_call(area_id)
     response = block_given? ? (yield api_client) : api_client.request
-    unless response.success?
-      Rails.logger.error "[#{@client.id}] Response error" + @response.body.to_s
+    if response.error?
+      Rails.logger.error "[#{@client.id}] Response error"
       return []
     end
 
@@ -46,7 +47,7 @@ class Api::HotelApi
     end
 
     return nil unless attributes.key? :no
-    attributes[:description] = build_description(params).tapp
+    attributes[:description] = build_description(params)
 
     (Hotel.find_by(no: attributes[:no]) || Hotel.new).tap do |o|
       o.attributes = attributes
