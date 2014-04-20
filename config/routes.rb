@@ -6,6 +6,7 @@ RakutenTravel::Application.routes.draw do
       get 'stay', on: :member, format: 'json'
       get ':area/list', to: 'hotels#index', on: :collection, as: :areas
     end
+    get '/' => 'dashboard#index', as: :dashboard
   end
 
   namespace :admin do

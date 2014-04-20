@@ -1,10 +1,7 @@
 module PlanDecorator
 
   def hotel_name
-    return 'Invalid hotel' unless hotel
-
-    return hotel.short_name unless hotel.short_name.blank?
-    return hotel.long_name
+    hotel ? hotel.name : ''
   end
 
   def point_icon
