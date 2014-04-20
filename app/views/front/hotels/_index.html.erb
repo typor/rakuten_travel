@@ -1,0 +1,20 @@
+<ul class="media-list">
+  <% hotels.each do |hotel| -%>
+    <li class="media" style="border-bottom:1px solid #eee;">
+      <p class="pull-left"><%= hotel.image %></p>
+      <div class="media-body">
+        <h4 class="media-heading"><%= hotel.link %></h4>
+        <div class="row">
+          <div class="col-md-6">
+            &#12306;<%= hotel.postal_code %>&nbsp;<%= hotel.full_address %><br>
+            <%= hotel.access %><br>
+            <%= hotel.review_progressbar %>
+          </div>
+          <div class="col-md-2 col-md-offset-4">
+            <%= link_to icon('calendar') + raw('&nbsp;&nbsp;') + t('front.vacancy_calendar'), front_hotel_path(URI.encode(hotel.name)), class: 'btn btn-sm btn-info' %>
+          </div>
+        </div>
+      </div>
+    </li>
+  <% end -%>
+</ul>

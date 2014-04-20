@@ -7,8 +7,20 @@ class Area < ActiveRecord::Base
   validates :small, length: { maximum: 16 }
   validates :detail, length: { maximum: 16 }
 
+  scope :enabled, -> { where(enabled: true) }
+
   def init
     self.enabled ||= false if self.respond_to? :enabled
+  end
+
+  def name
+    short_name || long_name
+  end
+
+  def uri_escaped_name
+    URI.escape(name)
+  rescue
+    name
   end
 
   def to_api_params

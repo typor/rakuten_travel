@@ -2,13 +2,14 @@ class Charge < ActiveRecord::Base
   belongs_to :hotel
   belongs_to :room
   belongs_to :plan
-  has_many :histories, class_name: "ChargeHistory", dependent: :delete_all, order: 'id DESC'
+  has_many :histories, -> { order id: :desc }, class_name: "ChargeHistory", dependent: :delete_all
   validates :hotel_id, presence: true
   validates :room_id, presence: true
   validates :plan_id, presence: true
   validates :amount, presence: true, numericality: { greater_than_or_equal_to: 0 }
   validates :stay_day, presence: true, numericality: { greater_than_or_equal_to: 20140101 }, uniqueness: {scope: [:room_id, :plan_id, :stay_day] }
 
+  scope :within, ->(start, finish) { where(stay_day: start..finish) }
   def latest_history
     ChargeHistory.where(charge_id: self.id).order(id: :desc).first
   end

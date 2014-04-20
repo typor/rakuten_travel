@@ -27,7 +27,7 @@
       <% @areas.each do |area| -%>
         <tr>
           <td><%= area.toggle_link %></td>
-          <td><%= area.name %><br><%= Area.human_attribute_name(:section) %>:&nbsp;<%= area.section %></td>
+          <td><%= area.long_name %><br><%= Area.human_attribute_name(:section) %>:&nbsp;<%= area.section %></td>
           <td><%= l area.updated_at, format: :short %></td>
           <td class="col-md-3">
             <%= area.import_link %>

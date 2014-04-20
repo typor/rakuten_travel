@@ -12,3 +12,4 @@ $ ->
         element.find('span').attr('class', 'label label-warning').text(element.data('disabled-label'));
         alertify.success("無効にしました。");
   )
+  $('.date').datepicker();

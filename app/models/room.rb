@@ -6,6 +6,11 @@ class Room < ActiveRecord::Base
   validates_inclusion_of :smoking, :ladies, :enabled, in: [true, false]
   belongs_to :hotel
 
+  scope :enabled, -> { where(enabled: true) }
+  scope :ladies, -> { where(ladies: true) }
+  scope :smoking, -> { where(smoking: true) }
+  scope :nonsmoking, -> { where(smoking: false) }
+
   def name
     short_name.presence || long_name
   end

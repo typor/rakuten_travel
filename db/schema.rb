@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140415001126) do
+ActiveRecord::Schema.define(version: 20140419113713) do
 
   create_table "areas", force: true do |t|
     t.string   "long_name",                  null: false
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 20140415001126) do
   add_index "charges", ["plan_id"], name: "index_charges_on_plan_id"
   add_index "charges", ["room_id", "plan_id", "stay_day"], name: "index_charges_on_room_id_and_plan_id_and_stay_day", unique: true
   add_index "charges", ["room_id"], name: "index_charges_on_room_id"
+  add_index "charges", ["stay_day"], name: "index_charges_on_stay_day"
 
   create_table "hotels", force: true do |t|
     t.integer  "area_id",                           null: false

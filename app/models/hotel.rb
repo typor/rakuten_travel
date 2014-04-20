@@ -14,8 +14,12 @@ class Hotel < ActiveRecord::Base
   belongs_to :area
   has_many :plans
   has_many :rooms
+  has_many :smoking_rooms, -> { where(enabled: true, smoking: true) }, class_name: 'Room'
+  has_many :nonsmoking_rooms, -> { where(enabled: true, smoking: false) }, class_name: 'Room'
+  has_many :ladies_rooms, -> { where(enabled: true, ladies: true) }, class_name: 'Room'
   has_many :charges
 
+  scope :enabled, -> { where(enabled: true) }
   def name
     short_name.presence || long_name
   end
@@ -24,30 +28,16 @@ class Hotel < ActiveRecord::Base
     address1 + address2
   end
 
-  def toggle_enabled
-    self.update(enabled: !self.enabled)
+  def room_type_count
+    @room_type_count ||= Room.where(hotel_id: self.id).count
   end
 
-  def charges_by(start, finish)
-    results = []
-    rooms = Room.where(hotel_id: self.id).load
-    start_day = start.days.since.strftime('%Y%m%d')
-    finish_day = finish.days.since.strftime('%Y%m%d')
-    rooms.each do |room|
-      tp = {}
+  def plan_count
+    @plan_count ||= Plan.where(hotel_id: self.id).count
+  end
 
-      start.upto(finish) do |i|
-        tp[i.days.since.strftime('%Y%m%d').to_i] = {amount: 0, can_stay: false}
-      end
-
-      Charge.where(hotel_id: self.id, room_id: room.id).group(:plan_id).select('min(amount) as amount, can_stay, stay_day').where(["stay_day >= ? and stay_day <= ?", start_day, finish_day]).each do |f|
-        if tp.key? f.stay_day
-          tp[f.stay_day] = {amount: f.amount, can_stay: f.can_stay}
-        end
-      end
-      results << {room: room, charges: tp}
-    end
-    results
+  def toggle_enabled
+    self.update(enabled: !self.enabled)
   end
 
   def self.safe_keys(refresh = false)

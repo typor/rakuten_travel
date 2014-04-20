@@ -17,14 +17,17 @@ class Api::AreaApi
 
   def build_area(params)
     attributes = {}
+    names = []
     params.each_pair do |k, v|
       if valid_keys.key? k
         attributes[valid_keys[k]] = v
       elsif k != 'largeClassName'
-        attributes[:long_name] = attributes.key?(:long_name) ? attributes[:long_name] + '/' + v : v
+        names << v
       end
     end
 
+    attributes[:long_name] = names.join('/')
+    attributes[:short_name] = names.last
     keys = attributes.select{|k, v| valid_keys.values.include?(k) && v.present? }
     (Area.find_by(keys) || Area.new).tap do |o|
       o.attributes = attributes

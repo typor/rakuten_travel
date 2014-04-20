@@ -3,6 +3,7 @@
   <table class="table table-bordered table-striped table-hover table-condensed">
     <thead>
       <th><%= Room.human_attribute_name(:code) %></th>
+      <th><%= Room.human_attribute_name(:name) %></th>
       <th><%= Room.human_attribute_name(:smoking) %></th>
       <th><%= Room.human_attribute_name(:ladies) %></th>
     </thead>
@@ -10,6 +11,7 @@
       <% rooms.each do |room| -%>
         <tr>
           <td><%= room.code %></td>
+          <td><%= link_to room.name, edit_admin_room_path(room) %></td>
           <td><%= room.smoking_label %></td>
           <td><%= room.ladies_label %></td>
         </tr>

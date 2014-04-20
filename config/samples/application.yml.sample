@@ -2,6 +2,8 @@ defaults: &defaults
   application_id: "YOUR APPLICATION ID"
   affiliate_id: "YOUR AFFILIATE ID"
   api_sleep_time: 0.5
+  plan_urls:
+    - 'http://img.travel.rakuten.co.jp/image/tr/api/re/vFumt/'
 
 development:
   <<: *defaults

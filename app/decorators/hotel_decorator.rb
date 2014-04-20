@@ -1,6 +1,22 @@
 module HotelDecorator
-  def image(width = 80)
-    image_tag(hotel_image_url, width: width, class: 'img-responsive')
+  def image(width = 80, options = {})
+    image_tag(hotel_image_url, {width: width, alt: Hotel.human_attribute_name(:hotel_image), class: 'img-responsive'}.merge(options))
+  end
+
+  def room_image(width = 80, options = {})
+    image_tag(room_image_url, {width: width, alt: Hotel.human_attribute_name(:room_image), class: 'img-responsive'}.merge(options))
+  end
+
+  def room_type_label
+    Hotel.human_attribute_name(:room_type_count) + ': ' + room_type_count.to_s
+  end
+
+  def plan_count_label
+    Hotel.human_attribute_name(:plan_count) + ': ' + plan_count.to_s
+  end
+
+  def room_num_label
+    Hotel.human_attribute_name(:room_num) + ': ' + t('global.rooms', num: room_num)
   end
 
   def toggle_link
@@ -9,16 +25,26 @@ module HotelDecorator
   end
 
   def link
-    link_to name, url, target: '_blank'
+    link_to name, url, target: '_blank', rel: 'nofollow'
+  end
+
+  def front_link
+    link_to name, front_hotel_path(URI.escape(name)), target: '_blank'
+  end
+
+  def google_map_url(zoom = 16)
+    return nil if latitude.blank? || longitude.blank?
+    my = URI.escape(name)
+    "https://www.google.com/maps/place/#{my}/@#{latitude},#{longitude},#{zoom}z"
   end
 
   def google_map_link(params = {})
-    return nil if latitude.blank? || longitude.blank?
+    url = google_map_url
+    return nil unless url
     params = {
       name: t('global.google_map_link_name')
     }.merge(params)
-    my = URI.escape(name)
-    link_to params[:name], "https://maps.google.co.jp/maps?q=loc:#{latitude},#{longitude}", target: '_blank'
+    link_to params[:name], url, target: '_blank'
   end
 
   def enable_label
@@ -29,19 +55,15 @@ module HotelDecorator
     end
   end
 
-  def room_num_label
-    t('global.rooms', num: room_num)
-  end
-
   def review_score
     return '' if review_average == 0
     bar = review_progressbar
     score = (review_average.to_f / 100.0).to_s
-    review_link_label = Hotel.human_attribute_name(:review_count) + ' ' + content_tag(:span, review_count, itemprop: 'reivewCount')
+    review_link_label = Hotel.human_attribute_name(:review_count) + ': ' + content_tag(:span, review_count, itemprop: 'reivewCount')
     review_link = link_to raw(review_link_label), review_url, target: '_blank'
     <<-"EOS".html_safe
 <div itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
-  <h5>評価 (#{review_link})</h5>
+  <span>#{review_link}</span>
   <meta itemprop="worstRating" content="1">
   #{bar}
   <meta itemprop="ratingValue" content="#{score}">

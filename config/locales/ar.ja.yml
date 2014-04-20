@@ -36,16 +36,18 @@ ja:
         postal_code: "郵便番号"
         address1: "都道府県"
         address2: "住所"
-        telephone_no: "電話番号"
+        telephone_no: "TEL"
         hotel_image_url: "ホテル画像URL"
+        hotel_image: "ホテル画像"
         room_image_url: "部屋画像URL"
+        room_image: '部屋画像'
         url: "URL"
         access: 'アクセス'
         enabled: "有効"
         latitude: '緯度'
         longitude: '経度'
         room_num: '部屋数'
-        review_count: 'レビュー数'
+        review_count: '評価数'
         review_average: '総合評価'
         service_average: 'サービス'
         location_average: '立地'
@@ -53,6 +55,9 @@ ja:
         equipment_average: '設備・アメニティ'
         bath_average: '風呂'
         meal_average: '食事'
+        room_type_count: '部屋の種類'
+        plan_count: 'プラン数'
+        room_num: '部屋数'
       room:
         id: 'ID'
         hotel_id: 'ホテル'

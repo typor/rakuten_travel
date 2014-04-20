@@ -24,6 +24,10 @@ module ApplicationHelper
     content_for pos, javascript_include_tag(filename)
   end
 
+  def stylesheet_link_tag_to(pos, filename)
+    content_for pos, stylesheet_link_tag(filename)
+  end
+
   def show_link(resource)
     link_to raw('<i class="fa fa-info-circle"></i>&nbsp;&nbsp;' + t('views.bootstrap3.global.show')),
       {action: :show, id: resource}, {class: 'btn btn-info btn-sm'}
