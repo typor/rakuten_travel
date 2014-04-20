@@ -8,7 +8,7 @@
     <li class="portfolio-item apps isotope-item" style="position: absolute; left: 0px; top: 0px; -webkit-transform: translate3d(0px, 0px, 0px);">
       <div class="item-inner">
         <div class="portfolio-image">
-          <%= link_to hotel.fron_link_url do %>
+          <%= link_to front_hotel_path(hotel.uri_escaped_name) do %>
             <span class="cover" style="background-image: url('<%= hotel.hotel_image_url %>')"></span>
           <% end %>
         </div>
