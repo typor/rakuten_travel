@@ -1,0 +1,10 @@
+<section id="calendar">
+  <div class="container">
+    <div class="box">
+      <h3><%= t('front.vacancy_calendar') %></h3>
+      <p><%= raw t('front.vacancy_calendar_lead') %></p>
+      <div id="calendar-box" data-url="<%= url %>"></div>
+    </div>
+  </div>
+</section>
+<% javascript_include_tag_to :foot, 'front/hotel' %>

@@ -19,6 +19,7 @@ class Hotel < ActiveRecord::Base
   has_many :ladies_rooms, -> { where(enabled: true, ladies: true) }, class_name: 'Room'
   has_many :charges
 
+  scope :enabled, -> { where(enabled: true) }
   def name
     short_name.presence || long_name
   end

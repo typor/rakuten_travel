@@ -1,7 +1,7 @@
 <section id="hotel-info">
   <div class="container">
-    <div class="gap"></div>
-    <div class="box">
+    <div class="box first">
+      <h3><%= hotel.link %></h3>
       <div class="row">
         <div class="col-md-3">
           <div class="center">
@@ -10,14 +10,15 @@
           </div>
         </div>
         <div class="col-md-9">
-          <h3><%= hotel.link %></h3>
           <address>
-            <p>
-              <%= hotel.postal_code %><br><%= hotel.full_address %><br>
-              <%= icon('phone') %>&nbsp;<%= hotel.telephone_no %><br>
-              <%= hotel.access %>
-            </p>
-            <%= link_to icon('map-marker') + ' GoogleMap', hotel.google_map_url, target: '_blank', class: 'btn btn-warning' %>
+            <ul class="list-group">
+              <li class="list-group-item">
+                <%= icon('building-o') %>&nbsp;&#12306;<%= hotel.postal_code %>&nbsp;<%= hotel.full_address %>
+                &nbsp;&nbsp;&nbsp;&nbsp;<%= link_to icon('map-marker') + ' GoogleMap', hotel.google_map_url, target: '_blank', class: 'btn btn-sm btn-warning' %>
+              </li>
+              <li class="list-group-item"><%= icon('phone') %>&nbsp;<%= hotel.telephone_no %></li>
+              <li class="list-group-item"><%= icon('hand-o-right')%>&nbsp;<%= hotel.access %></li>
+            </ul>
           </address>
           <div class="reviews" style="margin-top:2.5em;">
             <%= hotel.review_score %>

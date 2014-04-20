@@ -76,7 +76,6 @@ class Api::VacantApi
         raise response.body.to_s
       end
     end
-
     response.rooms.map do |params|
       build!(params)
     end

@@ -3971,7 +3971,7 @@ function AgendaEventRenderer() {
       classes = classes.concat(event.source.className || []);
     }
     if (url) {
-      html += "a href='" + htmlEscape(event.url) + "'";
+      html += "a href='" + htmlEscape(event.url) + "' target='_blank'";
     }else{
       html += "div";
     }
@@ -5334,7 +5334,7 @@ function DayEventRenderer() {
     var skinCss = getSkinCss(event, opt);
 
     if (url) {
-      html += "<a href='" + htmlEscape(url) + "'";
+      html += "<a href='" + htmlEscape(url) + "' target='_blank'";
     }else{
       html += "<div";
     }

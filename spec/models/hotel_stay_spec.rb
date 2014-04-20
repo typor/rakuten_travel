@@ -5,8 +5,8 @@ describe HotelStay do
 
   describe '#stay_day' do
     let(:my) { described_class.new(hotel: hotel, year: 2014, month: 9) }
-    it { expect(my.start_day).to eq 20140901 }
-    it { expect(my.finish_day).to eq 20140930 }
+    it { expect(my.start_day).to eq((DateTime.new(2014, 9, 1) - 1.weeks).strftime('%Y%m%d').to_i) }
+    it { expect(my.finish_day).to eq((DateTime.new(2014, 9, 1).end_of_month + 2.weeks).strftime('%Y%m%d').to_i) }
   end
 
   describe '#search' do
@@ -15,15 +15,25 @@ describe HotelStay do
     end
 
     let!(:room1) { create(:room, hotel: hotel, enabled: true) }
-    let!(:room2) { create(:room, hotel: hotel, enabled: false) }
+    let!(:room2) { create(:room, hotel: hotel, enabled: true) }
     let!(:plan1) { create(:plan, hotel: hotel, enabled: true) }
-    let!(:plan2) { create(:plan, hotel: hotel, enabled: false) }
-    let!(:charge1) { create(:charge, hotel: hotel, room: room1, plan: plan1, can_stay: true, amount: 1000, stay_day: '20141001') }
-    let!(:charge2) { create(:charge, hotel: hotel, room: room1, plan: plan1, can_stay: true, amount: 2000, stay_day: '20141002') }
+    let!(:plan2) { create(:plan, hotel: hotel, enabled: true) }
+    let!(:charge1) { create(:charge, hotel: hotel, room: room1, plan: plan1, can_stay: true, amount: 100, stay_day: '20141001') }
+    let!(:charge2) { create(:charge, hotel: hotel, room: room2, plan: plan1, can_stay: true, amount: 200, stay_day: '20141001') }
+    let!(:charge3) { create(:charge, hotel: hotel, room: room1, plan: plan1, can_stay: true, amount: 1000, stay_day: '20141002') }
+    let!(:charge4) { create(:charge, hotel: hotel, room: room2, plan: plan1, can_stay: true, amount: 2000, stay_day: '20141002') }
 
-    it do
-      klass = described_class.new(hotel: hotel, year: 2014, month: 10)
-      expect(klass.search)
+    subject(:response) { described_class.new(hotel: hotel, year: 2014, month: 10).search }
+    it { expect(subject).to be_key 20141001 }
+    it { expect(subject).to be_key 20141002 }
+
+    context '20141001' do
+      subject(:my) { response[20141001] }
+      it {
+        expect(my[:min]).to eq 100
+        expect(my[:max]).to eq 200
+        expect(my[:start]).to eq '2014-10-01'
+      }
     end
   end
 

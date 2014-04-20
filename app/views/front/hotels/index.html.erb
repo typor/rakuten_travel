@@ -1,0 +1,18 @@
+<% title t('.title') %>
+<section id="breadcrumbs">
+<div class="container">
+  <ol class="breadcrumb">
+    <li><a href="/">Home</a></li>
+    <li class="active"><%= link_to t('front.menu.hotels'), front_hotels_path %></li>
+  </ol>
+</div>
+</section>
+
+<section id="hotels">
+  <div class="container">
+    <div class="box first">
+      <%= render partial: 'search', locals: { areas: @areas, area: @area, query: params[:q] } %>
+      <%= render partial: 'index', locals: { hotels: @hotels } %>
+      <%= paginate @hotels %>
+  </div>
+</section>

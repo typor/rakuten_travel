@@ -1,9 +1,4 @@
 module AreaDecorator
-  def name
-    return short_name unless short_name.blank?
-    long_name
-  end
-
   def import_link
     link_to icon('cloud-download') + raw("&nbsp;&nbsp;") + t('decorators.area_decorator.import_hotel'),
       import_hotels_admin_area_path(self, format: :json), remote: true,

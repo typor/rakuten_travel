@@ -43,6 +43,7 @@ describe Api::AreaApi do
       it { expect(area.middle).to eq 'hokkaido' }
       it { expect(area.small).to eq 'sapporo' }
       it { expect(area.detail).to eq 'A' }
+      it { expect(area.short_name).to eq 'JR札幌駅周辺・新札幌駅' }
     end
 
     context 'find' do

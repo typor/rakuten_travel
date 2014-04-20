@@ -12,5 +12,6 @@ FactoryGirl.define do
     hotel_image_url 'http://example.com/example.png'
     url 'http://example.com/'
     access 'dummy'
+    enabled true
   end
 end
