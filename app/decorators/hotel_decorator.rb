@@ -28,8 +28,12 @@ module HotelDecorator
     link_to name, url, target: '_blank', rel: 'nofollow'
   end
 
+  def fron_link_url
+    front_hotel_path(uri_escaped_name)
+  end
+
   def front_link
-    link_to name, front_hotel_path(URI.escape(name)), target: '_blank'
+    link_to name, front_link_url, target: '_blank'
   end
 
   def google_map_url(zoom = 16)

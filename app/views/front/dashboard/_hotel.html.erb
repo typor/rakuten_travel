@@ -1,9 +1,11 @@
-<div class="col-sm-6 col-md-4">
-  <div class="thumbnail">
-    <%= link_to hotel.image(nil, class: 'tales'), front_hotel_path(URI.encode(hotel.name)) %>
-    <div class="caption center">
-      <h3><%= hotel.link %>&nbsp;&nbsp;<%= gift_icon %>&nbsp;<%= point_icon %></h3>
-      <p><%= link_to icon('calendar') + raw('&nbsp;&nbsp;') + t('front.vacancy_calendar'), front_hotel_path(URI.encode(hotel.name)), class: 'btn btn-sm btn-info' %> </p>
-    </div>
+<li class="portfolio-item apps isotope-item" style="position: absolute; left: 0px; top: 0px; -webkit-transform: translate3d(0px, 0px, 0px);">
+<div class="item-inner">
+  <div class="portfolio-image">
+    <%= link_to hotel.fron_link_url do %>
+      <span class="cover" style="background-image: url('<%= hotel.hotel_image_url %>')"></span>
+    <% end %>
   </div>
+  <h5><%= hotel.link %></h5>
+  <p><%= link_to icon('map-marker') + raw('&nbsp;&nbsp;') + hotel.full_address, hotel.google_map_url, target: '_blank', title: 'Google Map' %><br><%= gift_icon %>&nbsp;<%= point_icon %></p>
 </div>
+</li>
