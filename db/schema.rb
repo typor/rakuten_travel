@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140419113713) do
+ActiveRecord::Schema.define(version: 20140420135259) do
 
   create_table "areas", force: true do |t|
     t.string   "long_name",                  null: false
@@ -82,6 +82,7 @@ ActiveRecord::Schema.define(version: 20140419113713) do
     t.integer  "meal_average",      default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "description"
   end
 
   create_table "plans", force: true do |t|

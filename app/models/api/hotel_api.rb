@@ -46,6 +46,7 @@ class Api::HotelApi
     end
 
     return nil unless attributes.key? :no
+    attributes[:description] = build_description(params).tapp
 
     (Hotel.find_by(no: attributes[:no]) || Hotel.new).tap do |o|
       o.attributes = attributes
@@ -84,5 +85,15 @@ class Api::HotelApi
       'bathAverage' => :bath_average,
       'mealAverage' => :meal_average
     }.freeze
+  end
+
+  def build_description(params)
+    texts = []
+    texts << "Point: " + params['hotelSpecial']
+    texts << "駐車場: " + params['parkingInformation'] if params['parkingInformation'].present?
+    texts << "チェックイン: " + params['checkinTime'] if params['checkinTime'].present?
+    texts << "最終チェックイン: " + params['lastCheckinTime'] if params['lastCheckinTime'].present?
+    texts << "チェックアウト: " + params['checkoutTime'] if params['checkoutTime'].present?
+    texts.join("\n").gsub(/\r\n?/, "\n")
   end
 end

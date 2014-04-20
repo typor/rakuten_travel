@@ -58,6 +58,7 @@ ja:
         room_type_count: '部屋の種類'
         plan_count: 'プラン数'
         room_num: '部屋数'
+        description: '説明文'
       room:
         id: 'ID'
         hotel_id: 'ホテル'

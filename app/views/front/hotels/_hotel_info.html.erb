@@ -20,14 +20,16 @@
               <li class="list-group-item"><%= icon('hand-o-right')%>&nbsp;<%= hotel.access %></li>
             </ul>
           </address>
-          <div class="reviews" style="margin-top:2.5em;">
-            <%= hotel.review_score %>
-            <%= hotel.service_progressbar %>
-            <%= hotel.location_progressbar %>
-            <%= hotel.room_progressbar %>
-            <%= hotel.equipment_progressbar %>
-            <%= hotel.bath_progressbar %>
-            <%= hotel.meal_progressbar %>
+          <div class="reviews row" style="margin-top:2.5em;">
+            <div class="col-md-6">
+              <%= hotel.review_score %>
+              <%= hotel.service_progressbar %>
+              <%= hotel.location_progressbar %>
+              <%= hotel.room_progressbar %>
+              <%= hotel.equipment_progressbar %>
+              <%= hotel.bath_progressbar %>
+              <%= hotel.meal_progressbar %>
+            </div>
           </div>
         </div>
       </div>
