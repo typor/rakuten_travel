@@ -29,4 +29,9 @@
 <% end -%>
 </div>
 </div>
+<p>
+  <%= sort_link(@search, :review_average, Hotel.human_attribute_name(:review_average)) %>&nbsp;|&nbsp;
+  <%= sort_link(@search, :enabled, Hotel.human_attribute_name(:enabled)) %>
+</p>
+
 <%= javascript_include_tag_to :foot, 'admin/hotels' %>

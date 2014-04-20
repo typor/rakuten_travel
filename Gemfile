@@ -22,6 +22,7 @@ gem 'email_validator'
 gem 'hiredis'
 gem 'redis', require:  ["redis", "redis/connection/hiredis"]
 gem 'sidekiq'
+gem 'whenever', require: false
 gem 'sinatra', '>= 1.3.0', require: nil
 # search
 gem "ransack", github: "activerecord-hackery/ransack", branch: "rails-4"
