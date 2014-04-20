@@ -40,8 +40,10 @@ ja:
       index:
         title: 'ホテル一覧'
     dashboard:
-      index:
-        gift_plans: 'クオカードなどの特典がもらえるホテル'
+      gift_hotels:
+        title: 'クオカードなどの特典がもらえるホテル'
+      highest_review_hotels:
+        title: '高評価のホテル'
   admin:
     project_name: '楽天トラベルAPI Admin'
     menu:

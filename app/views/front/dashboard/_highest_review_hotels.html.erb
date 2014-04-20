@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="box">
+    <div class="center">
+      <h2 class="small"><%= t('.title') %></h2>
+    </div>
+    <ul class="portfolio-items col-4 isotope" style="position: relative; overflow: hidden; height: 450px;">
+    <% hotels.each do |hotel| %>
+    <li class="portfolio-item apps isotope-item" style="position: absolute; left: 0px; top: 0px; -webkit-transform: translate3d(0px, 0px, 0px);">
+      <div class="item-inner">
+        <div class="portfolio-image">
+          <%= link_to hotel.fron_link_url do %>
+            <span class="cover" style="background-image: url('<%= hotel.hotel_image_url %>')"></span>
+          <% end %>
+        </div>
+        <h5><%= hotel.link %></h5>
+        <p>
+          <%= link_to icon('map-marker') + raw('&nbsp;&nbsp;') + hotel.full_address, hotel.google_map_url, target: '_blank', title: 'Google Map' %><br>
+          <%= hotel.review_progressbar %>
+        </p>
+      </div>
+      </li>
+    <% end -%>
+    </ul>
+  </div>
+</div>

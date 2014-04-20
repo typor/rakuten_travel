@@ -1,15 +1,8 @@
 <% title t('front.project_name') %>
-<section id="gift-plan">
-<div class="container">
-  <div class="box center">
-    <h2><%= t('.gift_plans') %></h2>
-    <div class="row">
-      <% @plans.each do |plan| %>
-        <% if plan.hotel %>
-          <%= render partial: 'hotel', locals: {hotel: plan.hotel, point_icon: plan.point_icon, gift_icon: plan.gift_icon } %>
-          <% end %>
-      <% end -%>
-    </div>
-  </div>
-</div>
+<section id="highest-review-hotels" class="portfolio">
+  <%= render partial: 'highest_review_hotels', locals: {hotels: @hotels} %>
 </section>
+<section id="gift-hotels" class="portfolio">
+  <%= render partial: 'gift_hotels', locals: {plans: @plans} %>
+</section>
+<%= javascript_include_tag_to(:foot, 'front/dashboard') %>
