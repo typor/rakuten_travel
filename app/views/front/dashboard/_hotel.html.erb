@@ -1,0 +1,9 @@
+<div class="col-sm-6 col-md-4">
+  <div class="thumbnail">
+    <%= link_to hotel.image(nil, class: 'tales'), front_hotel_path(URI.encode(hotel.name)) %>
+    <div class="caption center">
+      <h3><%= hotel.link %>&nbsp;&nbsp;<%= gift_icon %>&nbsp;<%= point_icon %></h3>
+      <p><%= link_to icon('calendar') + raw('&nbsp;&nbsp;') + t('front.vacancy_calendar'), front_hotel_path(URI.encode(hotel.name)), class: 'btn btn-sm btn-info' %> </p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+<% title t('front.project_name') %>
+<section id="gift-plan">
+<div class="container">
+  <div class="box center">
+    <h2><%= t('.gift_plans') %></h2>
+    <div class="row">
+      <% @plans.each do |plan| %>
+        <% if plan.hotel %>
+          <%= render partial: 'hotel', locals: {hotel: plan.hotel, point_icon: plan.point_icon, gift_icon: plan.gift_icon } %>
+          <% end %>
+      <% end -%>
+    </div>
+  </div>
+</div>
+</section>

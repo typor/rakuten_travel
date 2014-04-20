@@ -18,6 +18,8 @@ ja:
     rooms: '%{num} 部屋'
     reviews: '評価'
     all_areas: 'すべての地域'
+    top: 'TOP'
+    back_to_top: 'TOPページへ戻る'
   decorators:
     area_decorator:
       import_hotel: 'ホテル取込'
@@ -26,16 +28,20 @@ ja:
     successful_perform_async: "Job(%{job_id})を登録しました。"
     failure_perform_async: "JOBの登録に失敗しました。"
   front:
+    project_name: 'ホテル検索(自分用)'
     vacancy_calendar: '空室カレンダー'
     vacancy_calendar_lead: '金額が表示されている箇所が宿泊可能な日付です。(クリックすると予約用のページへ遷移します。)'
     not_found: 'ページが見つかりません'
     not_found_lead: '指定されたページは削除された または 入力されたURLがおかしいようです'
     menu:
       hotels:
-        'ホテル'
+        'ホテル一覧'
     hotels:
       index:
         title: 'ホテル一覧'
+    dashboard:
+      index:
+        gift_plans: 'クオカードなどの特典がもらえるホテル'
   admin:
     project_name: '楽天トラベルAPI Admin'
     menu:
