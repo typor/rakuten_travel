@@ -19,3 +19,4 @@ spec/fixtures/vcr/*
 config/schedule.rb
 config/initalizers/sidekiq.rb
 config/sidekiq.yml
+config/database.yml

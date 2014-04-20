@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 20140419113713) do
     t.datetime "updated_at"
   end
 
-  add_index "areas", ["middle", "small", "detail"], name: "index_areas_on_middle_and_small_and_detail", unique: true
+  add_index "areas", ["middle", "small", "detail"], name: "index_areas_on_middle_and_small_and_detail", unique: true, using: :btree
 
   create_table "charge_histories", force: true do |t|
     t.integer  "charge_id"
@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 20140419113713) do
     t.boolean  "can_stay",      default: true, null: false
   end
 
-  add_index "charge_histories", ["charge_id"], name: "index_charge_histories_on_charge_id"
+  add_index "charge_histories", ["charge_id"], name: "index_charge_histories_on_charge_id", using: :btree
 
   create_table "charges", force: true do |t|
     t.integer  "hotel_id"
@@ -48,11 +48,11 @@ ActiveRecord::Schema.define(version: 20140419113713) do
     t.datetime "updated_at"
   end
 
-  add_index "charges", ["hotel_id"], name: "index_charges_on_hotel_id"
-  add_index "charges", ["plan_id"], name: "index_charges_on_plan_id"
-  add_index "charges", ["room_id", "plan_id", "stay_day"], name: "index_charges_on_room_id_and_plan_id_and_stay_day", unique: true
-  add_index "charges", ["room_id"], name: "index_charges_on_room_id"
-  add_index "charges", ["stay_day"], name: "index_charges_on_stay_day"
+  add_index "charges", ["hotel_id"], name: "index_charges_on_hotel_id", using: :btree
+  add_index "charges", ["plan_id"], name: "index_charges_on_plan_id", using: :btree
+  add_index "charges", ["room_id", "plan_id", "stay_day"], name: "index_charges_on_room_id_and_plan_id_and_stay_day", unique: true, using: :btree
+  add_index "charges", ["room_id"], name: "index_charges_on_room_id", using: :btree
+  add_index "charges", ["stay_day"], name: "index_charges_on_stay_day", using: :btree
 
   create_table "hotels", force: true do |t|
     t.integer  "area_id",                           null: false
@@ -101,7 +101,7 @@ ActiveRecord::Schema.define(version: 20140419113713) do
     t.integer  "gift_type"
   end
 
-  add_index "plans", ["hotel_id"], name: "index_plans_on_hotel_id"
+  add_index "plans", ["hotel_id"], name: "index_plans_on_hotel_id", using: :btree
 
   create_table "rooms", force: true do |t|
     t.integer  "hotel_id",                   null: false
@@ -130,7 +130,7 @@ ActiveRecord::Schema.define(version: 20140419113713) do
     t.datetime "updated_at"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["last_logout_at", "last_activity_at"], name: "index_users_on_last_logout_at_and_last_activity_at"
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["last_logout_at", "last_activity_at"], name: "index_users_on_last_logout_at_and_last_activity_at", using: :btree
 
 end
