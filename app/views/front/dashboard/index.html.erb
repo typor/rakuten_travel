@@ -1,0 +1,8 @@
+<% title t('front.project_name') %>
+<section id="highest-review-hotels" class="portfolio">
+  <%= render partial: 'highest_review_hotels', locals: {hotels: @hotels} %>
+</section>
+<section id="gift-hotels" class="portfolio">
+  <%= render partial: 'gift_hotels', locals: {plans: @plans} %>
+</section>
+<%= javascript_include_tag_to(:foot, 'front/dashboard') %>

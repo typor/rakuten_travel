@@ -28,6 +28,12 @@ class Hotel < ActiveRecord::Base
     address1 + address2
   end
 
+  def uri_escaped_name
+    URI.escape(name)
+  rescue
+    name
+  end
+
   def room_type_count
     @room_type_count ||= Room.where(hotel_id: self.id).count
   end

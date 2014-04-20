@@ -9,7 +9,7 @@ ja:
     cash_only: '現金のみ'
     creditcard_only: 'カードのみ'
     cash_and_creditcard: '現金/カード'
-    google_map_link_name: 'Googleマップで表示'
+    google_map_link_name: 'GoogleMap'
     login_successful: 'ログインしました。'
     login_failure: 'ログインに失敗しました。'
     need_login: 'ログインが必要です。'
@@ -18,6 +18,8 @@ ja:
     rooms: '%{num} 部屋'
     reviews: '評価'
     all_areas: 'すべての地域'
+    top: 'TOP'
+    back_to_top: 'TOPページへ戻る'
   decorators:
     area_decorator:
       import_hotel: 'ホテル取込'
@@ -26,16 +28,22 @@ ja:
     successful_perform_async: "Job(%{job_id})を登録しました。"
     failure_perform_async: "JOBの登録に失敗しました。"
   front:
+    project_name: 'ホテル検索(自分用)'
     vacancy_calendar: '空室カレンダー'
     vacancy_calendar_lead: '金額が表示されている箇所が宿泊可能な日付です。(クリックすると予約用のページへ遷移します。)'
     not_found: 'ページが見つかりません'
     not_found_lead: '指定されたページは削除された または 入力されたURLがおかしいようです'
     menu:
       hotels:
-        'ホテル'
+        'ホテル一覧'
     hotels:
       index:
         title: 'ホテル一覧'
+    dashboard:
+      gift_hotels:
+        title: 'クオカードなどの特典がもらえるホテル'
+      highest_review_hotels:
+        title: '高評価のホテル'
   admin:
     project_name: '楽天トラベルAPI Admin'
     menu:

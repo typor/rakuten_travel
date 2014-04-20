@@ -3,7 +3,7 @@
 <div class="row">
   <div class="col-md-10">
     <div class="pull-left"><%= @hotel.toggle_link %></div>
-    <h3>[<%= @hotel.no %>]&nbsp;<%= @hotel.front_link %></h3>
+    <h3>[<%= @hotel.no %>]&nbsp;<%= link_to @hotel.name, front_hotel_path(@hotel.uri_escaped_name) %></h3>
   </div>
   <div class="col-md-2 text-right">
     <%= edit_link(@hotel) %>
@@ -20,8 +20,12 @@
     <div class="row">
       <div class="col-md-4">
         <address>
-          <%= @hotel.postal_code %><br><%= @hotel.full_address %>(<%= @hotel.google_map_link %>)<br>
-          <%= Hotel.human_attribute_name(:telephone_no) %>: <%= @hotel.telephone_no %><br>
+          &#12306;<%= @hotel.postal_code %><br>
+          <%= @hotel.full_address %><br>
+          <%= link_to @hotel.google_map_url do %>
+            <%= icon('map-marker') %>&nbsp;&nbsp;<%= t('global.google_map_link_name') %>
+          <% end -%><br>
+          <%= icon('phone') %>&nbsp;<%= @hotel.telephone_no %><br>
           <%= simple_format(@hotel.access) %>
         </address>
         <p class="hotel-detail-info">

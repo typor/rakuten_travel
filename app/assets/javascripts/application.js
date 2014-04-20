@@ -3,3 +3,4 @@
 //= require bootstrap
 //= require fullcalendar/fullcalendar
 //= require fullcalendar/gcal
+//= require isotope.pkgd.min

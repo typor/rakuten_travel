@@ -10,7 +10,10 @@
       <h4 class="media-heading">[<%= hotel.no %>]&nbsp;<%= hotel.link %></h4>
       <div class="row">
         <div class="col-md-10">
-          <%= hotel.postal_code %>&nbsp;<%= hotel.address1 %><%= hotel.address2 %>(<%= hotel.google_map_link %>)<br>
+          &#12306;<%= hotel.postal_code %>&nbsp;<%= hotel.full_address %>&nbsp;&nbsp;
+          <%= link_to hotel.google_map_url do %>
+            <%= icon('map-marker') %>&nbsp;<%= t('global.google_map_link_name') %>
+          <% end -%><br>
           <%= hotel.access %><br>
           <div style="width: 50%;">
             <%= hotel.review_score %>
