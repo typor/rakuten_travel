@@ -13,9 +13,11 @@ class Api::HotelApi
   end
 
   def request(area)
-    @client = nil
     hotels = do_call(area.id) do |client|
-      client.request {|o| o.add_params area.to_api_params }
+      client.request do |o|
+        o.add_param :page, nil
+        o.add_params area.to_api_params
+      end
     end
 
     while api_client.next?
