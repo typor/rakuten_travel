@@ -34,8 +34,10 @@ gem 'settingslogic'
 gem 'active_decorator'
 gem 'tapp'
 
+# server
+gem 'puma'
+
 group :development do
-  gem 'thin'
   gem 'i18n-tasks', '~> 0.3.9'
   gem 'quiet_assets'
   gem 'rb-inotify', require: false
@@ -44,6 +46,8 @@ group :development do
   gem 'growl', require: false
   gem 'terminal-notifier-guard', require: false
   gem 'rb-notifu', require: false
+  gem 'capistrano', '~> 3.2.0'
+  gem 'capistrano3-puma'
 end
 
 group :test do
