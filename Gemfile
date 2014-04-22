@@ -10,7 +10,7 @@ gem 'jquery-rails'
 gem 'jbuilder'
 # bootstrap
 gem 'bootstrap-sass', '~> 3.1.1'
-gem 'bootstrap_form', git: 'git@github.com:bootstrap-ruby/rails-bootstrap-forms.git'
+gem 'bootstrap_form', git: 'https://github.com/bootstrap-ruby/rails-bootstrap-forms.git'
 gem "select2-rails"
 gem 'font-awesome-sass'
 # pagination
@@ -26,7 +26,7 @@ gem 'sidekiq'
 gem 'whenever', require: false
 gem 'sinatra', '>= 1.3.0', require: nil
 # search
-gem "ransack", github: "activerecord-hackery/ransack", branch: "rails-4"
+gem "ransack", git: "https://github.com/activerecord-hackery/ransack", branch: "rails-4"
 gem 'enumerize'
 # utils
 gem 'faraday'
@@ -46,8 +46,12 @@ group :development do
   gem 'growl', require: false
   gem 'terminal-notifier-guard', require: false
   gem 'rb-notifu', require: false
+  # capistrano
   gem 'capistrano', '~> 3.2.0'
+  gem 'capistrano-rbenv', '~> 2.0'
+  gem 'capistrano-bundler', '~> 1.1.2'
   gem 'capistrano3-puma'
+  gem 'capistrano-rails', '~> 1.1'
 end
 
 group :test do
