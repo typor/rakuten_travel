@@ -1,6 +1,6 @@
 # HotelNoをキーに検索する
 class Api::VacantApi
-  attr_accessor :client, :hotel
+  attr_accessor :hotel
 
   def initialize(hotel, application_id, affiliate_id = nil)
     @application_id = application_id
