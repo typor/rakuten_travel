@@ -26,7 +26,7 @@ module RakutenTravel
     config.i18n.default_locale = :ja
     config.autoload_paths += Dir["#{config.root}/lib/*"]
 
-    config.assets.precompile += %w(*.js *.css)
+    config.assets.precompile += %w(admin/*.js front/*.js)
     config.generators do |g|
       g.test_framework = "rspec"
       g.helper_specs = false
