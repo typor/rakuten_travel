@@ -13,8 +13,11 @@ set :repo_url, 'https://github.com/kengos/rakuten_travel.git'
 set :scm, :git
 set :git_shallow_clone, 1
 set :deploy_via, :copy
-set :linked_files, %w{config/database.yml}
+set :linked_files, %w{config/database.yml config/application.yml config/sidekiq.yml config/initializers/secret_token.rb}
 set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
+
+# sidkiq
+set :sidekiq_role, :web
 
 namespace :deploy do
   after :publishing, :restart
