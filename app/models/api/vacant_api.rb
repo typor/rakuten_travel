@@ -41,6 +41,7 @@ class Api::VacantApi
     end
 
     while api_client.next?
+      sleep 1 if Rails.env.production?
       charges += do_call {|client| client.next}
     end
     after_request(@hotel.id, stay_day)

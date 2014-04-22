@@ -48,16 +48,19 @@ namespace :api do
     count = ENV['COUNT']
     count = 1 if count.to_i <= 0
 
+    sleep_time = Settings.api_sleep_time rescue 3
+
     count.to_i.times do |i|
       charges = Api::VacantApi.new(hotel, Settings.application_id, Settings.affiliate_id).request(checkin.to_i + i)
       if charges.size == 0
-        puts "指定されたCHECKINの日付における予約可能な部屋は存在しません。"
+        d = (checkin.to_i + 1).days.since.strftime('%Y-%m-%d')
+        puts "指定された日付では #{d} 予約可能な部屋は存在しません。"
       end
 
       charges.each_with_index do |charge, i|
         puts "[#{i+1}] Adding ... " + charge.plan.long_name + '...' + charge.room.name + '...' + charge.amount.to_s
       end
-      sleep 0.8
+      sleep sleep_time
     end
   end
 
@@ -67,7 +70,7 @@ namespace :api do
     checkin = 1 if checkin.to_i <= 0
     count = ENV['COUNT']
     count = 1 if count.to_i <= 0
-    sleep_time = Settings.api_sleep_time rescue 0.8
+    sleep_time = Settings.api_sleep_time rescue 3
     Hotel.where(enabled: true).each do |hotel|
       puts "Importing ... " + hotel.no + " " + hotel.long_name
       api = Api::VacantApi.new(hotel, Settings.application_id, Settings.affiliate_id)
