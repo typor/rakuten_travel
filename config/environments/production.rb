@@ -3,6 +3,7 @@ RakutenTravel::Application.configure do
 
   # Code is not reloaded between requests.
   config.cache_classes = true
+  config.cache_store = :dalli_store, nil, {namespace: 'rakuten_travel', expires_in: 1.day, compress: true }
 
   # Eager load code on boot. This eager loads most of Rails and
   # your application in memory, allowing both thread web servers
