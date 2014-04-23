@@ -46,7 +46,7 @@ class Api::VacantApi
     end
     after_request(@hotel.id, stay_day)
 
-    charges.compact
+    charges.nil? ? [] : charges.compact
   rescue Exception => e
     Rails.logger.error e.message
     Rails.logger.error e.backtrace.join("\n")
