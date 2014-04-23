@@ -36,6 +36,7 @@ gem 'tapp'
 
 # server
 gem 'puma'
+gem 'dalli'
 
 group :development do
   gem 'i18n-tasks', '~> 0.3.9'
@@ -68,8 +69,4 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.0.0.beta2'
   gem 'factory_girl_rails'
   gem 'capybara'
-end
-
-group :production do
-  gem 'dalli'
 end
