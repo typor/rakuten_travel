@@ -1,9 +1,11 @@
 <section id="calendar">
   <div class="container">
     <div class="box">
-      <h3><%= t('front.vacancy_calendar') %></h3>
-      <p><%= raw t('front.vacancy_calendar_lead') %></p>
-      <div id="calendar-box" data-url="<%= url %>"></div>
+	    <h3><%= t('front.vacancy_calendar') %></h3>
+  	  <p><%= raw t('front.vacancy_calendar_lead') %></p>
+  	  <div class="row">
+	    	<div id="calendar-box" class="col-md-6" data-url="<%= url %>"></div>
+	    </div>
     </div>
   </div>
 </section>
