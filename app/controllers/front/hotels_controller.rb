@@ -1,6 +1,4 @@
 class Front::HotelsController < ::Front::ApplicationController
-  before_filter :load_resource, except: [:index, :show]
-
   def index
     @areas = Area.enabled.select('id, short_name')
     @hotels = Hotel.enabled
@@ -21,17 +19,12 @@ class Front::HotelsController < ::Front::ApplicationController
   end
 
   def stay
-    @results = HotelStay.new(hotel: @hotel, year: params[:year], month: params[:month]).search
-    if @results.nil?
-      render_404
-    end
-  end
-
-  private
-
-  def load_resource
+    render_404 unless request.xhr?
     @hotel = Hotel.enabled.find(params[:id])
+    @results = HotelStay.new(hotel: @hotel, year: params[:year], month: params[:month]).search
+    raise 'not found' if @results.nil?
   rescue
     render_404
   end
+
 end

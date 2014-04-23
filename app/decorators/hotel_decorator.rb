@@ -4,6 +4,7 @@ module HotelDecorator
   end
 
   def room_image(width = 80, options = {})
+    return '' if room_image_url.blank?
     image_tag(room_image_url, {width: width, alt: Hotel.human_attribute_name(:room_image), class: 'img-responsive'}.merge(options))
   end
 
