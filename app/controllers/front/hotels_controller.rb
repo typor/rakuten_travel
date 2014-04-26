@@ -23,6 +23,7 @@ class Front::HotelsController < ::Front::ApplicationController
     @hotel = Hotel.enabled.find(params[:id])
     @results = HotelStay.new(hotel: @hotel, year: params[:year], month: params[:month]).search
     raise 'not found' if @results.nil?
+    add_xrobots_tag
   rescue
     render_404
   end
