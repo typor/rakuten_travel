@@ -61,6 +61,7 @@ describe Front::HotelsController do
       render_views
       before { xhr :get, :stay, id: hotel.id, year: 2014, month: 10 }
       it { expect(response).to be_success }
+      it { expect(response.header['X-Robots-Tag']).to eq 'noindex,nofollow,noarchive' }
       context 'response' do
         subject(:json) { JSON.parse(response.body) }
         specify { expect(json.size).to eq 1 }

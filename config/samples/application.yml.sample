@@ -1,4 +1,5 @@
 defaults: &defaults
+  site_title: ''
   application_id: "YOUR APPLICATION ID"
   affiliate_id: "YOUR AFFILIATE ID"
   api_sleep_time: 0.5
@@ -13,3 +14,4 @@ test:
 
 production:
   <<: *defaults
+  google_analytics: ''
