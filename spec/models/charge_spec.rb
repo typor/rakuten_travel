@@ -76,4 +76,5 @@ describe Charge do
     let!(:charge5) { create(:charge, hotel: hotel, room: room, plan: plan, stay_day: 20140405) }
     it { expect(Charge.within(20140402, 20140404).order(id: :asc).ids).to eq [charge2.id, charge3.id, charge4.id] }
   end
+
 end
