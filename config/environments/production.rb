@@ -3,7 +3,6 @@ RakutenTravel::Application.configure do
 
   # Code is not reloaded between requests.
   config.cache_classes = true
-  config.cache_store = :dalli_store, nil, {namespace: 'rakuten_travel', expires_in: 1.day, compress: true }
 
   # Eager load code on boot. This eager loads most of Rails and
   # your application in memory, allowing both thread web servers
@@ -54,6 +53,7 @@ RakutenTravel::Application.configure do
 
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
+  config.cache_store = :dalli_store, '127.0.0.1', {namespace: 'rt', expires_in: 1.day, compress: true }
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.action_controller.asset_host = "http://assets.example.com"

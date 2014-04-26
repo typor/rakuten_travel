@@ -2,10 +2,19 @@
 
 <section id="breadcrumbs">
 <div class="container">
-  <ol class="breadcrumb">
-    <li><a href="/">Home</a></li>
-    <li><%= link_to t('front.menu.hotels'), front_hotels_path %></li>
-    <li class="active"><%= link_to @hotel.name, front_hotel_path(URI.escape(@hotel.name)) %></li>
+  <ol class="breadcrumb" xmlns:v="http://rdf.data-vocabulary.org/#">
+    <li typeof="v:Breadcrumb">
+      <%= link_to 'Home', '/', rel: "v:url", property: "v:title" %>
+    </li>
+    <li typeof="v:Breadcrumb">
+      <%= link_to t('front.menu.hotels'), front_hotels_path, rel: "v:url", property: "v:title" %>
+    </li>
+    <li typeof="v:Breadcrumb">
+      <%= link_to @hotel.area.name, areas_front_hotels_path(@hotel.area.uri_escaped_name), rel: "v:url", property: "v:title" %>
+    </li>
+    <li class="active" typeof="v:Breadcrumb">
+      <%= link_to @hotel.name, front_hotel_path(URI.escape(@hotel.name), rel: "v:url", property: "v:title") %>
+    </li>
   </ol>
 </div>
 </section>

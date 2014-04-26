@@ -13,6 +13,7 @@ class Hotel < ActiveRecord::Base
 
   belongs_to :area
   has_many :plans
+  has_many :gift_plans, -> { where(enabled: true).where('gift_price > 0').order(gift_price: :asc) }, class_name: 'Plan'
   has_many :rooms
   has_many :smoking_rooms, -> { where(enabled: true, smoking: true) }, class_name: 'Room'
   has_many :nonsmoking_rooms, -> { where(enabled: true, smoking: false) }, class_name: 'Room'
@@ -20,6 +21,7 @@ class Hotel < ActiveRecord::Base
   has_many :charges
 
   scope :enabled, -> { where(enabled: true) }
+
   def name
     short_name.presence || long_name
   end

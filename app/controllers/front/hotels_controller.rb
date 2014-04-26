@@ -8,7 +8,7 @@ class Front::HotelsController < ::Front::ApplicationController
     end
 
     @hotels = @hotels.where("long_name LIKE :name", name: '%' + params[:q] + '%') if params[:q] && params[:q].length >= 3
-    @hotels = @hotels.page params[:page]
+    @hotels = @hotels.includes(:area).page params[:page]
   end
 
   def show

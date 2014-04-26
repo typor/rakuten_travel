@@ -20,6 +20,14 @@ module ApplicationHelper
     content_for :title, page_title.to_s + ' | ' + site_title
   end
 
+  def description(description)
+    content_for :description, description
+  end
+
+  def canonical_tag(url)
+    tag(:link, rel: 'canonical', href: url).html_safe
+  end
+
   def site_title
     Settings.site_title rescue ''
   end

@@ -1,13 +1,23 @@
 <% title t('.title') %>
 <section id="breadcrumbs">
 <div class="container">
-  <ol class="breadcrumb">
-    <li><a href="/">Home</a></li>
-    <li class="active"><%= link_to t('front.menu.hotels'), front_hotels_path %></li>
+  <ol class="breadcrumb" xmlns:v="http://rdf.data-vocabulary.org/#">
+    <li typeof="v:Breadcrumb"><%= link_to 'Home', '/', rel: "v:url", property: "v:title" %></li>
+    <% if @area %>
+      <li typeof="v:Breadcrumb">
+        <%= link_to t('front.menu.hotels'), front_hotels_path, rel: "v:url", property: "v:title" %>
+      </li>
+      <li class="active" typeof="v:Breadcrumb">
+        <%= link_to @area.name, areas_front_hotels_path(@area.uri_escaped_name), rel: "v:url", property: "v:title" %>
+      </li>
+    <% else %>
+      <li class="active" typeof="v:Breadcrumb">
+        <%= link_to t('front.menu.hotels'), front_hotels_path, rel: "v:url", property: "v:title" %>
+      </li>
+    <% end %>
   </ol>
 </div>
 </section>
-
 <section id="hotels">
   <div class="container">
     <div class="box first">
@@ -16,3 +26,7 @@
       <%= paginate @hotels %>
   </div>
 </section>
+<% content_for :head do %>
+<%= canonical_tag @area ? areas_front_hotels_path(@area.uri_escaped_name) : front_hotels_path %>
+<%= rel_next_prev_link_tags @hotels %>
+<% end %>
