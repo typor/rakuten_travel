@@ -15,3 +15,7 @@ end
 every 1.day, at: '22:00' do
   rake "api:import_hotels"
 end
+
+every 1.day, at: '00:03' do
+  runner "StopReservationWorker.perform_async"
+end

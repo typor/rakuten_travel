@@ -10,6 +10,8 @@ class Charge < ActiveRecord::Base
   validates :stay_day, presence: true, numericality: { greater_than_or_equal_to: 20140101 }, uniqueness: {scope: [:room_id, :plan_id, :stay_day] }
 
   scope :within, ->(start, finish) { where(stay_day: start..finish) }
+  scope :reservations, -> { where(can_stay: true) }
+
   def latest_history
     ChargeHistory.where(charge_id: self.id).order(id: :desc).first
   end
