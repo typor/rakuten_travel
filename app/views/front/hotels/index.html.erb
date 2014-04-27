@@ -1,4 +1,11 @@
 <% title t('.title') %>
+<%
+  if @area
+    description @area.name + 'のお気に入りホテルの一覧です。'
+  else
+    description '東京都内のホテルの一覧です'
+  end
+%>
 <section id="breadcrumbs">
 <div class="container">
   <ol class="breadcrumb" xmlns:v="http://rdf.data-vocabulary.org/#">
