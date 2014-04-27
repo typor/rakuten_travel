@@ -1,7 +1,10 @@
 class HotelStay
-include ActiveModel::Conversion
+  include ActiveModel::Conversion
   include ActiveModel::Validations
   extend ActiveModel::Naming
+
+  PLAN_URL_BASE = "http://hotel.travel.rakuten.co.jp/hotelinfo/plan/"
+  AFFILIATE_URL_BASE = "http://hb.afl.rakuten.co.jp/hgc/"
 
   attr_accessor :hotel, :year, :month
 
@@ -16,10 +19,29 @@ include ActiveModel::Conversion
   end
 
   def build_plan_url(stay_day, span = 1)
-    url = Settings.plan_urls.sample
+    url = plan_url(stay_day, span)
+    return url if RakutenApiSettings.affiliate_id.blank?
+    AFFILIATE_URL_BASE + RakutenApiSettings.affiliate_id + "/?pc=" + CGI.escape(url)
+  end
+
+  def plan_url(stay_day, span, params = {})
     start = DateTime.strptime(stay_day.to_s, '%Y%m%d')
     finish = start + span.days
-    url + "?f_no=#{hotel.no}&f_flg=PLAN&f_hi1=#{start.day}&f_tuki1=#{start.month}&f_nen1=#{start.year}&f_hi2=#{finish.day}&f_tuki2=#{finish.month}&f_nen2=#{finish.year}&f_heya_su=1&f_otona_su=1"
+    params = plan_url_params(start, finish).merge(params)
+    PLAN_URL_BASE + "#{hotel.no}?#{params.to_query}"
+  end
+
+  def plan_url_params(start, finish)
+    {
+      f_nen1: start.year,
+      f_tuki1: start.month,
+      f_hi1: start.day,
+      f_nen2: finish.year,
+      f_tuki2: finish.month,
+      f_hi2: finish.day,
+      f_heya_su: 1,
+      f_otona_su: 1
+    }
   end
 
   def search
@@ -61,4 +83,5 @@ include ActiveModel::Conversion
   def persisted?
     false
   end
+
 end

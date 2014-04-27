@@ -3,7 +3,8 @@ class ImportAreasWorker
   sidekiq_options queue: :import
 
   def perform
-    areas = Api::AreaApi.new(Settings.application_id).request
+    key = Settings.rakuten_apis.sample
+    areas = Api::AreaApi.new(key[:application_id]).request
 
     c = 0
     areas.each do |area|

@@ -54,9 +54,6 @@ describe Front::HotelsController do
     let(:plan) { create(:plan, hotel: hotel) }
     let!(:charge) { create(:charge, hotel: hotel, room: room, plan: plan, stay_day: 20141001, can_stay: true, amount: 1000) }
 
-    before {
-      allow(Settings).to receive(:plan_urls).and_return(['http://example.com/'])
-    }
     context 'simple case' do
       render_views
       before { xhr :get, :stay, id: hotel.id, year: 2014, month: 10 }
@@ -69,7 +66,7 @@ describe Front::HotelsController do
           subject(:first) { json.first }
           specify { expect(first['title']).to eq "1,000" }
           specify { expect(first['start']).to eq "2014-10-01" }
-          specify { expect(first['url']).to eq "http://example.com/?f_no=#{hotel.no}&f_flg=PLAN&f_hi1=1&f_tuki1=10&f_nen1=2014&f_hi2=2&f_tuki2=10&f_nen2=2014&f_heya_su=1&f_otona_su=1" }
+          specify { expect(first['url']).to eq HotelStay.new(hotel: hotel).build_plan_url('20141001', 1) }
         end
       end
     end

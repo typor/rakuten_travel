@@ -2,12 +2,12 @@ require 'spec_helper'
 
 describe Api::AreaApi do
 
-  let(:api) { Api::AreaApi.new(Settings.application_id) }
+  let(:api) { Api::AreaApi.new(RakutenApiSettings.application_id) }
 
   describe '#request' do
     before(:all) do
-      if Settings.application_id.nil?
-        pending "Rakuten applicationId is not specified."
+      if RakutenApiSettings.application_id.nil?
+        skip "Rakuten applicationId is not specified."
       end
     end
 

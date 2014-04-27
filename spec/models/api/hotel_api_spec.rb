@@ -2,12 +2,12 @@ require 'spec_helper'
 
 describe Api::HotelApi do
   let(:area) { create(:area, large: 'japan', middle: 'tokyo', small: 'tokyo', detail: 'D') }
-  let(:api) { described_class.new(Settings.application_id) }
+  let(:api) { described_class.new(RakutenApiSettings.application_id) }
 
   describe '#request' do
     before(:all) do
-      if Settings.application_id.nil?
-        pending "Rakuten applicationId is not specified."
+      if RakutenApiSettings.application_id.nil?
+        skip "Rakuten applicationId is not specified."
       end
     end
 

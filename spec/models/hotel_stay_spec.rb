@@ -46,4 +46,46 @@ describe HotelStay do
     it { expect(klass).to validate_numericality_of(:month).is_greater_than(0) }
     it { expect(klass).to validate_numericality_of(:month).is_less_than(13) }
   end
+
+  describe '#build_plan_url' do
+    let(:obj) { HotelStay.new(hotel: hotel) }
+    subject(:url) { obj.build_plan_url('20141001', 1) }
+    after { RakutenApiSettings.init }
+
+    context 'has affiliate_id' do
+      before {
+        RakutenApiSettings.init
+        allow(Settings).to receive(:rakuten_api_keys).and_return([{'affiliate_id' => 'b', 'application_id' => 'a'}])
+      }
+      specify { expect(url).to eq(HotelStay::AFFILIATE_URL_BASE + 'b/?pc=' + CGI.escape(obj.plan_url('20141001', 1))) }
+    end
+
+    context 'not have affiliate_id' do
+      before {
+        RakutenApiSettings.init
+        allow(Settings).to receive(:rakuten_api_keys).and_raise Settingslogic::MissingSetting
+      }
+      specify { expect(url).to eq obj.plan_url('20141001', 1) }
+    end
+  end
+
+  describe '#plan_url_params' do
+    let(:start) { 1.days.ago }
+    let(:finish) { 0.days.ago }
+    subject(:params) { HotelStay.new.plan_url_params(start, finish) }
+    specify {
+      expect(params).to eq(
+        {
+          f_nen1: start.year,
+          f_tuki1: start.month,
+          f_hi1: start.day,
+          f_nen2: finish.year,
+          f_tuki2: finish.month,
+          f_hi2: finish.day,
+          f_heya_su: 1,
+          f_otona_su: 1
+        }
+      )
+    }
+  end
 end

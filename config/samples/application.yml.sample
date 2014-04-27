@@ -1,10 +1,13 @@
 defaults: &defaults
   site_title: ''
-  application_id: "YOUR APPLICATION ID"
-  affiliate_id: "YOUR AFFILIATE ID"
-  api_sleep_time: 0.5
-  plan_urls:
-    - 'http://img.travel.rakuten.co.jp/image/tr/api/re/vFumt/'
+  rakuten_api_keys:
+    - application_id: "YOUR_APPLICATION_ID"
+      affiliate_id: "YOUR_AFFILIATE_ID"
+      boost: 1
+#    - application_id: "YOUR_APPLICATION_ID_2"
+#      affiliate_id: "YOUR_AFFILIATE_ID_2"
+#      boost: 10
+  api_sleep_time: 2
 
 development:
   <<: *defaults

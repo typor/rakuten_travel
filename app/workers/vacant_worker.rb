@@ -5,7 +5,7 @@ class VacantWorker
   def perform(hotel_id, checkin, count = 7)
     hotel = Hotel.find(hotel_id)
     logger.info "Target hotel: " + hotel.no + " " + hotel.long_name
-    api = Api::VacantApi.new(hotel, Settings.application_id, Settings.affiliate_id)
+    api = Api::VacantApi.new(hotel, RakutenApiSettings.application_id, RakutenApiSettings.affiliate_id)
     count.to_i.times do |i|
       response = api.request(checkin.to_i + i)
       logger.info "importing: " + response.size.to_s
