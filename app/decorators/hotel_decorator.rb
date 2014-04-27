@@ -8,19 +8,35 @@ module HotelDecorator
     image_tag(room_image_url, {width: width, alt: Hotel.human_attribute_name(:room_image), class: 'img-responsive'}.merge(options))
   end
 
-  def address
-    i = icon('building-o')
-    map = link_to icon('map-marker') + ' GoogleMap', google_map_url, target: '_blank', class: 'btn btn-sm btn-warning'
+  def map
+    link_to icon('map-marker') + ' GoogleMap', google_map_url, target: '_blank', class: 'btn btn-sm btn-warning'
+  end
+
+  def address(append = '', prepand = '')
     <<-"HTML".html_safe
 <div property="address" typeof="PostalAddress">
-  #{i}&nbsp;&#12306;
+  #{prepand}&#12306;
   <span property="postalCode">#{postal_code}</span>&nbsp;
   <span property="addressRegion">#{address1}</span>
   <span property="addressLocality">#{address2}</span>
   <meta property="addressCountry" content="ja">
-  &nbsp;&nbsp;&nbsp;&nbsp;#{map}
+  #{append}
 </div>
 HTML
+  end
+
+  def minimum_charge_label
+    min = minimum_charge
+    return '' if min == 0
+    label = t('global.minimum_charge')
+    price = number_to_currency(min)
+    s = l 30.days.ago.to_date
+    f = l 30.days.since.to_date
+    <<-"HTML".html_safe
+<span class="min-price">
+#{label}:<strong>#{price}</strong>&nbsp;&nbsp;[#{s} - #{f}]
+</span>
+    HTML
   end
 
   def room_type_label

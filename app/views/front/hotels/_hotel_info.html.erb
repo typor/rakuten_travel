@@ -12,10 +12,14 @@
     <address>
       <ul class="list-group">
         <li class="list-group-item">
-          <%= hotel.address %>
+          <%= hotel.address(hotel.map, icon('building-o') + " ") %>
         </li>
         <li class="list-group-item"><%= icon('phone') %>&nbsp;<span property="telephone"><%= hotel.telephone_no %></span></li>
         <li class="list-group-item"><%= icon('hand-o-right')%>&nbsp;<%= hotel.access %></li>
+        <% label = hotel.minimum_charge_label %>
+        <% if label.present? %>
+        <li class="list-group-item"><%= icon('money') %><%= label %></li>
+        <% end %>
       </ul>
     </address>
     <div class="reviews row" style="margin-top:2.5em;">

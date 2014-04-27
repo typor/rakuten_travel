@@ -20,6 +20,7 @@ ja:
     all_areas: 'すべての地域'
     top: 'TOP'
     back_to_top: 'TOPページへ戻る'
+    minimum_charge: '最安値'
   decorators:
     area_decorator:
       import_hotel: 'ホテル取込'

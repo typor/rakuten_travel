@@ -36,6 +36,12 @@ class Hotel < ActiveRecord::Base
     name
   end
 
+  def minimum_charge(start = 30, finish = 30)
+    ids = plans.where(enabled: true).ids
+    Charge.where(plan_id: plans.where(enabled: true).ids)
+      .within(start.days.ago.strftime('%Y%m%d'), finish.days.since.strftime('%Y%m%d')).minimum(:amount) || 0
+  end
+
   def room_type_count
     @room_type_count ||= Room.where(hotel_id: self.id).count
   end

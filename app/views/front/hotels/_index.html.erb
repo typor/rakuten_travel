@@ -9,6 +9,7 @@
           <div class="col-md-8">
             <div class="hidden-xs">(<%= hotel.area.name %>)</div>
             <%= hotel.address %>
+            <%= hotel.minimum_charge_label %>
             <div class="hidden-xs">
               <%= hotel.access %><br>
               <div style="width: 50%;">
@@ -26,7 +27,8 @@
           </div>
           </div>
           <div class="col-md-2">
-            <%= link_to icon('calendar') + raw('&nbsp;&nbsp;') + t('front.vacancy_calendar'), front_hotel_path(URI.encode(hotel.name)), class: 'btn btn-sm btn-info' %>
+            <%= link_to icon('calendar') + raw('&nbsp;&nbsp;') + t('front.vacancy_calendar'), front_hotel_path(URI.encode(hotel.name)), class: 'btn btn-sm btn-info' %><br>
+            <%= hotel.map %>
           </div>
         </div>
       </div>
