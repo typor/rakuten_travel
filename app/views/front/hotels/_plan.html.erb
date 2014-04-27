@@ -1,0 +1,19 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <a data-toggle="collapse" data-parent="#plan-accordion" href="#plan-<%= plan.id %>">
+      <h4 class="list-group-item-heading">
+        <%= plan.name %>
+        <span style="color:#e00;"><%= plan.charge_label %></span>
+        <%= plan.payment_icon %>
+        <%= plan.point_icon %>
+        <%= plan.gift_icon %>
+        <%= plan.breakfast_icon %><%= plan.dinner_icon %>
+      </h4>
+    </a>
+  </div>
+  <div id="plan-<%= plan.id %>" class="panel-collapse collapse">
+    <div class="panel-body">
+      <%= simple_format(plan.description) %>
+    </div>
+  </div>
+</div>

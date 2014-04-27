@@ -33,6 +33,19 @@ module PlanDecorator
     end
   end
 
+  def charge_label
+    min = minimum_charges
+    max = maximum_charges
+    return '' if min <= 0 && max <= max
+
+    return number_to_currency(max) if min == max
+
+    t = []
+    t << number_to_currency(min) if min > 0
+    t << number_to_currency(max) if max > 0
+    t.join("&#xFF5E;").html_safe
+  end
+
   private
 
   def build_icon(name, css_class = 'label-primary')

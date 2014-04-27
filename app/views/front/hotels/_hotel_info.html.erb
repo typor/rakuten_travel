@@ -1,44 +1,37 @@
-<section id="hotel-info">
-  <div class="container">
-    <div class="box first">
-      <h3><%= hotel.link %></h3>
-      <div class="row">
-        <div class="col-md-3">
-          <div class="center">
-            <%= hotel.image(240) %>
-            <div class="hidden-xs">
-              <%= hotel.room_image(240) %>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-9">
-          <address>
-            <ul class="list-group">
-              <li class="list-group-item">
-                <%= icon('building-o') %>&nbsp;&#12306;<%= hotel.postal_code %>&nbsp;<%= hotel.full_address %>
-                &nbsp;&nbsp;&nbsp;&nbsp;<%= link_to icon('map-marker') + ' GoogleMap', hotel.google_map_url, target: '_blank', class: 'btn btn-sm btn-warning' %>
-              </li>
-              <li class="list-group-item"><%= icon('phone') %>&nbsp;<%= hotel.telephone_no %></li>
-              <li class="list-group-item"><%= icon('hand-o-right')%>&nbsp;<%= hotel.access %></li>
-            </ul>
-          </address>
-          <div class="reviews row" style="margin-top:2.5em;">
-            <div class="col-md-6">
-              <%= hotel.review_score %>
-              <%= hotel.service_progressbar %>
-              <%= hotel.location_progressbar %>
-              <%= hotel.room_progressbar %>
-              <%= hotel.equipment_progressbar %>
-              <%= hotel.bath_progressbar %>
-              <%= hotel.meal_progressbar %>
-            </div>
-            <div class="col-md-6">
-              <pre><%= hotel.description %></pre>
-            </div>
-          </div>
-        </div>
+<h3><%= hotel.link %></h3>
+<div class="row">
+  <div class="col-md-3">
+    <div class="center">
+      <%= hotel.image(240) %>
+      <div class="hidden-xs">
+        <%= hotel.room_image(240) %>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-9">
+    <address>
+      <ul class="list-group">
+        <li class="list-group-item">
+          <%= icon('building-o') %>&nbsp;&#12306;<%= hotel.postal_code %>&nbsp;<%= hotel.full_address %>
+          &nbsp;&nbsp;&nbsp;&nbsp;<%= link_to icon('map-marker') + ' GoogleMap', hotel.google_map_url, target: '_blank', class: 'btn btn-sm btn-warning' %>
+        </li>
+        <li class="list-group-item"><%= icon('phone') %>&nbsp;<%= hotel.telephone_no %></li>
+        <li class="list-group-item"><%= icon('hand-o-right')%>&nbsp;<%= hotel.access %></li>
+      </ul>
+    </address>
+    <div class="reviews row" style="margin-top:2.5em;">
+      <div class="col-md-6">
+        <%= hotel.review_score %>
+        <%= hotel.service_progressbar %>
+        <%= hotel.location_progressbar %>
+        <%= hotel.room_progressbar %>
+        <%= hotel.equipment_progressbar %>
+        <%= hotel.bath_progressbar %>
+        <%= hotel.meal_progressbar %>
+      </div>
+      <div class="col-md-6">
+        <pre><%= hotel.description %></pre>
       </div>
     </div>
   </div>
 </div>
-</section>

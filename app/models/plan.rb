@@ -2,6 +2,7 @@ class Plan < ActiveRecord::Base
   extend Enumerize
 
   belongs_to :hotel
+  has_many :charges
   validates :hotel_id, presence: true
   validates :code, presence: true, numericality: true
   validates :long_name, presence: true, length: { maximum: 500 }
@@ -18,6 +19,14 @@ class Plan < ActiveRecord::Base
 
   def name
     short_name.presence || long_name
+  end
+
+  def minimum_charges(start = 30, finish = 30)
+    charges.within(start.days.ago.strftime('%Y%m%d'), finish.days.since.strftime('%Y%m%d')).minimum(:amount) || 0
+  end
+
+  def maximum_charges(start = 30, finish = 30)
+    charges.within(start.days.ago.strftime('%Y%m%d'), finish.days.since.strftime('%Y%m%d')).maximum(:amount) || 0
   end
 
   class << self

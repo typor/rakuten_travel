@@ -1,12 +1,8 @@
-<section id="calendar">
-  <div class="container">
-    <div class="box">
-      <h3><%= t('front.vacancy_calendar') %></h3>
-      <p><%= raw t('front.vacancy_calendar_lead') %></p>
-      <div class="row">
-        <div id="calendar-box" class="col-md-12" data-url="<%= url %>"></div>
-      </div>
-    </div>
-  </div>
-</section>
+<div class="center">
+  <h3><%= t('front.vacancy_calendar') %></h3>
+  <p><%= raw t('front.vacancy_calendar_lead') %></p>
+</div>
+<div class="row">
+  <div id="calendar-box" class="col-md-10 col-md-offset-1" data-url="<%= url %>" style="font-size: 12px !important;"></div>
+</div>
 <% javascript_include_tag_to :foot, 'front/hotel' %>

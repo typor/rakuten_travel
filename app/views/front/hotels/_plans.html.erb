@@ -1,0 +1,9 @@
+<div class="center">
+  <h3>こんなプランがあるようです</h3>
+  <p<strong>金額は30日前から30日後の最安値 - 最高値となっています。</strong></p>
+</div>
+<div class="panel-group" id="plans-accordion">
+  <% hotel.plans.where(enabled: true).each do |plan| %>
+    <%= render partial: 'plan', locals: {plan: plan} %>
+  <% end %>
+</div>

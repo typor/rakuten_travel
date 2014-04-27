@@ -35,18 +35,33 @@ a:focus {
   text-decoration: none;
   outline: none;
 }
+.navbar-default {
+  background: #fff;
+  border-radius: 0 0 5px 5px;
+  border: 0;
+  padding: 0;
+  -webkit-box-shadow: 0 1px 3px 0 rgba(0,0,0,.2);
+  -moz-box-shadow: 0 1px 3px 0 rgba(0,0,0,.2);
+  box-shadow: 0 1px 3px 0 rgba(0,0,0,.2);
+  overflow: hidden;
+}
 
-#header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 80px;
-  z-index: 99999;
+#content-nav {
+  li > a {
+    background: none;
+    &:hover {
+      background-color: #52b6ec;
+      color: #fff;
+    }
+  }
+  .active > a {
+    background-color: #52b6ec;
+    color: #fff;
+  }
 }
 
 #main {
-  margin-top: 15px;
+  margin-top: 60px;
 }
 
 #footer {
@@ -135,6 +150,15 @@ a:focus {
 
 .margin-b2 {
   margin-bottom: 2em;
+}
+
+.panel-group {
+  h4 {
+    font-size: 14px;
+  }
+  .label {
+    font-size: 10px;
+  }
 }
 
 .portfolio-items {
