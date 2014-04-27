@@ -3,22 +3,22 @@
 <% javascript_include_tag_to :foot, 'front/hotel' %>
 <%= cache action: :show, hotel_id: @hotel.id, expires_in: 1.hour do %>
   <section id="breadcrumbs">
-  <div class="container">
-    <ol class="breadcrumb" xmlns:v="http://rdf.data-vocabulary.org/#">
-      <li typeof="v:Breadcrumb">
-        <%= link_to 'Home', '/', rel: "v:url", property: "v:title" %>
-      </li>
-      <li typeof="v:Breadcrumb">
-        <%= link_to t('front.menu.hotels'), front_hotels_path, rel: "v:url", property: "v:title" %>
-      </li>
-      <li typeof="v:Breadcrumb">
-        <%= link_to @hotel.area.name, areas_front_hotels_path(@hotel.area.uri_escaped_name), rel: "v:url", property: "v:title" %>
-      </li>
-      <li class="active" typeof="v:Breadcrumb">
-        <%= link_to @hotel.name, front_hotel_path(URI.escape(@hotel.name), rel: "v:url", property: "v:title") %>
-      </li>
-    </ol>
-  </div>
+    <div class="container">
+      <ol class="breadcrumb" xmlns:v="http://rdf.data-vocabulary.org/#">
+        <li typeof="v:Breadcrumb">
+          <%= link_to 'Home', '/', rel: "v:url", property: "v:title" %>
+        </li>
+        <li typeof="v:Breadcrumb">
+          <%= link_to t('front.menu.hotels'), front_hotels_path, rel: "v:url", property: "v:title" %>
+        </li>
+        <li typeof="v:Breadcrumb">
+          <%= link_to @hotel.area.name, areas_front_hotels_path(@hotel.area.uri_escaped_name), rel: "v:url", property: "v:title" %>
+        </li>
+        <li class="active" typeof="v:Breadcrumb">
+          <%= link_to @hotel.name, front_hotel_path(URI.escape(@hotel.name), rel: "v:url", property: "v:title") %>
+        </li>
+      </ol>
+    </div>
   </section>
   <% content_for :right_nav do %>
     <li class="active"><a href="#hotel-info">ホテル詳細</a></li>

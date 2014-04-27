@@ -1,11 +1,26 @@
 module HotelDecorator
   def image(width = 80, options = {})
-    image_tag(hotel_image_url, {width: width, alt: Hotel.human_attribute_name(:hotel_image), class: 'img-responsive'}.merge(options))
+    image_tag(hotel_image_url, {width: width, alt: Hotel.human_attribute_name(:hotel_image), class: 'img-responsive', property: 'image'}.merge(options))
   end
 
   def room_image(width = 80, options = {})
     return '' if room_image_url.blank?
     image_tag(room_image_url, {width: width, alt: Hotel.human_attribute_name(:room_image), class: 'img-responsive'}.merge(options))
+  end
+
+  def address
+    i = icon('building-o')
+    map = link_to icon('map-marker') + ' GoogleMap', google_map_url, target: '_blank', class: 'btn btn-sm btn-warning'
+    <<-"HTML".html_safe
+<div property="address" typeof="PostalAddress">
+  #{i}&nbsp;&#12306;
+  <span property="postalCode">#{postal_code}</span>&nbsp;
+  <span property="addressRegion">#{address1}</span>
+  <span property="addressLocality">#{address2}</span>
+  <meta property="addressCountry" content="ja">
+  &nbsp;&nbsp;&nbsp;&nbsp;#{map}
+</div>
+HTML
   end
 
   def room_type_label
@@ -47,14 +62,16 @@ module HotelDecorator
     return '' if review_average == 0
     bar = review_progressbar
     score = (review_average.to_f / 100.0).to_s
-    review_link_label = Hotel.human_attribute_name(:review_count) + ': ' + content_tag(:span, review_count, itemprop: 'reivewCount')
-    review_link = link_to raw(review_link_label), review_url, target: '_blank'
+    review_link_label = Hotel.human_attribute_name(:review_count) + ': ' + content_tag(:span, review_count, property: 'reviewCount')
+    review_link = link_to raw(review_link_label), review_url, target: '_blank', rel: 'nofollow'
     <<-"EOS".html_safe
-<div itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+<div property="aggregateRating" typeof="AggregateRating">
+  <meta property="worstRating" content="1">
+  <meta property="bestRating" content="5">
+  <meta property="ratingValue" content="#{score}">
+  <meta property="url" content="#{review_url}">
   <span>#{review_link}</span>
-  <meta itemprop="worstRating" content="1">
   #{bar}
-  <meta itemprop="ratingValue" content="#{score}">
 </div>
     EOS
   end

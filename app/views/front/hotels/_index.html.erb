@@ -1,20 +1,22 @@
 <ul class="media-list">
   <% hotels.each do |hotel| -%>
     <%= cache hotel, expires_in: 1.hour do %>
-    <li class="media" style="border-bottom:1px solid #eee;">
+    <li class="media" style="border-bottom:1px solid #eee;" vocab="http://schema.org/" typeof="Hotel">
       <p class="pull-left"><%= hotel.image %></p>
       <div class="media-body">
         <h4 class="media-heading"><%= hotel.link %></h4>
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-8">
             <div class="hidden-xs">(<%= hotel.area.name %>)</div>
-            &#12306;<%= hotel.postal_code %>&nbsp;<%= hotel.full_address %><br>
+            <%= hotel.address %>
             <div class="hidden-xs">
               <%= hotel.access %><br>
-              <%= hotel.review_progressbar %>
+              <div style="width: 50%;">
+                <%= hotel.review_progressbar %>
+              </div>
             </div>
           </div>
-          <div class="col-md-2 col-md-offset-1 hidden-xs">
+          <div class="col-md-2 hidden-xs">
             <div class="row">
             <% hotel.gift_plans.pluck(:gift_price).uniq.each_with_index do |p, i| %>
               <div class="col-md-5" style="margin-bottom: 5px;">
@@ -23,7 +25,7 @@
             <% end %>
           </div>
           </div>
-          <div class="col-md-2 col-md-offset-1">
+          <div class="col-md-2">
             <%= link_to icon('calendar') + raw('&nbsp;&nbsp;') + t('front.vacancy_calendar'), front_hotel_path(URI.encode(hotel.name)), class: 'btn btn-sm btn-info' %>
           </div>
         </div>
