@@ -2,12 +2,12 @@ require 'spec_helper'
 
 describe RakutenTravelApi::HotelDetailSearch::Client do
   before(:all) do
-    if Settings.application_id.nil?
-      pending "Rakuten applicationId is not specified."
+    if RakutenApiSettings.application_id.nil?
+      skip "Rakuten applicationId is not specified."
     end
   end
 
-  let(:client) { RakutenTravelApi::HotelDetailSearch::Client.new(Settings.application_id, Settings.affiliate_id) }
+  let(:client) { RakutenTravelApi::HotelDetailSearch::Client.new(RakutenApiSettings.application_id, RakutenApiSettings.affiliate_id) }
 
   context 'simple case' do
     let(:response) {

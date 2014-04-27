@@ -9,7 +9,7 @@ class ImportHotelsByAreaWorker
       return
     end
 
-    api = Api::HotelApi.new(Settings.application_id, Settings.affiliate_id)
+    api = Api::HotelApi.new(RakutenApiSettings.application_id, RakutenApiSettings.affiliate_id)
     hotels = api.request(area)
     c = 0
     hotels.each do |hotel|

@@ -2,12 +2,12 @@ require 'spec_helper'
 
 describe RakutenTravelApi::SimpleHotelSearch::Response do
   before(:all) do
-    if Settings.application_id.nil?
-      pending "Rakuten applicationId is not specified."
+    if RakutenApiSettings.application_id.nil?
+      skip "Rakuten applicationId is not specified."
     end
   end
 
-  let(:client) { RakutenTravelApi::SimpleHotelSearch::Client.new(Settings.application_id, Settings.affiliate_id) }
+  let(:client) { RakutenTravelApi::SimpleHotelSearch::Client.new(RakutenApiSettings.application_id, RakutenApiSettings.affiliate_id) }
 
   before {
     client.add_params(large_class_code: 'japan', middle_class_code: 'tokyo', small_class_code: 'tokyo', detail_class_code: 'D')

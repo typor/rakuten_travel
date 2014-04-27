@@ -2,13 +2,13 @@ require 'spec_helper'
 
 describe Api::VacantApi do
   before(:all) do
-    if Settings.application_id.nil?
-      pending "Rakuten applicationId is not specified."
+    if RakutenApiSettings.application_id.nil?
+      skip "Rakuten applicationId is not specified."
     end
   end
 
   let(:hotel) { create(:hotel, no: '509') }
-  let(:api) { described_class.new(hotel, Settings.application_id) }
+  let(:api) { described_class.new(hotel, RakutenApiSettings.application_id) }
   describe '#request' do
     let(:checkin) { 30 }
     let(:vcr_name) { 'models/api/vacant_api/' + hotel.no + '_' + checkin.days.since.strftime('%Y%m%d') }
@@ -17,7 +17,6 @@ describe Api::VacantApi do
         api.request(checkin)
       end
     }
-
     it { expect(response.size).to be > 0 }
   end
 

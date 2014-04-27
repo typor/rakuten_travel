@@ -1,7 +1,7 @@
 namespace :api do
   desc "楽天のエリア検索APIを呼び出し、地区情報をDBに登録します。"
   task import_areas: :environment do
-    Api::AreaApi.new(Settings.application_id).request.each_with_index do |area, i|
+    Api::AreaApi.new(RakutenApiSettings.application_id).request.each_with_index do |area, i|
       if area.save
         puts "Adding ... " + area.long_name
       else
@@ -12,7 +12,7 @@ namespace :api do
 
   desc "施設検索APIを呼び出し、地区情報で有効になっている地区からホテルを検索しDBに登録します。"
   task import_hotels: :environment do
-    api = Api::HotelApi.new(Settings.application_id, Settings.affiliate_id)
+    api = Api::HotelApi.new(RakutenApiSettings.application_id, RakutenApiSettings.affiliate_id)
     if ENV['AREA_ID'].nil?
       Area.where(enabled: true).each do |area|
         puts "Area: " + area.long_name
@@ -51,7 +51,7 @@ namespace :api do
     sleep_time = Settings.api_sleep_time rescue 1
 
     count.to_i.times do |i|
-      charges = Api::VacantApi.new(hotel, Settings.application_id, Settings.affiliate_id).request(checkin.to_i + i)
+      charges = Api::VacantApi.new(hotel, RakutenApiSettings.application_id, RakutenApiSettings.affiliate_id).request(checkin.to_i + i)
       if charges.size == 0
         d = (checkin.to_i + 1).days.since.strftime('%Y-%m-%d')
         puts "指定された日付では #{d} 予約可能な部屋は存在しません。"
@@ -73,7 +73,7 @@ namespace :api do
     sleep_time = Settings.api_sleep_time rescue 1
     Hotel.where(enabled: true).each do |hotel|
       puts "Importing ... " + hotel.no + " " + hotel.long_name
-      api = Api::VacantApi.new(hotel, Settings.application_id, Settings.affiliate_id)
+      api = Api::VacantApi.new(hotel, RakutenApiSettings.application_id, RakutenApiSettings.affiliate_id)
       count.to_i.times do |i|
         api.request(checkin.to_i + i)
         sleep sleep_time

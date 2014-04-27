@@ -38,6 +38,7 @@ RSpec.configure do |config|
 
   config.before :suite do
     begin
+      RakutenApiSettings.init
       DatabaseRewinder.clean_all
       Sidekiq::Worker.clear_all
       FactoryGirl.lint
