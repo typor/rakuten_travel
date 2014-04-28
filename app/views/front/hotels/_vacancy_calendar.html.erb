@@ -3,5 +3,33 @@
   <p><%= raw t('front.vacancy_calendar_lead') %></p>
 </div>
 <div class="row">
-  <div id="calendar-box" class="col-md-10 col-md-offset-1" data-url="<%= url %>" style="font-size: 12px !important;"></div>
+  <div class="col-md-10 col-md-offset-1 col-sm-12">
+    <%= form_tag '#', id: 'filter', class: 'form-inline', role: 'form' do %>
+      <div class="row">
+        <div class="col-md-5">
+          <%= label_tag :smoking_0, class: 'radio-inline' do %>
+            <%= radio_button_tag :smoking, 0, checked: true %>どちらも
+          <% end -%>
+          <%= label_tag :smoking_1, class: 'radio-inline' do %>
+            <%= radio_button_tag :smoking, 1 %>喫煙
+          <% end -%>
+          <%= label_tag :smoking_2, class: 'radio-inline' do %>
+            <%= radio_button_tag :smoking, 2 %>禁煙
+          <% end -%>
+        </div>
+        <div class="col-md-5">
+          <%= label_tag :gender_0, class: 'radio-inline' do %>
+            <%= radio_button_tag :gender, 0, checked: true %>どちらも
+          <% end -%>
+          <%= label_tag :gender_1, class: 'radio-inline' do %>
+            <%= radio_button_tag :gender, 1 %>兼用
+          <% end -%>
+          <%= label_tag :gender_2, class: 'radio-inline' do %>
+            <%= radio_button_tag :gender, 2 %>レディース
+          <% end -%>
+        </div>
+      </div>
+    <% end -%>
+  </div>
+  <div id="calendar-box" class="col-md-10 col-md-offset-1 col-sm-12" data-url="<%= url %>" style="font-size: 12px !important;"></div>
 </div>

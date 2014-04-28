@@ -11,7 +11,7 @@ describe HotelStay do
 
   describe '#search' do
     context 'invalid' do
-      it { expect(described_class.new.search).to be_nil }
+      it { expect(described_class.new.search).to eq({}) }
     end
 
     let!(:room1) { create(:room, hotel: hotel, enabled: true) }
@@ -73,7 +73,7 @@ describe HotelStay do
     let(:start) { 1.days.ago }
     let(:finish) { 0.days.ago }
     subject(:params) { HotelStay.new.plan_url_params(start, finish) }
-    specify {
+    specify do
       expect(params).to eq(
         {
           f_nen1: start.year,
@@ -86,6 +86,53 @@ describe HotelStay do
           f_otona_su: 1
         }
       )
-    }
+    end
+  end
+
+  describe '#gender' do
+    let(:stay) { HotelStay.new(hotel: hotel) }
+    specify { expect(stay.gender).to eq 0 }
+  end
+
+  describe '#room_ids' do
+    let(:search) { HotelStay.new(hotel: hotel) }
+    let!(:room1) { create(:room, hotel: hotel, smoking: true, ladies: false, enabled: true) }
+    let!(:room2) { create(:room, hotel: hotel, smoking: true, ladies: true, enabled: true) }
+    let!(:room3) { create(:room, hotel: hotel, smoking: false, ladies: false, enabled: true) }
+    let!(:room4) { create(:room, hotel: hotel, smoking: false, ladies: true, enabled: true) }
+    let!(:room5) { create(:room, hotel: hotel, smoking: false, ladies: true, enabled: false) }
+    subject(:ids) { search.room_ids }
+
+    context 'default' do
+      specify { expect(ids).to eq [room1.id, room2.id, room3.id, room4.id] }
+    end
+
+    context 'filter smoking' do
+      before {
+        search.smoking = 1
+      }
+      specify { expect(ids).to eq [room1.id, room2.id] }
+    end
+
+    context 'filter nonsmoking' do
+      before {
+        search.smoking = 2
+      }
+      specify { expect(ids).to eq [room3.id, room4.id] }
+    end
+
+    context 'filter notladis' do
+      before {
+        search.gender = 1
+        specify { expect(ids).to eq [room1.id, room3.id] }
+      }
+    end
+
+    context 'filter notladis' do
+      before {
+        search.gender = 2
+      }
+      specify { expect(ids).to eq [room2.id, room4.id] }
+    end
   end
 end

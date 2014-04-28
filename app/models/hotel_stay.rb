@@ -6,16 +6,19 @@ class HotelStay
   PLAN_URL_BASE = "http://hotel.travel.rakuten.co.jp/hotelinfo/plan/"
   AFFILIATE_URL_BASE = "http://hb.afl.rakuten.co.jp/hgc/"
 
-  attr_accessor :hotel, :year, :month
+  attr_accessor :hotel, :year, :month, :smoking, :gender
 
   validates :hotel, presence: true
   validates :year, presence: true, numericality: {only_integer: true, greater_than_or_equal_to: 2014, less_than: 2030 }
   validates :month, presence: true, numericality: {only_integer: true, greater_than: 0, less_than: 13 }
+  validates_inclusion_of :smoking, :gender, in: [0, 1, 2]
 
   def initialize(attributes = {})
     attributes.each do |name, value|
       send("#{name}=", value)
     end
+    @smoking ||= 0
+    @gender ||= 0
   end
 
   def build_plan_url(stay_day, span = 1)
@@ -44,11 +47,33 @@ class HotelStay
     }
   end
 
+  def room_ids
+    return [] unless hotel.is_a? Hotel
+
+    relation = hotel.rooms.enabled
+    if @smoking == 1
+      relation = relation.smoking
+    elsif @smoking == 2
+      relation = relation.nonsmoking
+    end
+
+    if @gender == 1
+      relation = relation.notladis
+    elsif @gender == 2
+      relation = relation.ladies
+    end
+    relation.order(id: :asc).ids
+  end
+
+  def plan_ids
+    hotel.plans.enabled.ids
+  end
+
   def search
-    return nil if invalid? || !hotel.is_a?(Hotel)
+    return {} if invalid? || !hotel.is_a?(Hotel)
 
     results = {}
-    Charge.where(room_id: hotel.rooms.enabled.ids, plan_id: hotel.plans.enabled.ids, can_stay: true).within(start_day, finish_day).each do |f|
+    Charge.where(room_id: room_ids, plan_id: plan_ids, can_stay: true).within(start_day, finish_day).each do |f|
       if results[f.stay_day].nil?
         results[f.stay_day] = {
           url: build_plan_url(f.stay_day),
