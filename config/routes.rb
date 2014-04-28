@@ -3,7 +3,7 @@ require 'rakuten_travel/admin_constraint'
 RakutenTravel::Application.routes.draw do
   namespace :front, path: '/' do
     resources :hotels, only: %w(index show) do
-      get 'stay', on: :member, format: 'json'
+      post 'stay', on: :member, format: 'json'
       get ':area/list', to: 'hotels#index', on: :collection, as: :areas
     end
     get '/' => 'dashboard#index', as: :dashboard

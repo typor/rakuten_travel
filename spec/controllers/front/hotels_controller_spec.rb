@@ -43,6 +43,7 @@ describe Front::HotelsController do
   end
 
   describe 'GET show' do
+    render_views
     let!(:hotel) { create(:hotel, enabled: true) }
     before { get :show, id: hotel.long_name }
     it { expect(response).to render_template(:show) }
@@ -50,13 +51,13 @@ describe Front::HotelsController do
 
   describe 'GET stay' do
     let(:hotel) { create(:hotel, enabled: true) }
-    let(:room) { create(:room, hotel: hotel) }
+    let(:room) { create(:room, hotel: hotel, smoking: true) }
     let(:plan) { create(:plan, hotel: hotel) }
     let!(:charge) { create(:charge, hotel: hotel, room: room, plan: plan, stay_day: 20141001, can_stay: true, amount: 1000) }
 
     context 'simple case' do
       render_views
-      before { xhr :get, :stay, id: hotel.id, year: 2014, month: 10 }
+      before { xhr :post, :stay, id: hotel.id, year: 2014, month: 10 }
       it { expect(response).to be_success }
       it { expect(response.header['X-Robots-Tag']).to eq 'noindex,nofollow,noarchive' }
       context 'response' do
@@ -69,6 +70,20 @@ describe Front::HotelsController do
           specify { expect(first['url']).to eq HotelStay.new(hotel: hotel).build_plan_url('20141001', 1) }
         end
       end
+    end
+
+    context 'filter smoking' do
+      render_views
+      before { xhr :post, :stay, id: hotel.id, year: 2014, month: 10, smoking: '1' }
+      subject(:json) { JSON.parse(response.body) }
+      specify { expect(json.size).to eq 1 }
+    end
+
+    context 'filter non smoking' do
+      render_views
+      before { xhr :post, :stay, id: hotel.id, year: 2014, month: 10, smoking: '2' }
+      subject(:json) { JSON.parse(response.body) }
+      specify { expect(json.size).to eq 0 }
     end
   end
 end

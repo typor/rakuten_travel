@@ -8,6 +8,7 @@ class Room < ActiveRecord::Base
 
   scope :enabled, -> { where(enabled: true) }
   scope :ladies, -> { where(ladies: true) }
+  scope :notladis, -> { where(ladies: false) }
   scope :smoking, -> { where(smoking: true) }
   scope :nonsmoking, -> { where(smoking: false) }
 

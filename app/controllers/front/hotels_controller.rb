@@ -13,19 +13,26 @@ class Front::HotelsController < ::Front::ApplicationController
 
   def show
     @hotel = Hotel.enabled.find_by(["long_name = :id OR short_name = :id", id: params[:id]])
-    if @hotel.nil?
-      render_404
-    end
+    return render_404 if @hotel.nil?
   end
 
   def stay
     render_404 unless request.xhr?
     @hotel = Hotel.enabled.find(params[:id])
-    @results = HotelStay.new(hotel: @hotel, year: params[:year], month: params[:month]).search
-    raise 'not found' if @results.nil?
+    @results = HotelStay.new({hotel: @hotel}.merge(stay_params)).search
     add_xrobots_tag
   rescue
     render_404
   end
 
+  private
+
+  def stay_params
+    {
+      year: params[:year],
+      month: params[:month],
+      gender: params[:gender].to_i,
+      smoking: params[:smoking].to_i,
+    }
+  end
 end
