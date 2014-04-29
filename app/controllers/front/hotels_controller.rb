@@ -21,7 +21,8 @@ class Front::HotelsController < ::Front::ApplicationController
     @hotel = Hotel.enabled.find(params[:id])
     @results = HotelStay.new({hotel: @hotel}.merge(stay_params)).search
     add_xrobots_tag
-  rescue
+  rescue => e
+    Rails.logger.debug e
     render_404
   end
 

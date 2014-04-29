@@ -2,6 +2,7 @@ $ ->
   $('#filter input:radio').on 'change', ->
     view = $('#calendar-box').fullCalendar 'getView'
     renderEvent(view)
+    $('#calendar-box').fullCalendar 'refetchEvents'
 
   buildParams = (year, month) ->
     json = {
