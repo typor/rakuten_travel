@@ -135,4 +135,9 @@ describe HotelStay do
       specify { expect(ids).to eq [room2.id, room4.id] }
     end
   end
+
+  describe '#cache_name' do
+    let(:search) { HotelStay.new(hotel: hotel, year: 2014, month: 10, gender: 1, smoking: 2) }
+    specify { expect(search.cache_name).to eq "HotelStay-hotel_id_#{hotel.id}-year_2014-month_10-smoking_2-gender_1" }
+  end
 end
