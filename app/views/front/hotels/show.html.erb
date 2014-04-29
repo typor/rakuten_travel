@@ -1,6 +1,12 @@
 <% title @hotel.name %>
 <% description @hotel.name + "のホテル詳細です。このホテルは#{@hotel.area.name}の地域に属しています。カレンダーの金額部分が表示されている箇所が宿泊可能な日付です。" %>
 <% javascript_include_tag_to :foot, 'front/hotel' %>
+<% content_for :right_nav do %>
+  <li class="active"><a href="#hotel-info">ホテル詳細</a></li>
+  <li><a href="#calendar">空室カレンダー</a></li>
+  <li><a href="#plans">プラン一覧</a></li>
+<% end %>
+
 <%= cache ({action: :show, id: @hotel.id}), expires_in: 1.hour do %>
   <section id="breadcrumbs">
     <div class="container">
@@ -20,11 +26,6 @@
       </ol>
     </div>
   </section>
-  <% content_for :right_nav do %>
-    <li class="active"><a href="#hotel-info">ホテル詳細</a></li>
-    <li><a href="#calendar">空室カレンダー</a></li>
-    <li><a href="#plans">プラン一覧</a></li>
-  <% end %>
   <section id="hotel-info">
     <div class="container">
       <div class="box first">
