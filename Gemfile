@@ -1,32 +1,35 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.0.4'
+gem 'rails', '4.2.1'
 gem 'mysql2'
 
-gem 'sass-rails', '~> 4.0.2'
+gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.0.0'
+gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
-gem 'jbuilder'
+gem 'jbuilder', '~> 2.0'
+gem 'turbolinks'
+gem 'sdoc', '~> 0.4.0', group: :doc
+
 # bootstrap
-gem 'bootstrap-sass', '~> 3.1.1'
-gem 'bootstrap_form', git: 'https://github.com/bootstrap-ruby/rails-bootstrap-forms.git'
+gem 'bootstrap-sass'
+gem 'bootstrap_form'
 gem "select2-rails"
 gem 'font-awesome-sass'
 # pagination
 gem 'kaminari'
 # authenticate
-gem 'sorcery', '~> 0.8.5'
-gem 'bcrypt-ruby'
+gem 'sorcery'
+gem 'bcrypt', '~> 3.1.7'
 gem 'email_validator'
 # sidekiq
 gem 'hiredis'
 gem 'redis', require:  ["redis", "redis/connection/hiredis"]
 gem 'sidekiq'
 gem 'whenever', require: false
-gem 'sinatra', '>= 1.3.0', require: nil
+gem 'sinatra'
 # search
-gem "ransack", git: "https://github.com/activerecord-hackery/ransack", branch: "rails-4"
+gem "ransack"
 gem 'enumerize'
 # utils
 gem 'faraday'
@@ -39,7 +42,7 @@ gem 'puma'
 gem 'dalli'
 
 group :development do
-  gem 'i18n-tasks', '~> 0.3.9'
+  gem 'i18n-tasks'
   gem 'quiet_assets'
   gem 'rb-inotify', require: false
   gem 'rb-fsevent', require: false
@@ -48,11 +51,11 @@ group :development do
   gem 'terminal-notifier-guard', require: false
   gem 'rb-notifu', require: false
   # capistrano
-  gem 'capistrano', '~> 3.2.0'
-  gem 'capistrano-rbenv', '~> 2.0'
-  gem 'capistrano-bundler', '~> 1.1.2'
+  gem 'capistrano'
+  gem 'capistrano-rbenv'
+  gem 'capistrano-bundler'
   gem 'capistrano3-puma'
-  gem 'capistrano-rails', '~> 1.1'
+  gem 'capistrano-rails'
   gem 'capistrano-sidekiq'
 end
 
@@ -64,9 +67,12 @@ group :test do
 end
 
 group :development, :test do
-  gem 'guard-rspec', '~> 4.2.8', require: false
-  gem 'rspec', '~> 3.0.0.beta2'
-  gem 'rspec-rails', '~> 3.0.0.beta2'
+  gem 'guard-rspec'
+  gem 'rspec'
+  gem 'rspec-rails'
   gem 'factory_girl_rails'
   gem 'capybara'
+  gem 'byebug'
+  gem 'web-console', '~> 2.0'
+  gem 'spring'
 end
